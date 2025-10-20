@@ -1,0 +1,18 @@
+@use 'app/styles/form-styles.scss' as *;
+
+/*:host {
+    //background-color: magenta;
+}*/
+
+.login-container {
+    display: grid;
+    grid-template-columns: 25% auto;
+}
+
+.redirect-register {
+    align-items: left;
+    padding: 16px;
+    font-size: 0.9rem;
+    color: var(--prime-color);
+    width: 100%;
+}

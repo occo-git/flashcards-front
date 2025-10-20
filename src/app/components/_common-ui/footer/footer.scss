@@ -1,0 +1,9 @@
+@use 'styles.scss' as *;
+
+:host {
+    height: 50px;
+    //display: grid;
+    align-items: center;
+    justify-items: center;
+    border-top: 1px solid var(--mid-color);
+}

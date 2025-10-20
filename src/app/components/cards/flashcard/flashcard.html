@@ -1,0 +1,27 @@
+<div class="flashcard" (click)="toggleTranslation()">
+  @if (flashcard) {
+    <div class="header">
+      <span class="level">{{ flashcard.level }}</span>
+      <span class="part-of-speech">{{ flashcard.partOfSpeech }}</span>
+    </div>
+    <div class="photo-container">
+      @if (imageUrl()) { <!-- Используем () для получения значения сигнала -->
+        <img [src]="imageUrl()" alt="{{ flashcard.text }}">
+      }
+    </div>
+    <div class="text">
+      {{ showTranslation() ? flashcard.translation.ru : flashcard.text }}
+    </div>
+    <div class="transcription">
+      {{ flashcard.transcription }}
+    </div>
+    <div class="translation-en">
+      {{ flashcard.translation.en }}
+    </div>
+    <div class="example">
+      {{ flashcard.example }}
+    </div>
+  } @else {
+    <p>Loading flashcard...</p>
+  }
+</div>

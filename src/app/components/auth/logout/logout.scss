@@ -1,0 +1,13 @@
+@use 'styles.scss' as *;
+
+/*:host {
+    background-color: magenta;
+}*/
+
+.logout-container {
+    //background-color: red;
+    display: grid;
+    grid-template-columns: 25% auto;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
+}

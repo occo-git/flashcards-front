@@ -1,0 +1,27 @@
+@use 'styles.scss' as *;
+
+:host {
+    //background-color: red;
+    display: grid;
+    grid-template-rows: 50px calc(100vh - 50px);
+    
+}
+
+.main-container {
+  //background-color: green;
+  display: grid;
+  grid-template-columns: 300px auto;
+}
+
+.center-container {
+  //background-color: blue;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.center-content {
+  //background-color: yellow;
+  padding: 64px;
+  display: flex;
+  justify-content: center;
+}

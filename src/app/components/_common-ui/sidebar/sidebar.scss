@@ -1,0 +1,43 @@
+@use 'styles.scss' as *;
+
+:host {
+    //background-color: red;
+    background-color: var(--bg-color);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    border: 1px solid var(--mid-color);
+}
+
+.side-menu-list {
+    //background-color: green;
+    padding: 16px 0px 16px 16px;
+}
+
+.menu-panel {
+    background-color: var(--bg-color);
+    margin-bottom: 16px;
+    border-radius: 25px 0px 0px 25px;
+}
+
+.menu-panel mat-panel-title {
+    user-select: none; // Запретить выделение текста
+}
+
+a.mat-list-item {
+    user-select: none; // Запретить выделение текста
+}
+
+.menu-icon {
+    font-size: 20px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+a.item-out {
+    border-radius: var(--border-R) 0px 0px var(--border-R);    
+    user-select: none; // Запретить выделение текста
+}
+
+.break-line {
+    border-bottom: 1px solid var(--mid-color);
+}

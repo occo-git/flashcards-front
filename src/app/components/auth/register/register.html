@@ -1,0 +1,48 @@
+<div>
+    <form 
+        class="form-control" 
+        [formGroup]="form"  
+        (ngSubmit)="onSubmit()">
+
+        <div class="register-container">
+            <h2>Register</h2><div></div>
+
+            <label class="label-control" for="username">Username</label>
+            <input 
+                class="input-control" type="text" id="username" name="username" required 
+                formControlName="username"                
+                appErrorMessage
+                [errorElement]="usernameError"/>
+            <div></div><div class="error" #usernameError></div>
+
+            <label class="label-control" for="username">E-mail</label>
+            <input 
+                class="input-control" type="text" id="email" name="email" required 
+                formControlName="email"
+                appErrorMessage
+                [errorElement]="emailError"/>
+            <div></div><div class="error" #emailError></div>
+
+            <label class="label-control" for="password">Password</label>
+            <input 
+                class="input-control" type="password" id="password" name="password" required 
+                formControlName="password"
+                appErrorMessage
+                [errorElement]="passwordError"/>
+            <div></div><div class="error" #passwordError></div>
+
+            <label class="label-control" for="password-confirm">Confirm</label>
+            <input 
+                class="input-control" type="password" id="password-confirm" name="password-confirm" required 
+                formControlName="passwordConfirm"
+                appErrorMessage
+                [errorElement]="passwordConfirmError"/>
+            <div></div><div class="error" #passwordConfirmError></div>
+
+            <div class="submit-control">
+                <button type="submit">Register</button>
+            </div>
+        </div>
+
+    </form>
+</div>

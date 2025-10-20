@@ -1,0 +1,12 @@
+@use 'styles.scss' as *;
+
+/*:host {
+    //background-color: magenta;
+}*/
+
+.progress-container {
+    display: grid;
+    grid-template-columns: 25% auto;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
+}

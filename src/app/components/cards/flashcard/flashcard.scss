@@ -1,0 +1,90 @@
+@use 'styles.scss' as *;
+
+$card-padding: 32px;
+
+/*:host {
+  background-color: green;
+  //overflow: hidden; // Скрывать содержимое, если оно превышает размер карточки  
+}*/
+
+.flashcard {
+  background-color: var(--bg-color);
+  padding: $card-padding;
+  height: calc(100% - 3*$card-padding);
+  margin: 8px;
+  display: grid;
+  grid-template-rows: auto 7fr auto auto 1fr 1fr;
+  gap: 8px;
+  border: 1px solid var(--mid-color);
+  border-radius: var(--border-R);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  user-select: none;
+
+  .header {
+    //background-color: blue;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .level {
+      background-color: var(--light-color);
+      font-size: 0.9rem;
+      color: var(--mid-color);
+      padding: 4px;
+      border-radius: var(--border-R);
+    }
+
+    .part-of-speech {
+      font-size: 0.9rem;
+      font-style: italic;
+      padding: 4px;
+      color: var(--mid-color);
+    }
+  }
+
+  // Место для фото
+  .photo-container {
+    background-color: var(--light-color); // Цвет фона на случай отсутствия изображения
+    width: 100%;
+    height: 0;
+    padding-top: 100%; // Соотношение сторон 1:1
+    position: relative; // Для абсолютного позиционирования изображения
+    border-radius: var(--border-R);
+
+    img {
+      position: absolute; // Абсолютное позиционирование
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Обеспечивает обрезку изображения с сохранением пропорций
+      border-radius: var(--border-R);
+    }
+  }
+
+  .text {
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    text-align: left;
+  }
+
+  .transcription {
+    font-size: 1rem;
+    color: var(--mid-color);
+    text-align: left;
+  }
+
+  .translation-en {
+    font-size: 1rem;
+    color: var(--dark-color);
+    text-align: left;
+  }
+
+  .example {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--dark-color);
+    text-align: left;
+  }
+}

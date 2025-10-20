@@ -1,0 +1,51 @@
+@use 'styles.scss' as *;
+
+.form-control {
+  background-color: var(--light-color);
+  width: 400px;
+  padding: 32px 64px;
+  border-radius: var(--border-R);
+  border: 1px solid var(--mid-color);
+  box-shadow: var(--box-shadow);
+}
+
+.label-control {
+  //background-color: gray;
+  font-size: 1rem;
+  color: var(--prime-color);
+  align-content: center;
+}
+
+.label-control-value {
+  font-size: 1rem;
+  color: var(--dark-color);
+  align-content: center;
+}
+
+.input-control {
+  width: auto;
+  font-size: 1rem;
+  color: var(--dark-color);
+  border: 1px solid var(--mid-color);
+  border-radius: var(--border-r);
+  padding: 0.5rem;
+  transition: border-color var(--transition-speed);
+
+  &:focus {
+    border-color: var(--prime-color);
+    outline: none;
+  }
+}
+
+.error { 
+  //background-color: green;
+  color: var(--error-color);
+  font-size: 0.8em;
+  display: block;
+  padding-bottom: 8px;
+  height: 16px;
+}
+
+.submit-control {
+  padding: 16px 0px;
+}

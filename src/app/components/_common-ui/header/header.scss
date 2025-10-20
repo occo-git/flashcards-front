@@ -1,0 +1,10 @@
+@use 'styles.scss' as *;
+
+:host {
+    //background-color: red;
+    height: 50px;
+    //display: grid;
+    align-items: center;
+    justify-items: center;
+    border-bottom: 1px solid var(--mid-color);
+}

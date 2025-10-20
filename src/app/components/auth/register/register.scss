@@ -1,0 +1,10 @@
+@use 'app/styles/form-styles.scss' as *;
+
+/*:host {
+    //background-color: magenta;
+}*/
+
+.register-container {
+    display: grid;
+    grid-template-columns: 25% auto;
+}

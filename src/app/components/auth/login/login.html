@@ -1,0 +1,35 @@
+<div>
+    <form
+        class="form-control" 
+        [formGroup]="form"  
+        (ngSubmit)="onSubmit()">
+        <div class="login-container">
+
+            <h2>Login</h2><div></div>
+            
+            <label class="label-control" for="username">Username</label>
+            <input 
+                class="input-control" type="text" id="username" name="username" required 
+                formControlName="username"
+                appErrorMessage
+                [errorElement]="usernameError"/>
+            <div></div><div class="error" #usernameError></div>
+            
+            <label class="label-control" for="password">Password</label>
+            <input 
+                class="input-control" type="password" id="password" name="password" required 
+                formControlName="password"
+                appErrorMessage
+                [errorElement]="passwordError"/>
+            <div></div><div class="error" #passwordError></div>
+            
+            <div class="submit-control">
+                <button type="submit">Login</button>
+            </div>
+
+        </div>
+    </form>
+    <div class="redirect-register">
+        Don't have an account? <a href="/register">Register here.</a>
+    </div>
+</div>
