@@ -6,15 +6,15 @@
 @use '@angular/material' as mat;
 
 :root {
-  // Основные цвета
-  --prime-color: #1a73e8; // Основной цвет
-  --prime-color-dark: #0054c2; // Основной цвет
-  --secondary-color: #888b5e; // Вторичный цвет
-  --light-color: #ffffff; // Светлый цвет
-  --mid-color: #cacaca; // Средний цвет
-  --dark-color: #272727; // Темный цвет
-  --bg-color: #fcfcfc; // Цвет фона
-  --error-color: #d93025; // Цвет ошибки
+  --bg-color: #fcfcfc; // Background color
+  --prime-color: #1a73e8; 
+  --prime-color-dark: #0054c2;
+  --secondary-color: #888b5e;
+  --light-color: #ffffff;
+  --mid-color: #cacaca;
+  --dark-color: #272727;
+  --error-bg-color: #ffe6e6; // Error background color
+  --error-color: #d93025; // Error color
 
   --transition-speed: 0.5s;
   --box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);

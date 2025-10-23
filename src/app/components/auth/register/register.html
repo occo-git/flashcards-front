@@ -13,7 +13,7 @@
                 formControlName="username"                
                 appErrorMessage
                 [errorElement]="usernameError"/>
-            <div></div><div class="error" #usernameError></div>
+            <div></div><div class="error-message" #usernameError></div>
 
             <label class="label-control" for="username">E-mail</label>
             <input 
@@ -21,7 +21,7 @@
                 formControlName="email"
                 appErrorMessage
                 [errorElement]="emailError"/>
-            <div></div><div class="error" #emailError></div>
+            <div></div><div class="error-message" #emailError></div>
 
             <label class="label-control" for="password">Password</label>
             <input 
@@ -29,7 +29,7 @@
                 formControlName="password"
                 appErrorMessage
                 [errorElement]="passwordError"/>
-            <div></div><div class="error" #passwordError></div>
+            <div></div><div class="error-message" #passwordError></div>
 
             <label class="label-control" for="password-confirm">Confirm</label>
             <input 
@@ -37,12 +37,14 @@
                 formControlName="passwordConfirm"
                 appErrorMessage
                 [errorElement]="passwordConfirmError"/>
-            <div></div><div class="error" #passwordConfirmError></div>
+            <div></div><div class="error-message" #passwordConfirmError></div>
 
             <div class="submit-control">
-                <button type="submit">Register</button>
+                <button type="submit" [disabled]="form.invalid">Register</button>
             </div>
         </div>
 
+        <app-error-message [errorResponse]="errorResponse" (clearError)="clearError()"></app-error-message>
     </form>
+
 </div>

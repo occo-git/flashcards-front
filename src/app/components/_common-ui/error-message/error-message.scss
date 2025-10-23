@@ -1,0 +1,35 @@
+@use 'app/styles/form-styles.scss' as *;
+
+.error-message-container {
+  background-color: var(--error-bg-color);
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: var(--border-r);
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+.error-detail {
+  color: var(--error-color);
+  display: block;
+  font-size: 1rem;
+}
+
+.error-close-button {
+  background: var(--error-bg-color);
+  color: var(--error-color);
+  border: none;
+  border-radius: var(--border-R);
+  min-width: 30px;
+  width: 30px;
+  height: 30px;
+  margin-left: 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+
+  &:hover:not(:disabled) {
+    background-color:  var(--light-color);
+  }
+}

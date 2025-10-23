@@ -22,8 +22,9 @@
       "@validation/*": ["app/validation/*"],
       "@guards/*": ["app/guards/*"],
       "@models/*": ["app/models/*"],
+      "@routing/": ["app/routing/*"],
       "@services/*": ["app/services/*"],
-      "@styles/*": ["app/styles"],
+      "@styles/*": ["app/styles/*"],
       "@env/*": ["environments/*"],
     }
   },

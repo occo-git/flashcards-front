@@ -1,7 +1,6 @@
 import { Component, signal, computed, inject } from '@angular/core';
 import { FlashcardComponent } from '../flashcard/flashcard.component';
 import { FlashcardService } from '../../../services/flashcard/flashcard.service';
-import { Flashcard } from '../../../models/flashcard.interface';
 
 @Component({
   selector: 'app-flashcard-deck',

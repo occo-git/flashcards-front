@@ -1,16 +1,23 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+
 import { AuthService } from '@services/auth/auth.service';
-import { DEFAULT_VALUE, MIN_REGEX } from '@validation/validation-constants'
-import { ErrorMessageDirective } from '@validation/error-message/error-message.directive'
+import { RegisterUserDto } from '@models/user/user.dtos'
+
+import { CONST_VALIDATION } from '@app/validation/validation.constants'
 import { CustomValidators } from '@validation/custom-validators';
+import { ErrorMessageDirective } from '@validation/error-message/error-message.directive'
+import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
+import { HttpErrorResponse } from '@angular/common/http';
+
+import { CONST_ROUTES } from '@app/routing/routes.constans';
 
 @Component({
     selector: 'app-register',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
-    imports: [ReactiveFormsModule, ErrorMessageDirective],
+    imports: [ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent],
     templateUrl: './register.html',
     styleUrl: './register.scss'
 })
@@ -19,40 +26,70 @@ export class RegisterComponent {
     form = new FormGroup(
         {
             username: new FormControl(
-                DEFAULT_VALUE, [
+                CONST_VALIDATION.DEFAULT_VALUE, [
                 CustomValidators.required('Username is required'),
                 CustomValidators.minLength(8, 'Username must be at least 8 characters long'),
             ]),
             email: new FormControl(
-                DEFAULT_VALUE, [
+                CONST_VALIDATION.DEFAULT_VALUE, [
                 CustomValidators.required('E-mail is required'),
                 CustomValidators.minLength(5, 'E-mail must be at least 5 characters long'),
                 CustomValidators.email()
             ]),
             password: new FormControl(
-                DEFAULT_VALUE, [
+                CONST_VALIDATION.DEFAULT_VALUE, [
                 CustomValidators.required('Password is required'),
                 CustomValidators.minLength(8, 'Password must be at least 8 characters long'),
-                CustomValidators.pattern(MIN_REGEX, 'Password must contain at least one letter and one number')
+                CustomValidators.pattern(CONST_VALIDATION.MIN_REGEX, 'Password must contain at least one letter and one number')
             ]),
             passwordConfirm: new FormControl(
-                DEFAULT_VALUE)
+                CONST_VALIDATION.DEFAULT_VALUE)
         },
-        { 
-            validators: CustomValidators.match('password', 'passwordConfirm', 'Passwords must match') 
+        {
+            validators: CustomValidators.match('password', 'passwordConfirm', 'Passwords must match')
         })
-
+    errorResponse: HttpErrorResponse | null = null;
+    isLoading = false;
+    
     constructor(
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private cdr: ChangeDetectorRef
     ) { }
 
     onSubmit() {
+        this.isLoading = true;
+        this.errorResponse = null;
+
         if (this.form.valid) {
-            console.log('Form is valid:', this.form.value);
-            // Например, вызов authService.login
+            //console.log('Form is valid:', this.form.value);
+            const v = this.form.value;
+            if (v) {
+                const request: RegisterUserDto = {
+                    username: v.username ?? CONST_VALIDATION.DEFAULT_VALUE,
+                    email: v.email ?? CONST_VALIDATION.DEFAULT_VALUE,
+                    password: v.password ?? CONST_VALIDATION.DEFAULT_VALUE
+                };
+                this.authService.register(request).subscribe({
+                    next: (response) => {
+                        this.isLoading = false;
+                        console.log('Success:', response);
+                        // redirect login page
+                        this.router.navigate([`/${CONST_ROUTES.AUTH.LOGIN}`]);
+                    },
+                    error: (err) => {
+                        this.isLoading = false;
+                        this.errorResponse = err;
+                        this.cdr.detectChanges();
+                    }
+                });
+            }
         } else {
             console.log('Form is invalid');
         }
+    }
+
+    clearError() {
+        this.errorResponse = null;
     }
 }

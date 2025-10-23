@@ -1,5 +1,5 @@
 import { Component, Input, signal, OnInit, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { Flashcard } from '@models/flashcard.interface';
+import { FlashcardDto } from '@models/flashcard.dto';
 import { FileService } from '@services/files/file.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { FileService } from '@services/files/file.service';
   styleUrls: ['./flashcard.scss']
 })
 export class FlashcardComponent implements OnInit, OnChanges {
-  @Input() flashcard!: Flashcard;
+  @Input() flashcard!: FlashcardDto;
 
   showTranslation = signal(false);
   imageUrl = signal<string | null>(null); // Сигнал для хранения URL изображения

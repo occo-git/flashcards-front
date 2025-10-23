@@ -4,7 +4,6 @@
         [formGroup]="form"  
         (ngSubmit)="onSubmit()">
         <div class="login-container">
-
             <h2>Login</h2><div></div>
             
             <label class="label-control" for="username">Username</label>
@@ -13,7 +12,7 @@
                 formControlName="username"
                 appErrorMessage
                 [errorElement]="usernameError"/>
-            <div></div><div class="error" #usernameError></div>
+            <div></div><div class="error-message" #usernameError></div>
             
             <label class="label-control" for="password">Password</label>
             <input 
@@ -21,13 +20,14 @@
                 formControlName="password"
                 appErrorMessage
                 [errorElement]="passwordError"/>
-            <div></div><div class="error" #passwordError></div>
+            <div></div><div class="error-message" #passwordError></div>
             
             <div class="submit-control">
-                <button type="submit">Login</button>
+                <button type="submit" [disabled]="form.invalid">Login</button>                
             </div>
-
         </div>
+
+        <app-error-message [errorResponse]="errorResponse" (clearError)="clearError()"></app-error-message>
     </form>
     <div class="redirect-register">
         Don't have an account? <a href="/register">Register here.</a>

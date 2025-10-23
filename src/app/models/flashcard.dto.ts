@@ -1,4 +1,4 @@
-export interface Flashcard {
+export interface FlashcardDto {
   id: number;
   text: string;
   transcription: string;
