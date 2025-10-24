@@ -1,4 +1,5 @@
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
+import { CONST_VALIDATION } from '@validation/validation.constants';
 
 // Pre-configured validators with custom messages
 export const CustomValidators = {
@@ -13,6 +14,9 @@ export const CustomValidators = {
   
   email: (message: string = 'Please enter a valid email address') =>
     withErrorMessage(Validators.email, 'email', message),
+
+  password: (message: string = 'Password must contain at least one letter and one number') =>
+    withErrorMessage(Validators.pattern(CONST_VALIDATION.MIN_REGEX), 'pattern', message),
 
   match: (controlName1: string, controlName2: string, message: string) =>
     matchControlValues(controlName1, controlName2, message)

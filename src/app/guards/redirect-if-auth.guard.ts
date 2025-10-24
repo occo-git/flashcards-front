@@ -1,18 +1,22 @@
 // src/app/guards/redirect-if-authenticated.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from '@services/auth/auth.service';
+import { AuthSessionService } from '@services/auth-session/auth-session.service';
+import { CONST_ROUTES } from '@app/routing/routes.constans';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RedirectIfAuthenticatedGuard implements CanActivate {
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(
+        private router: Router,
+        private authSessionService: AuthSessionService
+    ) {}
 
     canActivate(): boolean {
-        if (this.authService.isAuthenticated()) {
+        if (this.authSessionService.isAuthenticated()) {
             // Redirect to a default authenticated route if already logged in
-            this.router.navigate(['/quiz']);
+            this.router.navigate([`/${CONST_ROUTES.CARDS.CARDS_DECK}`]);
             return false;
         }
         return true; // Allow access to login/register if not authenticated

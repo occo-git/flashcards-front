@@ -4,8 +4,9 @@
         <div></div>
 
         <label class="label-control">Username</label>
-        <label class="label-control-value">Username</label>
+        <label class="label-control-value">{{ username }}</label>
 
         <button type="submit" (click)="onSubmit()">Logout</button>
     </div>
+    <app-error-message [errorResponse]="errorResponse" (clearError)="clearError()"></app-error-message>
 </form>

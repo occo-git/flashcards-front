@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
+
 import { HttpClient } from '@angular/common/http';
 import { AuthSessionService } from '@services/auth-session/auth-session.service';
-
+import { RegisterRequestDto, LoginRequestDto, TokenResponseDto } from '@app/models/auth.dtos'
+import { UserInfoDto } from '@app/models/user.dtos'
 import { environment } from '@env/environment'
-import { RegisterUserDto, LoginUserDto, UserInfoDto } from '@models/user/user.dtos'
 
 const urlRegister: string = `${environment.apiUrl}/users/register`;
 const urlLogin: string = `${environment.apiUrl}/users/login`;
@@ -17,26 +19,37 @@ const urlLogout: string = `${environment.apiUrl}/users/logout`;
 export class AuthService {
 
     constructor(
-        private httpClient: HttpClient,
-        private authSessionService: AuthSessionService
-    ) {}
+        private http: HttpClient,
+        private session: AuthSessionService
+    ) { }
 
-    // Example: Check if user is authenticated (e.g., by checking a token in localStorage)
-    isAuthenticated(): boolean {
-        // Replace with your actual authentication logic (e.g., check JWT token)
-        return !!localStorage.getItem('authToken'); // Example: Returns true if token exists
+    register(request: RegisterRequestDto): Observable<UserInfoDto> {
+        return this.http
+            .post<UserInfoDto>(urlRegister, request)
+        //.pipe(catchError(this.handleError));
     }
 
-    register(request: RegisterUserDto): Observable<UserInfoDto> {
-        return this.httpClient.post<UserInfoDto>(urlRegister, request);
+    login(request: LoginRequestDto): Observable<TokenResponseDto> {
+        const headers = this.session.getLoginHeaders();
+        return this.http
+            .post<TokenResponseDto>(urlLogin, request, { headers: headers })
+            .pipe(
+                tap(response => this.session.saveLoginResponse(response))
+            );
     }
 
-    login(request: LoginUserDto): Observable<UserInfoDto> {
-        return this.httpClient.post<UserInfoDto>(urlLogin, request)
+    me(): Observable<UserInfoDto> {
+        return this.session.getHeaders().pipe(
+            switchMap(headers => 
+                this.http.get<UserInfoDto>(urlMe, { headers: headers })
+            ));
     }
 
-    // Example logout method
-    logout(): void {
-        localStorage.removeItem('authToken');
+    logout(): Observable<boolean> {
+        return this.session.getHeaders().pipe(
+            switchMap(headers => {
+                this.session.clear();
+                return this.http.post<boolean>(urlLogout, {}, { headers: headers });
+      }));
     }
 }

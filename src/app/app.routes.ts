@@ -13,18 +13,18 @@ export const routes: Routes = [
     // Login and Registration routes (no LayoutComponent)
     {
         path: CONST_ROUTES.AUTH.LOGIN,
-        canActivate: [RedirectIfAuthenticatedGuard], // Add guard
+        canActivate: [RedirectIfAuthenticatedGuard],
         loadComponent: () => import('@components/auth/login/login.component').then(c => c.LoginComponent)
     },
     {
         path: CONST_ROUTES.AUTH.REGISTER,
-        canActivate: [RedirectIfAuthenticatedGuard], // Add guard
+        canActivate: [RedirectIfAuthenticatedGuard],
         loadComponent: () => import('@components/auth/register/register.component').then(c => c.RegisterComponent)
     },
     {
         path: '',
         component: LayoutComponent,
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
 
             // Start Activity children

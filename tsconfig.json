@@ -22,10 +22,10 @@
       "@validation/*": ["app/validation/*"],
       "@guards/*": ["app/guards/*"],
       "@models/*": ["app/models/*"],
-      "@routing/": ["app/routing/*"],
+      "@routing/*": ["app/routing/*"],
       "@services/*": ["app/services/*"],
       "@styles/*": ["app/styles/*"],
-      "@env/*": ["environments/*"],
+      "@env/*": ["environments/*"]
     }
   },
   "angularCompilerOptions": {

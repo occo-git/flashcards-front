@@ -1,26 +1,26 @@
 export interface AppRoutes {
-  ROOT: string;
+  ROOT: string
   ACTIVITY: { 
-    QUIZ: string;
-    TYPE_WORD: string;
-    FILL_BLANK: string;
-  };
+    QUIZ: string
+    TYPE_WORD: string
+    FILL_BLANK: string
+  }
   CARDS: {
-    CARDS_DECK: string;
-    WORDS_LIST: string;
-    CHOOSE_THEME: string;
-    CHOOSE_DIFFICULTY: string;
-  };
+    CARDS_DECK: string
+    WORDS_LIST: string
+    CHOOSE_THEME: string
+    CHOOSE_DIFFICULTY: string
+  }
   USER: {  
-    PROGRESS: string;
-    CHANGE_LEVEL: string;
-  };
+    PROGRESS: string
+    CHANGE_LEVEL: string
+  }
   AUTH: {
-    REGISTER: string;
-    LOGIN: string;
-    LOGOUT: string;
-  };
-  HELP: string;  
+    REGISTER: string
+    LOGIN: string
+    LOGOUT: string
+  }
+  HELP: string
 }
 
 export const CONST_ROUTES: AppRoutes = {
@@ -28,7 +28,7 @@ export const CONST_ROUTES: AppRoutes = {
   ACTIVITY: {
     QUIZ: 'quiz',
     TYPE_WORD: 'type-word',
-    FILL_BLANK: 'fill-blank',
+    FILL_BLANK: 'fill-blank'
   },
   CARDS: {
     CARDS_DECK: 'cards-deck',
@@ -38,12 +38,12 @@ export const CONST_ROUTES: AppRoutes = {
   },
   USER: {
     PROGRESS: 'progress',
-    CHANGE_LEVEL: 'change-level',
+    CHANGE_LEVEL: 'change-level'
   },
   AUTH: {
     REGISTER: 'register',
     LOGIN: 'login',
-    LOGOUT: 'logout',
-  }, 
-  HELP: 'help',
+    LOGOUT: 'logout'
+  },
+  HELP: 'help'
 };

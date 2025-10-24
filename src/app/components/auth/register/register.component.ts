@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AuthService } from '@services/auth/auth.service';
-import { RegisterUserDto } from '@models/user/user.dtos'
+import { RegisterRequestDto } from '@app/models/auth.dtos'
 
 import { CONST_VALIDATION } from '@app/validation/validation.constants'
 import { CustomValidators } from '@validation/custom-validators';
@@ -40,7 +40,7 @@ export class RegisterComponent {
                 CONST_VALIDATION.DEFAULT_VALUE, [
                 CustomValidators.required('Password is required'),
                 CustomValidators.minLength(8, 'Password must be at least 8 characters long'),
-                CustomValidators.pattern(CONST_VALIDATION.MIN_REGEX, 'Password must contain at least one letter and one number')
+                CustomValidators.password()
             ]),
             passwordConfirm: new FormControl(
                 CONST_VALIDATION.DEFAULT_VALUE)
@@ -62,22 +62,21 @@ export class RegisterComponent {
         this.errorResponse = null;
 
         if (this.form.valid) {
-            //console.log('Form is valid:', this.form.value);
             const v = this.form.value;
             if (v) {
-                const request: RegisterUserDto = {
+                const request: RegisterRequestDto = {
                     username: v.username ?? CONST_VALIDATION.DEFAULT_VALUE,
                     email: v.email ?? CONST_VALIDATION.DEFAULT_VALUE,
                     password: v.password ?? CONST_VALIDATION.DEFAULT_VALUE
                 };
                 this.authService.register(request).subscribe({
-                    next: (response) => {
+                    next: response => {
                         this.isLoading = false;
                         console.log('Success:', response);
                         // redirect login page
                         this.router.navigate([`/${CONST_ROUTES.AUTH.LOGIN}`]);
                     },
-                    error: (err) => {
+                    error: err => {
                         this.isLoading = false;
                         this.errorResponse = err;
                         this.cdr.detectChanges();

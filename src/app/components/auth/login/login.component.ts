@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AuthService } from '@services/auth/auth.service';
-import { AuthSessionService } from '@services/auth-session/auth-session.service';
-import { LoginUserDto, UserInfoDto } from '@models/user/user.dtos';
+import { LoginRequestDto } from '@models/auth.dtos';
+import { CONST_ROUTES } from '@routing/routes.constans'
 
 import { CONST_VALIDATION } from '@app/validation/validation.constants'
 import { CustomValidators } from '@validation/custom-validators';
@@ -40,7 +40,6 @@ export class LoginComponent {
 
     constructor(
         private authService: AuthService,
-        private authSessionService: AuthSessionService,
         private router: Router,
         private cdr: ChangeDetectorRef
     ) { }
@@ -48,20 +47,20 @@ export class LoginComponent {
     onSubmit() {
 
         if (this.form.valid) {
-            //console.log('Form is valid:', this.form.value);
             const v = this.form.value;
             if (v) {
-                const request: LoginUserDto = {
+                const request: LoginRequestDto = {
                     username: v.username ?? CONST_VALIDATION.DEFAULT_VALUE,
                     password: v.password ?? CONST_VALIDATION.DEFAULT_VALUE
                 };
+
                 this.authService.login(request).subscribe({
-                    next: (response) => {
+                    next: response => {
                         this.isLoading = false;
                         console.log('Success:', response);
-                        this.authSessionService.setTokens(response.accessToken, response.refreshToken);
+                        this.router.navigate([`/${CONST_ROUTES.CARDS.CARDS_DECK}`]);
                     },
-                    error: (err) => {
+                    error: err => {
                         this.isLoading = false;
                         this.errorResponse = err;
                         this.cdr.detectChanges();
