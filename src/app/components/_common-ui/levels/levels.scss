@@ -1,0 +1,49 @@
+@use 'styles.scss' as *;
+
+/*:host {
+    background-color: magenta;
+}*/
+
+.levels-container {
+    //background-color: red;
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.levels {
+    //background-color: red;
+    display: flex;
+    flex-direction: row;
+    padding: 24px;
+    gap: 24px;
+}
+
+.level {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--mid-color);
+    border-radius: var(--border-R);
+    cursor: pointer;
+    position: relative;
+    align-content: center;
+    text-align: center;
+
+    &.checked {
+        background-color: var(--prime-color);
+        color: var(--light-color);
+        border-color: var(--light-color);
+        transform: scale(1.38);
+    }
+
+    &:hover:not(:disabled) {
+        background-color: var(--prime-color-dark);
+        color: var(--light-color);
+        border-color: var(--light-color);
+    }
+
+    &:active:not(:disabled) {
+        transform: scale(0.98);
+    }
+}

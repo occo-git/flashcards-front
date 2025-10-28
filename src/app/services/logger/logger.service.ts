@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LogLevel } from './log-level.enum';
 
-
 @Injectable({
   providedIn: 'root'
 })

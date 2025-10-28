@@ -1,7 +1,7 @@
 // src/app/guards/auth.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthSessionService } from '@services/auth-session/auth-session.service';
+import { UserSessionService } from '@app/services/user-session/user-session.service';
 import { CONST_ROUTES } from '@app/routing/routes.constans';
 
 @Injectable({
@@ -10,11 +10,11 @@ import { CONST_ROUTES } from '@app/routing/routes.constans';
 export class AuthGuard implements CanActivate {
     constructor(
         private router: Router,
-        private authSessionService: AuthSessionService
+        private session: UserSessionService
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if (this.authSessionService.isAuthenticated()) {
+        if (this.session.isAuthenticated()) {
             return true; // Allow access if authenticated
         } else {
             // Redirect to login and store the attempted URL for redirecting back after login

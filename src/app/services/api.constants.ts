@@ -9,10 +9,13 @@ export interface ApiPaths {
     REFRESH: string
     ME: string
     LOGOUT: string
+    LEVEL: string
   }
   CARDS: {
-    DECK: string
     BY_ID: string
+    LEVELS: string
+    DECK: string
+    LIST: string
   }
   IMAGES: string
 }
@@ -20,16 +23,19 @@ export interface ApiPaths {
 export const CONST_API_PATHS: ApiPaths = {
   ROOT: environment.apiUrl,
   USERS: {
-    BY_ID: `${environment.apiUrl}users`,
-    REGISTER: `${environment.apiUrl}users/register`,
-    LOGIN: `${environment.apiUrl}users/login`,
-    REFRESH: `${environment.apiUrl}users/refresh`,
-    ME: `${environment.apiUrl}users/me`,
-    LOGOUT: `${environment.apiUrl}users/logout`
+    BY_ID: `${environment.apiUrl}/users`,
+    REGISTER: `${environment.apiUrl}/users/register`,
+    LOGIN: `${environment.apiUrl}/users/login`,
+    REFRESH: `${environment.apiUrl}/users/refresh`,
+    ME: `${environment.apiUrl}/users/me`,
+    LOGOUT: `${environment.apiUrl}/users/logout`,
+    LEVEL: `${environment.apiUrl}/users/level`
   },
   CARDS: {
     BY_ID: `${environment.apiUrl}/cards`,
-    DECK: `${environment.apiUrl}/cards/deck`
+    LEVELS: `${environment.apiUrl}/cards/levels`, 
+    DECK: `${environment.apiUrl}/cards/deck`,
+    LIST: `${environment.apiUrl}/cards/list`
   },
   IMAGES: `${environment.apiUrl}/images`
 };

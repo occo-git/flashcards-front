@@ -1,7 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, computed } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+import { UserService } from '@app/services/user/user.service';
+import { LoaderComponent } from "../loader/loader.component";
 
 @Component({
   selector: 'app-sidebar',
@@ -11,12 +13,17 @@ import { MatListModule } from '@angular/material/list';
     RouterLink,
     RouterLinkActive,
     MatExpansionModule,
-    MatListModule
-  ],
+    MatListModule,
+    //LoaderComponent
+],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss'
 })
 export class SidebarComponent {
-  currentLevel: string = 'A1'; // Default level
 
+  constructor(
+    public userService: UserService
+  ) { }
+
+  userLevel = computed(() => this.userService.currentUserInfo()?.level);
 }

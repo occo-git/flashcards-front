@@ -1,10 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { LevelsComponent } from "@app/components/_common-ui/levels/levels.component";
 
 @Component({
   selector: 'app-change-level',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
-  imports: [],
+  imports: [LevelsComponent],
   templateUrl: './change-level.html',
   styleUrl: './change-level.scss'
 })

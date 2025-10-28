@@ -1,20 +1,26 @@
 <div class="flashcard-deck-container">
-    @if (cards().length > 0) {
-        <div class="card-counter">
-            {{ currentIndex() + 1 }} / {{ cards().length }}
-        </div>
-        <div class="deck">
-            <app-flashcard [flashcard]="currentCard()"></app-flashcard>
-        </div>
-        <div class="navigation">
-            <button class="left" (click)="previousCard()" [disabled]="currentIndex() === 0">
-                {{ previousCardText() }}
-            </button>
-            <button class="right" (click)="nextCard()" [disabled]="currentIndex() === cards().length - 1">
-                {{ nextCardText() }}
-            </button>
-        </div>
+    @if (isLoading()) {
+    <app-loader></app-loader>
     } @else {
-        <p>No flashcards available. Loading...</p>
+
+    @if (cards().length > 0) {
+    <div class="card-counter">
+        {{ currentIndex() + 1 }} / {{ cards().length }}
+    </div>
+    <div class="deck">
+        <app-flashcard [flashcard]="currentCard()"></app-flashcard>
+    </div>
+    <div class="navigation">
+        <button class="left" (click)="onPreviousCard()" [disabled]="previousCardText() === ''">
+            {{ previousCardText() }}
+        </button>
+        <button class="right" (click)="onNextCard()" [disabled]="nextCardText() === ''">
+            {{ nextCardText() }}
+        </button>
+    </div>
+    } @else {
+
+    }
     }
 </div>
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

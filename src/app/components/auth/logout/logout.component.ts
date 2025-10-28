@@ -1,8 +1,9 @@
-import { Component, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, signal, computed, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '@services/auth/auth.service';
+import { UserService } from '@app/services/user/user.service';
 import { CONST_ROUTES } from '@routing/routes.constans'
 
+import { LoaderComponent } from '@app/components/_common-ui/loader/loader.component';
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -10,47 +11,41 @@ import { HttpErrorResponse } from '@angular/common/http';
     selector: 'app-logout',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
-    imports: [ErrorMessageComponent],
+    imports: [LoaderComponent, ErrorMessageComponent],
     templateUrl: './logout.html',
     styleUrl: './logout.scss'
 })
 export class LogoutComponent {
-    username: string = '';
-    errorResponse: HttpErrorResponse | null = null;
-    isLoading = false;
+    isLoading = signal<boolean>(false);
+    errorResponse = signal<HttpErrorResponse | null>(null);
 
     constructor(
-        private authService: AuthService,
+        public userService: UserService,
         private router: Router,
-        private route: ActivatedRoute,
-        private cdr: ChangeDetectorRef
-    ) {
-        authService.me().subscribe({
-            next: response => {
-                this.username = response.username;
-                this.cdr.detectChanges();
-            },
-            error: err => {
-                this.errorResponse = err;
-                this.cdr.detectChanges();
-            }
-        });
-    }
+        private route: ActivatedRoute
+    ) { }
+
+    username = computed(() => this.userService.currentUserInfo()?.username);
 
     onSubmit() {
-        this.authService.logout().subscribe({
+        this.errorResponse.set(null);
+        this.isLoading.set(true);
+
+        this.userService.logout().subscribe({
             next: b => {
+                this.isLoading.set(false);
                 if (b)
                     this.router.navigate([`/${CONST_ROUTES.AUTH.LOGIN}`]);
             },
             error: err => {
-                this.errorResponse = err;
-                this.cdr.detectChanges();
+                this.errorResponse.set(err);
+                this.isLoading.set(false);
             }
         });
     }
 
     clearError() {
-        this.errorResponse = null;
+        this.errorResponse.set(null);
+        this.isLoading.set(false);
     }
 }

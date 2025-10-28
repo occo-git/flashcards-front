@@ -25,14 +25,14 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <a mat-list-item routerLink="cards-deck" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <span class="menu-icon">📗</span> {{ currentLevel }} Cards
+            <span class="menu-icon">📗</span> {{ userLevel() }} Cards
         </a>
         <a mat-list-item routerLink="cards-deck" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
             [queryParams]="{type: 'marked'}">
-            <span class="menu-icon">💡</span> {{ currentLevel }} Marked Cards
+            <span class="menu-icon">💡</span> {{ userLevel() }} Marked Cards
         </a>
         <a mat-list-item routerLink="words-list" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <span class="menu-icon">📃</span> {{ currentLevel }} Words List
+            <span class="menu-icon">📃</span> {{ userLevel() }} Words List
         </a>
         <a mat-list-item routerLink="choose-theme" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <span class="menu-icon">🎯</span> By Theme ☰
@@ -49,7 +49,7 @@
     </a>
     <!-- Change {lev} Level -->
     <a class="item-out" mat-list-item routerLink="change-level" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <span class="menu-icon">📶</span> Change {{ currentLevel }} Level
+        <span class="menu-icon">📶</span> Change {{ userLevel() }} Level
     </a>  
 </mat-nav-list> 
 <div class="break-line"></div>

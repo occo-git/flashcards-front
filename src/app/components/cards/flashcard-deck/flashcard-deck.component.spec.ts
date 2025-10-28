@@ -10,18 +10,14 @@ import { FlashcardService } from '../../../services/flashcard/flashcard.service'
   styleUrls: ['./flashcard-deck.scss']
 })
 export class FlashcardDeckComponent {
-  private flashcardService = inject(FlashcardService);
-  cards = this.flashcardService.flashcardsSignal; // Получаем сигнал из сервиса
-  currentIndex = signal(0); // Индекс текущей карточки
 
-  // Получаем текущую карточку на основе индекса
+  constructor(
+    private flashcardService: FlashcardService
+  ) { }
+
+  currentIndex = signal(0);
+  cards = computed(() => this.flashcardService.flashcardsSignal());
   currentCard = computed(() => this.cards()[this.currentIndex()] || null);
-
-  constructor() {
-    this.flashcardService.getFlashcards().subscribe({
-      error: () => console.error('Failed to load flashcards')
-    });
-  }
 
   previousCard() {
     if (this.currentIndex() > 0) {

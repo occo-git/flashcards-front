@@ -1,8 +1,8 @@
-import { Component, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { AuthService } from '@services/auth/auth.service';
+import { UserService } from '@app/services/user/user.service';
 import { RegisterRequestDto } from '@app/models/auth.dtos'
 
 import { CONST_VALIDATION } from '@app/validation/validation.constants'
@@ -48,18 +48,18 @@ export class RegisterComponent {
         {
             validators: CustomValidators.match('password', 'passwordConfirm', 'Passwords must match')
         })
-    errorResponse: HttpErrorResponse | null = null;
-    isLoading = false;
+
+    isLoading = signal<boolean>(false);
+    errorResponse  = signal<HttpErrorResponse | null>(null);
     
     constructor(
-        private authService: AuthService,
-        private router: Router,
-        private cdr: ChangeDetectorRef
+        private userService: UserService,
+        private router: Router
     ) { }
 
     onSubmit() {
-        this.isLoading = true;
-        this.errorResponse = null;
+        this.isLoading.set(true)
+        this.errorResponse.set(null);
 
         if (this.form.valid) {
             const v = this.form.value;
@@ -69,26 +69,22 @@ export class RegisterComponent {
                     email: v.email ?? CONST_VALIDATION.DEFAULT_VALUE,
                     password: v.password ?? CONST_VALIDATION.DEFAULT_VALUE
                 };
-                this.authService.register(request).subscribe({
+                this.userService.register(request).subscribe({
                     next: response => {
-                        this.isLoading = false;
-                        console.log('Success:', response);
-                        // redirect login page
+                        this.isLoading.set(false);
                         this.router.navigate([`/${CONST_ROUTES.AUTH.LOGIN}`]);
                     },
                     error: err => {
-                        this.isLoading = false;
-                        this.errorResponse = err;
-                        this.cdr.detectChanges();
+                        this.errorResponse.set(null);
+                        this.isLoading.set(false);
                     }
                 });
             }
-        } else {
-            console.log('Form is invalid');
         }
     }
 
     clearError() {
-        this.errorResponse = null;
+        this.errorResponse.set(null);
+        this.isLoading.set(false);
     }
 }

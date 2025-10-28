@@ -5,17 +5,16 @@ import { catchError, tap, map } from 'rxjs/operators';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenResponseDto, RefreshTokenRequestDto } from '@app/models/auth.dtos'
-import { environment } from '@env/environment'
-
-const urlRefresh: string = `${environment.apiUrl}/users/refresh`;
+import { CONST_API_PATHS } from '@services/api.constants'
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthSessionService {
+export class UserSessionService {
   private CONST_SESSION_KEY = 'sessionId';
   private CONST_ACCESS_KEY = 'accessToken';
   private CONST_REFRESH_KEY = 'refreshToken';
+  private CONST_SESSION_EXPIRE_SEC = 30 * 24 * 60 * 60; // 30 days
   private CONST_BEFORE_EXPIRE_SEC: number = 60; // 1 min before expiration
 
   constructor(
@@ -24,8 +23,7 @@ export class AuthSessionService {
 
   //#region sessionId
   private saveSessionId(sessionId: string): void {
-    const maxAgeSeconds = 30 * 24 * 60 * 60; // 30 дней
-    this.setCookie(this.CONST_SESSION_KEY, sessionId, maxAgeSeconds);
+    this.setCookie(this.CONST_SESSION_KEY, sessionId, this.CONST_SESSION_EXPIRE_SEC);
   }
 
   private getSessionId(): string | null {
@@ -50,14 +48,14 @@ export class AuthSessionService {
     return this.getCookie(this.CONST_REFRESH_KEY);
   }
 
-  private isAccessTokenExpired(beforeDelay: number = 0): boolean {
+  private isAccessTokenExpired(beforeSeconds: number = 0): boolean {
     const token = this.getAccessToken();
     if (!token) return true;
 
     const exp = this.getTokenExpirySeconds(token);
     if (!exp) return true;
 
-    return Date.now() > (exp - beforeDelay) * 1000; // in ms
+    return Date.now() > (exp - beforeSeconds) * 1000; // in ms
   }
 
   private getTokenExpirySeconds(token: string): number {
@@ -73,11 +71,8 @@ export class AuthSessionService {
   //#endregion
 
   //#region cookies
-  private setCookie(name: string, value: string, maxAgeSeconds: number): void {
-    if (maxAgeSeconds > 0)
+  private setCookie(name: string, value: string = '', maxAgeSeconds: number = -1): void {
       document.cookie = `${name}=${value}; max-age=${maxAgeSeconds}; path=/; Secure; SameSite=Strict`;
-    else
-      document.cookie = `${name}=''; max-age=-1; path=/; Secure; SameSite=Strict`;
   }
 
   private getCookie(name: string): string | null {
@@ -99,11 +94,10 @@ export class AuthSessionService {
     const sessionId = this.getSessionId();
     const accessToken = this.getAccessToken();
 
-    const headers = new HttpHeaders({
+    return new HttpHeaders({
       [this.CONST_SESSION_KEY]: sessionId ?? '',
       ['Authorization']: accessToken ? `Bearer ${accessToken}` : ''
     });
-    return headers;
   }
 
   getHeaders(): Observable<HttpHeaders> {
@@ -121,7 +115,7 @@ export class AuthSessionService {
     const request: RefreshTokenRequestDto = { refreshToken };
 
     return this.httpClient
-      .post<TokenResponseDto>(urlRefresh, request, { headers: headers })
+      .post<TokenResponseDto>(CONST_API_PATHS.USERS.REFRESH, request, { headers: headers })
       .pipe(
         tap(response => this.saveLoginResponse(response)),
         map(() => this.getAuthHeaders()), // return HttpHeaders
@@ -139,9 +133,9 @@ export class AuthSessionService {
   }
 
   clear() {
-    this.setCookie(this.CONST_SESSION_KEY, '', -1);
-    this.setCookie(this.CONST_ACCESS_KEY, '', -1);
-    this.setCookie(this.CONST_REFRESH_KEY, '', -1);
+    this.setCookie(this.CONST_SESSION_KEY);
+    this.setCookie(this.CONST_ACCESS_KEY);
+    this.setCookie(this.CONST_REFRESH_KEY);
   }
 
   isAuthenticated(): boolean {

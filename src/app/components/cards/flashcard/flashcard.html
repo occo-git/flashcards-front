@@ -5,9 +5,12 @@
       <span class="part-of-speech">{{ flashcard.partOfSpeech }}</span>
     </div>
     <div class="photo-container">
-      @if (imageUrl()) { <!-- Используем () для получения значения сигнала -->
-        <img [src]="imageUrl()" alt="{{ flashcard.text }}">
+      @if (isLoading()) {
+        <app-loader></app-loader>
       }
+      @else if (imageUrl()) {
+        <img [src]="imageUrl()" alt="{{ flashcard.text }}">
+      }    
     </div>
     <div class="text">
       {{ showTranslation() ? flashcard.translation.ru : flashcard.text }}
@@ -22,6 +25,6 @@
       {{ flashcard.example }}
     </div>
   } @else {
-    <p>Loading flashcard...</p>
+     <!-- loader -->
   }
 </div>

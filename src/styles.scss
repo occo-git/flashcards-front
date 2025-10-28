@@ -86,15 +86,16 @@ h3 {
 }
 
 button {
+  background-color: var(--prime-color);
+  color: var(--light-color);
   height: 50px; // Фиксированная высота кнопки
   width: auto; // Автоматическая ширина в зависимости от контента
   min-width: 200px; // Минимальная ширина кнопки
-  background-color: var(--prime-color);
-  color: white;
   border: none;
   border-radius: var(--border-R);
   cursor: pointer;
-  position: relative; // Позиционирование для псевдоэлементов    
+  position: relative; // Позиционирование для псевдоэлементов
+  user-select: none;
 
   &:hover:not(:disabled) {
     background-color: var(--prime-color-dark);

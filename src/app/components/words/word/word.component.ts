@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { WordDto } from '@models/cards.dto'
 
 @Component({
   selector: 'app-word',
@@ -9,5 +10,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
   styleUrl: './word.scss'
 })
 export class WordComponent {
+  @Input() word!: WordDto;
+  @Output() wordClick = new EventEmitter<number>();
 
+  onWordClick() {
+    this.wordClick.emit(this.word.id);
+  }
 }

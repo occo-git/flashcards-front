@@ -1,6 +1,19 @@
-<p>
-    word-list.component works!
-    <app-word></app-word>
-    <app-word></app-word>
-    <app-word></app-word>
-</p>
+@if (isLoading()) {
+<app-loader></app-loader>
+}
+@else if (words().length > 0) {
+    @for (word of words(); track word.id) {
+    <div>
+        <app-word [word]="word" (wordClick)="onWordSelected($event)">
+        </app-word>
+    </div>
+    }
+    <div class="navigation">
+        <button class="left" (click)="onPreviousWords()" [disabled]="!hasPrevious()"></button>
+        <button class="right" (click)="onNextWords()" [disabled]="!hasNext()"></button>
+    </div>
+}
+@else {
+    <p>no words</p>
+}
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

@@ -1,8 +1,8 @@
-import { Component, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
-import { AuthService } from '@services/auth/auth.service';
+import { UserService } from '@app/services/user/user.service';
 import { LoginRequestDto } from '@models/auth.dtos';
 import { CONST_ROUTES } from '@routing/routes.constans'
 
@@ -16,7 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     selector: 'app-login',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
-    imports: [ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent],
+    imports: [ ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent ],
     templateUrl: './login.html',
     styleUrl: './login.scss'
 })
@@ -35,13 +35,13 @@ export class LoginComponent {
                 CustomValidators.pattern(CONST_VALIDATION.MIN_REGEX, 'Password must contain at least one letter and one number')
             ]),
         })
-    errorResponse: HttpErrorResponse | null = null;
-    isLoading = false;
+
+    isLoading = signal<boolean>(false);
+    errorResponse = signal<HttpErrorResponse | null>(null);
 
     constructor(
-        private authService: AuthService,
-        private router: Router,
-        private cdr: ChangeDetectorRef
+        private userService: UserService,
+        private router: Router
     ) { }
 
     onSubmit() {
@@ -54,16 +54,14 @@ export class LoginComponent {
                     password: v.password ?? CONST_VALIDATION.DEFAULT_VALUE
                 };
 
-                this.authService.login(request).subscribe({
+                this.userService.login(request).subscribe({
                     next: response => {
-                        this.isLoading = false;
-                        console.log('Success:', response);
+                        this.isLoading.set(false);
                         this.router.navigate([`/${CONST_ROUTES.CARDS.CARDS_DECK}`]);
                     },
                     error: err => {
-                        this.isLoading = false;
-                        this.errorResponse = err;
-                        this.cdr.detectChanges();
+                        this.errorResponse.set(err);
+                        this.isLoading.set(false);
                     }
                 });
             }
@@ -73,6 +71,7 @@ export class LoginComponent {
     }
     
     clearError() {
-        this.errorResponse = null;
+        this.errorResponse.set(null);
+        this.isLoading.set(false);
     }
 }

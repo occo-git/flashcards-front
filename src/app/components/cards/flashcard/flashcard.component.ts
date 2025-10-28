@@ -1,20 +1,22 @@
 import { Component, Input, signal, OnInit, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { FlashcardDto } from '@models/flashcard.dto';
+import { FlashcardDto } from '@app/models/cards.dto';
 import { FileService } from '@services/files/file.service';
+import { LoaderComponent } from "@app/components/_common-ui/loader/loader.component";
 
 @Component({
   selector: 'app-flashcard',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
-  imports: [],
+  imports: [LoaderComponent],
   templateUrl: './flashcard.html',
   styleUrls: ['./flashcard.scss']
 })
 export class FlashcardComponent implements OnInit, OnChanges {
   @Input() flashcard!: FlashcardDto;
 
+  imageUrl = signal<string | null>(null);
+  isLoading = signal<boolean>(false);
   showTranslation = signal(false);
-  imageUrl = signal<string | null>(null); // Сигнал для хранения URL изображения
 
   constructor(private fileService: FileService) {}
 
@@ -33,13 +35,15 @@ export class FlashcardComponent implements OnInit, OnChanges {
   }
 
   loadImage(id: number): void {
+    this.isLoading.set(false);
     this.fileService.getImage(id).subscribe({
       next: (blob) => {
         const url = URL.createObjectURL(blob);
-        this.imageUrl.set(url); // Обновляем сигнал с новым URL изображения
+        this.imageUrl.set(url);
+        this.isLoading.set(false);
       },
       error: (error) => {
-        console.error('Error fetching the image:', error);
+        this.isLoading.set(false);
       }
     });
   }

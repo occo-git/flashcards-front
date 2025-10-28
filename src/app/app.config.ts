@@ -12,9 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
-    FlashcardService,
-    FileService,
-    LoggerService
+    provideHttpClient()
   ]
 };
