@@ -1,28 +1,28 @@
 <div class="flashcard" (click)="toggleTranslation()">
-  @if (flashcard) {
+  @if (card) {
     <div class="header">
-      <span class="level">{{ flashcard.level }}</span>
-      <span class="part-of-speech">{{ flashcard.partOfSpeech }}</span>
+      <span class="level">{{ card.level }}</span>
+      <span class="part-of-speech">{{ card.partOfSpeech }}</span>
     </div>
     <div class="photo-container">
       @if (isLoading()) {
         <app-loader></app-loader>
       }
       @else if (imageUrl()) {
-        <img [src]="imageUrl()" alt="{{ flashcard.text }}">
+        <img [src]="imageUrl()" alt="{{ card.text }}">
       }    
     </div>
     <div class="text">
-      {{ showTranslation() ? flashcard.translation.ru : flashcard.text }}
+      {{ showTranslation() ? card.translation.ru : card.text }}
     </div>
     <div class="transcription">
-      {{ flashcard.transcription }}
+      {{ card.transcription }}
     </div>
     <div class="translation-en">
-      {{ flashcard.translation.en }}
+      {{ card.translation.en }}
     </div>
     <div class="example">
-      {{ flashcard.example }}
+      {{ card.example }}
     </div>
   } @else {
      <!-- loader -->

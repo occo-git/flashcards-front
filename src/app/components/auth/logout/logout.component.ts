@@ -16,6 +16,8 @@ import { HttpErrorResponse } from '@angular/common/http';
     styleUrl: './logout.scss'
 })
 export class LogoutComponent {
+
+    username = computed(() => this.userService.currentUserInfo()?.username);
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);
 
@@ -24,8 +26,6 @@ export class LogoutComponent {
         private router: Router,
         private route: ActivatedRoute
     ) { }
-
-    username = computed(() => this.userService.currentUserInfo()?.username);
 
     onSubmit() {
         this.errorResponse.set(null);

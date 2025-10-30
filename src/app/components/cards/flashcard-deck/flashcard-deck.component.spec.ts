@@ -16,7 +16,7 @@ export class FlashcardDeckComponent {
   ) { }
 
   currentIndex = signal(0);
-  cards = computed(() => this.flashcardService.flashcardsSignal());
+  cards = computed(() => this.flashcardService.cardsSignal());
   currentCard = computed(() => this.cards()[this.currentIndex()] || null);
 
   previousCard() {

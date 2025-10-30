@@ -7,11 +7,12 @@
 
 :root {
   --bg-color: #fcfcfc; // Background color
-  --prime-color: #1a73e8; 
+  --prime-color: #1a73e8;
   --prime-color-dark: #0054c2;
-  --secondary-color: #888b5e;
+  --disabled-color: #e4e4e4;
+  --border-color: #cacaca;
   --light-color: #ffffff;
-  --mid-color: #cacaca;
+  --mid-color: #e4e4e4;
   --dark-color: #272727;
   --error-bg-color: #ffe6e6; // Error background color
   --error-color: #d93025; // Error color
@@ -81,7 +82,7 @@ h3 {
   width: 400px;
   padding: 32px 64px;
   border-radius: var(--border-R);
-  border: 1px solid var(--mid-color);
+  border: 1px solid var(--border-color);
   box-shadow: var(--box-shadow);
 }
 
@@ -106,9 +107,9 @@ button {
   }
 
   &:disabled {
-    background-color: var(--mid-color);
+    background-color: var(--disabled-color);
     cursor: not-allowed;
-    opacity: 0.2; // Тусклый цвет для отключённой кнопки
+    //opacity: 0.2; // Тусклый цвет для отключённой кнопки
 
     &::after {
       display: none; // Убираем стрелку для задизабленной кнопки
@@ -124,7 +125,7 @@ button {
       top: 50%;
       transform: translateY(-50%);
       border: 10px solid transparent; // Создаем стрелку
-      border-right-color: white; // Цвет стрелки
+      border-right-color: var(--light-color); // Цвет стрелки
     }
   }
 
@@ -139,5 +140,77 @@ button {
       border: 10px solid transparent; // Создаем стрелку
       border-left-color: var(--light-color); //
     }
+  }
+}
+
+
+
+::ng-deep .custom-dropdown-panel {
+  background-color: var(--light-color) !important;
+  border-radius: var(--border-R) !important;
+  //padding: 0px !important;
+  padding: 8px !important;
+  translate: -24px 12px !important;
+  
+  // === КОНТЕЙНЕР ПАНЕЛИ ===
+  .mat-mdc-select-panel {
+    background: var(--bg-color) !important;
+    border-radius: var(--border-R) !important;
+    //box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
+    max-height: 400px !important;
+    //overflow-y: auto !important;
+    animation: fadeIn 0.25s ease-out;
+  }
+
+  // === ПУНКТЫ (mat-option) ===
+  .mat-mdc-option {
+    //color: var(--dark-color) !important;
+    font-size: 1rem !important;
+    //font-weight: 500 !important;
+    height: 50px !important;
+    border-radius: var(--border-R) !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background-color: var(--mid-color) !important;
+      color: var(--light-color) !important;
+      //transform: translateX(1px);
+    }
+    &.mat-mdc-option-active {
+      background-color: var(--mid-color) !important;
+      //color: var(--dark-color) !important;
+    }
+    &.mat-mdc-option-selected:not(.mat-mdc-option-multiple) {
+      //background-color: var(--prime-color-dark) !important;
+      //color: var(--light-color) !important;
+      //font-size: 1rem !important;
+
+      .mat-icon {
+        color: var(--light-color) !important;
+      }
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px !important;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--light-color) !important;
+    border-radius: var(--border-r) !important;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--light-color) !important;
+    border-radius: var(--border-r) !important;
+
+    &:hover {
+      background: var(--mid-color) !important;
+    }
+  }
+
+  .mat-pseudo-checkbox-checked {
+    background: var(--light-color) !important;
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: var(--border-r) !important;
   }
 }

@@ -5,11 +5,11 @@ import { LogLevel } from './log-level.enum';
   providedIn: 'root'
 })
 export class LoggerService {
-  private isProduction = false;  // Установите в true для продакшена, чтобы отключить debug-логи
+  private isProduction = false;
 
   private logWithLevel(level: LogLevel, message: string, ...optionalParams: any[]) {
     if (level === LogLevel.Debug && this.isProduction) {
-      return;  // Игнорируем debug в продакшене
+      return;
     }
 
     const timestamp = new Date().toISOString();
@@ -32,7 +32,6 @@ export class LoggerService {
         console.log(formattedMessage, ...optionalParams);
     }
 
-    // Здесь можно добавить отправку логов на сервер (например, через HttpClient)
     // this.sendToServer(level, message, optionalParams);
   }
 
@@ -54,8 +53,7 @@ export class LoggerService {
     this.logWithLevel(LogLevel.Debug, message, ...optionalParams);
   }
 
-  // Пример метода для отправки логов на сервер (опционально)
   // private sendToServer(level: LogLevel, message: string, params: any[]) {
-  //   // Используйте HttpClient для POST на /api/logs
+  //   // HttpClient POST /api/logs
   // }
 }

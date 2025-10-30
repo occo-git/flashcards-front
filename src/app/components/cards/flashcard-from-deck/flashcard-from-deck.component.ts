@@ -1,29 +1,29 @@
 import { Component, signal, computed, effect, ViewEncapsulation } from '@angular/core';
 
-import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
 import { FlashcardComponent } from '@components/cards/flashcard/flashcard.component';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
 import { UserService } from '@app/services/user/user.service';
-import { CardsPageRequestDto, DeckFilterDto } from '@app/models/cards.dto';
+import { DeckFilterDto, CardRequestDto } from '@app/models/cards.dto';
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FilterComponent } from "@components/cards/filter/filter.component";
 
 @Component({
-  selector: 'app-flashcard-deck',
+  selector: 'app-flashcard-from-deck',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
-  imports: [LoaderComponent, FlashcardComponent, ErrorMessageComponent],
-  templateUrl: './flashcard-deck.html',
-  styleUrls: ['./flashcard-deck.scss']
+  imports: [FlashcardComponent, ErrorMessageComponent, FilterComponent],
+  templateUrl: './flashcard-from-deck.html',
+  styleUrl: './flashcard-from-deck.scss'
 })
-export class FlashcardDeckComponent {
-  currentIndex = signal<number>(0);
+export class FlashcardFromDeckComponent {
   userLevel = computed(() => this.userService.userLevel());
-  cards = computed(() => this.flashcardService.cardsSignal());
-  currentCard = computed(() => this.cards()[this.currentIndex()] || null);
-  previousCardText = computed(() => this.currentIndex() > 0 ? this.cards()[this.currentIndex() - 1]?.text : '');
-  nextCardText = computed(() => this.currentIndex() < this.cards().length - 1 ? this.cards()[this.currentIndex() + 1]?.text : '');
+  card = computed(() => this.flashcardService.cardSignal());  
+  index = computed(() => this.card()?.index ?? 0);
+  total = computed(() => this.card()?.total ?? 0);
+  prevCard = computed(() => this.card()?.prevCard);
+  nextCard = computed(() => this.card()?.nextCard);
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 
@@ -31,10 +31,10 @@ export class FlashcardDeckComponent {
     private userService: UserService,
     private flashcardService: FlashcardService
   ) {
-    this.loadFlashcards();
+    this.loadFlashcard();
   }
 
-  private loadFlashcards() {
+  private loadFlashcard(wordId: number = 0) {
     if (this.isLoading() || !this.userLevel()) return;
 
     this.errorResponse.set(null);
@@ -46,15 +46,13 @@ export class FlashcardDeckComponent {
       themeId: 0,
       difficulty: 0
     }
-    const request: CardsPageRequestDto = {
-      filter: filter,
-      wordId: 0,
-      isDirectionForward: true,
-      pageSize: 100
+    const request: CardRequestDto = {
+      wordId: wordId,
+      filter: filter
     };
 
-    this.flashcardService.getFlashcards(request).subscribe({
-      next: cards => {
+    this.flashcardService.getFlashcard(request).subscribe({
+      next: card => {
         this.isLoading.set(false);
       },
       error: err => {
@@ -65,15 +63,14 @@ export class FlashcardDeckComponent {
   }
 
   onPreviousCard() {
-    if (this.currentIndex() > 0) {
-      this.currentIndex.update(index => index - 1);
-    }
+    if (this.prevCard()) {
+      this.loadFlashcard(this.prevCard()!.id);
+    }      
   }
 
   onNextCard() {
-    if (this.currentIndex() < this.cards().length - 1) {
-      this.currentIndex.update(index => index + 1);
-    }
+    if (this.nextCard())
+      this.loadFlashcard(this.nextCard()!.id)
   }
 
   clearError() {

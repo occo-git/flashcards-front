@@ -1,10 +1,10 @@
 import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { retryWhen, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { UserSessionService } from '@app/services/user-session/user-session.service';
-import { WordsRequestDto, FlashcardDto, WordDto } from '@app/models/cards.dto';
+import { CardsPageRequestDto, CardDto, WordDto, CardRequestDto, CardExtendedDto, LevelFilterDto, ThemeDto, TranslationDto } from '@app/models/cards.dto';
 import { CONST_API_PATHS } from '@services/api.constants';
 
 @Injectable({
@@ -13,26 +13,42 @@ import { CONST_API_PATHS } from '@services/api.constants';
 export class FlashcardService {
 
   // Signals for reactive storage
-  private flashcards = signal<FlashcardDto[]>([]);  
-  private words = signal<WordDto[]>([]); 
   private levels = signal<string[]>([]);
+  private themes = signal<ThemeDto[]>([]);
+  private card = signal<CardExtendedDto | null>(null);
+  private cards = signal<CardDto[]>([]);
+  private words = signal<WordDto[]>([]);
+
+  get levelsSignal() { return this.levels.asReadonly(); }
+  get themesSignal() { return this.themes.asReadonly(); }
+  get cardSignal() { return this.card.asReadonly(); }
+  get cardsSignal() { return this.cards.asReadonly(); }
+  get wordsSignal() { return this.words.asReadonly(); }
 
   constructor(
     private http: HttpClient,
     private session: UserSessionService
   ) { }
 
-  getFlashcards(request: WordsRequestDto): Observable<FlashcardDto[]> {
-    
+  getFlashcard(request: CardRequestDto): Observable<CardExtendedDto> {
     return this.session.getHeaders().pipe(
       switchMap(headers =>
-        this.http.post<FlashcardDto[]>(CONST_API_PATHS.CARDS.DECK, request, { headers })
+        this.http.post<CardExtendedDto>(CONST_API_PATHS.CARDS.CARD_FROM_DECK, request, { headers })
       ),
-      tap(response => this.flashcards.set(response))  // save signal
+      tap(card => this.card.set(card))  // save signal
     );
   }
 
-  getWords(request: WordsRequestDto): Observable<WordDto[]> {
+  getFlashcards(request: CardsPageRequestDto): Observable<CardDto[]> {
+    return this.session.getHeaders().pipe(
+      switchMap(headers =>
+        this.http.post<CardDto[]>(CONST_API_PATHS.CARDS.DECK, request, { headers })
+      ),
+      tap(response => this.cards.set(response))  // save signal
+    );
+  }
+
+  getWords(request: CardsPageRequestDto): Observable<WordDto[]> {
     return this.session.getHeaders().pipe(
       switchMap(headers =>
         this.http.post<WordDto[]>(CONST_API_PATHS.CARDS.DECK, request, { headers })
@@ -43,18 +59,32 @@ export class FlashcardService {
 
   getLevels(): Observable<string[]> {
     return this.session.getHeaders().pipe(
-      switchMap(headers => 
+      switchMap(headers =>
         this.http.get<string[]>(CONST_API_PATHS.CARDS.LEVELS, { headers })
       ),
       tap(response => this.levels.set(response)) // save signal
     );
   }
 
-  // Getter to access signal (for reactive usage in components)
-  get flashcardsSignal() {
-    return this.flashcards.asReadonly();
-  }
-  get wordsSignal() {
-    return this.words.asReadonly();
+  getThemes(request: LevelFilterDto): Observable<ThemeDto[]> {
+    return this.session.getHeaders().pipe(
+      switchMap(headers =>
+        this.http.post<ThemeDto[]>(CONST_API_PATHS.CARDS.THEMES, request, { headers })
+      ),
+      map(response => {
+        // All themes
+        const allTheme: ThemeDto = {
+          id: 0,
+          level: request.level,
+          translation: { 'en': '🎯 All', 'ru': '' } as TranslationDto,
+          wordsCount: 0
+        };
+
+        return [allTheme, ...response];
+      }),
+      tap(themesWithAll => {
+        this.themes.set(themesWithAll); // сохраняем в сигнал
+      })
+    );
   }
 }

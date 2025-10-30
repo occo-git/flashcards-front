@@ -1,0 +1,34 @@
+@use 'styles.scss' as *;
+
+$filter-height: 50px;
+
+:host {
+    //background-color: magenta;
+    display: flex;
+    flex-direction: row;
+    padding: 16px;    
+}
+
+.filter-title {
+    //background-color: yellow;
+    height: $filter-height;
+    font-size: 2rem;
+    align-content: center;
+}
+
+.theme-selector {
+    height: $filter-height;
+    min-width: 400px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-R);
+    align-content: center;
+    padding: 0px 24px;
+    user-select: none;
+    font-size: 1.2rem !important;
+}
+
+.selector-item {
+    //background-color: red;
+    color: var(--dark-color);
+    text-align: center;
+}

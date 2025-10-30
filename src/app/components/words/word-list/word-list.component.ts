@@ -4,7 +4,7 @@ import { LoaderComponent } from '@app/components/_common-ui/loader/loader.compon
 import { WordComponent } from '@components/words/word/word.component';
 import { UserService } from '@app/services/user/user.service';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
-import { WordDto, WordsRequestDto } from '@models/cards.dto'
+import { DeckFilterDto, CardsPageRequestDto } from '@models/cards.dto'
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -25,6 +25,8 @@ export class WordListComponent {
   currentWordId = signal<number>(0);
   hasPrevious = signal<boolean>(false);
   hasNext = signal<boolean>(true);
+  userLevel = computed(() => this.userService.userLevel());
+  words = computed(() => this.flashcardService.wordsSignal());
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 
@@ -35,18 +37,21 @@ export class WordListComponent {
     this.loadWordsPage(0, true); // first item, forward
   }
 
-  userLevel = computed(() => this.userService.currentUserInfo()?.level);
-  words = computed(() => this.flashcardService.wordsSignal());
-
   private loadWordsPage(wordId: number, isDirectionForward: boolean) {
-    if (this.isLoading()) return;
+    if (this.isLoading() || !this.userLevel()) return;
 
     this.isLoading.set(true);
     this.errorResponse.set(null);
 
-    const request: WordsRequestDto = {
+    const filter: DeckFilterDto = {
       level: this.userLevel()!,
-      isOnlyMarked: false,
+      isMarked: 0,
+      themeId: 0,
+      difficulty: 0
+    }
+
+    const request: CardsPageRequestDto = {
+      filter: filter,
       wordId: wordId,
       isDirectionForward: isDirectionForward,
       pageSize: CONST_PAGE_SIZE

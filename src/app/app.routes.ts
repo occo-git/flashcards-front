@@ -33,7 +33,7 @@ export const routes: Routes = [
             { path: CONST_ROUTES.ACTIVITY.FILL_BLANK, loadComponent: () => import('@components/activities/fill-blank/fill-blank.component').then(c => c.FillBlankComponent) },
 
             // View Cards children
-            { path: CONST_ROUTES.CARDS.CARDS_DECK, loadComponent: () => import('@components/cards/flashcard-deck/flashcard-deck.component').then(c => c.FlashcardDeckComponent) },
+            { path: CONST_ROUTES.CARDS.CARDS_DECK, loadComponent: () => import('@components/cards/flashcard-from-deck/flashcard-from-deck.component').then(c => c.FlashcardFromDeckComponent) },
             { path: CONST_ROUTES.CARDS.WORDS_LIST, loadComponent: () => import('@components/words/word-list/word-list.component').then(c => c.WordListComponent) },
             //{ path: CONST_ROUTES.CARDS.CHOOSE_THEME'choose-theme', loadComponent: () => import('@components/choose-theme/choose-theme.component').then(c => c.ChooseThemeComponent) },
             //{ path: CONST_ROUTES.CARDS.CHOOSE_DIFFICULTY, loadComponent: () => import('@components/choose-difficulty/choose-difficulty.component').then(c => c.ChooseDifficultyComponent) },

@@ -13,7 +13,9 @@ export interface ApiPaths {
   }
   CARDS: {
     BY_ID: string
+    CARD_FROM_DECK: string
     LEVELS: string
+    THEMES: string
     DECK: string
     LIST: string
   }
@@ -33,7 +35,9 @@ export const CONST_API_PATHS: ApiPaths = {
   },
   CARDS: {
     BY_ID: `${environment.apiUrl}/cards`,
+    CARD_FROM_DECK: `${environment.apiUrl}/cards/card-from-deck`,
     LEVELS: `${environment.apiUrl}/cards/levels`, 
+    THEMES: `${environment.apiUrl}/cards/themes`,
     DECK: `${environment.apiUrl}/cards/deck`,
     LIST: `${environment.apiUrl}/cards/list`
   },

@@ -1,0 +1,9 @@
+<!-- <div class="filter-title">🎯</div> -->
+<mat-select class="theme-selector" panelClass="custom-dropdown-panel" [(value)]="selectedThemeId">
+    @for (theme of themes(); track theme.id) {
+    <mat-option [value]="theme.id">
+       {{ theme.translation.en }}
+    </mat-option>
+    }
+</mat-select>
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

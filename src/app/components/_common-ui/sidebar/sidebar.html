@@ -21,26 +21,26 @@
     <mat-expansion-panel class="menu-panel">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <span class="menu-icon">📚</span> View Cards
+                <span class="menu-icon">📚</span> View {{ userLevel() }} Cards
             </mat-panel-title>
         </mat-expansion-panel-header>
         <a mat-list-item routerLink="cards-deck" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <span class="menu-icon">📗</span> {{ userLevel() }} Cards
+            <span class="menu-icon">📗</span> All Cards
         </a>
         <a mat-list-item routerLink="cards-deck" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
             [queryParams]="{type: 'marked'}">
-            <span class="menu-icon">💡</span> {{ userLevel() }} Marked Cards
+            <span class="menu-icon">💡</span> Marked Cards
         </a>
         <a mat-list-item routerLink="words-list" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <span class="menu-icon">📃</span> {{ userLevel() }} Words List
+            <span class="menu-icon">📃</span> Words List
         </a>
-        <a mat-list-item routerLink="choose-theme" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <!--<a mat-list-item routerLink="choose-theme" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <span class="menu-icon">🎯</span> By Theme ☰
         </a>
-        <a mat-list-item routerLink="choose-difficulty" routerLinkActive="active"
+         <a mat-list-item routerLink="choose-difficulty" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}">
             <span class="menu-icon">💪</span> By Difficulty ☰
-        </a>
+        </a> -->
     </mat-expansion-panel>
 
     <!-- My Progress -->

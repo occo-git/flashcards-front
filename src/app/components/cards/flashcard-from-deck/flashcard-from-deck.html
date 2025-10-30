@@ -1,0 +1,21 @@
+<div class="flashcard-deck-container">
+
+    <app-filter></app-filter>
+    
+    <div class="card-counter">
+        {{ index() }} / {{ total() }}
+    </div>
+    <div class="deck">
+        <app-flashcard [card]="card()?.card"></app-flashcard>
+    </div>
+    <div class="navigation">
+        <button class="left" (click)="onPreviousCard()" [disabled]="!prevCard()">
+            {{ prevCard()?.wordText }}
+        </button>
+        <button class="right" (click)="onNextCard()" [disabled]="!nextCard()">
+            {{ nextCard()?.wordText }}
+        </button>
+    </div>
+    
+</div>
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

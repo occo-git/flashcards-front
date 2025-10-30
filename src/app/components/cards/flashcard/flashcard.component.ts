@@ -1,6 +1,6 @@
 import { Component, Input, signal, OnInit, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { FlashcardDto } from '@app/models/cards.dto';
 import { FileService } from '@services/files/file.service';
+import { CardDto } from '@app/models/cards.dto';
 import { LoaderComponent } from "@app/components/_common-ui/loader/loader.component";
 
 @Component({
@@ -12,7 +12,7 @@ import { LoaderComponent } from "@app/components/_common-ui/loader/loader.compon
   styleUrls: ['./flashcard.scss']
 })
 export class FlashcardComponent implements OnInit, OnChanges {
-  @Input() flashcard!: FlashcardDto;
+  @Input() card: CardDto | undefined;
 
   imageUrl = signal<string | null>(null);
   isLoading = signal<boolean>(false);
@@ -21,12 +21,16 @@ export class FlashcardComponent implements OnInit, OnChanges {
   constructor(private fileService: FileService) {}
 
   ngOnInit(): void {
-    this.loadImage(this.flashcard.id);
+    if (this.card)
+      this.loadImage(this.card.id);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['flashcard']) {
-      this.loadImage(this.flashcard.id); // Обновляем изображение при изменении карточки
+    if (changes['card']) {
+      if (this.card)
+        this.loadImage(this.card.id); // Обновляем изображение при изменении карточки
+      else
+        this.imageUrl.set(null);
     }
   }
 

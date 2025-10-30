@@ -8,7 +8,7 @@
         {{ currentIndex() + 1 }} / {{ cards().length }}
     </div>
     <div class="deck">
-        <app-flashcard [flashcard]="currentCard()"></app-flashcard>
+        <app-flashcard [card]="currentCard()"></app-flashcard>
     </div>
     <div class="navigation">
         <button class="left" (click)="onPreviousCard()" [disabled]="previousCardText() === ''">

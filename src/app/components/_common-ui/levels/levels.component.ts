@@ -19,9 +19,8 @@ export class LevelsComponent {
     this.init();
   }
 
+  levels = computed(() => this.flashcardService.levelsSignal());
   userLevel = computed(() => this.userService.currentUserInfo()?.level);
-
-  levels = signal<string[]>([]);
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 
@@ -30,8 +29,7 @@ export class LevelsComponent {
     this.errorResponse.set(null);
 
     this.flashcardService.getLevels().subscribe({
-      next: response => {
-        this.levels.set(response);
+      next: levels => {
         this.isLoading.set(false);
         this.errorResponse.set(null);
       },

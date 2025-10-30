@@ -25,5 +25,5 @@ export class SidebarComponent {
     public userService: UserService
   ) { }
 
-  userLevel = computed(() => this.userService.currentUserInfo()?.level);
+  userLevel = computed(() => this.userService.currentUserInfo() ? this.userService.currentUserInfo()!.level : '___');
 }

@@ -1,19 +1,29 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { UserSessionService } from '@app/services/user-session/user-session.service';
 import { RegisterRequestDto, LoginRequestDto, TokenResponseDto } from '@app/models/auth.dtos'
-import { UserInfoDto, LevelRequestDto } from '@app/models/user.dtos'
+import { UserInfoDto } from '@app/models/user.dtos'
 import { CONST_API_PATHS } from '@services/api.constants'
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    currentUserInfo = signal<UserInfoDto | null>(null);
-    isLoading = signal<boolean>(false);
+
+    private readonly LEVEL_KEY = 'userLevel';
+    private userInfo = signal<UserInfoDto | null>(null);    
+    private loading = signal<boolean>(false);
+
+    get currentUserInfo() { return this.userInfo.asReadonly(); }
+    userLevel = computed(() => {
+        const currentLevel = this.currentUserInfo()?.level;
+        if (currentLevel) return currentLevel;
+        return localStorage.getItem(this.LEVEL_KEY);
+    });
+    get isLoading() { return this.loading.asReadonly(); }
 
     constructor(
         private http: HttpClient,
@@ -22,32 +32,43 @@ export class UserService {
         this.init();
     }
 
+    //#region init
     private init(): void {
         if (this.session.isAuthenticated()) {
             this.loadUser();
         } else {
-            this.isLoading.set(false);
+            this.loading.set(false);
         }
     }
 
     private loadUser(): void {
-        this.isLoading.set(true);
+        this.loading.set(true);
         this.me().subscribe({
             next: (user) => {
-                this.currentUserInfo.set(user);
-                this.isLoading.set(false);
+                this.userInfo.set(user);
+                localStorage.setItem(this.LEVEL_KEY, user.level);
+                this.loading.set(false);
             },
             error: (err) => {
-                this.currentUserInfo.set(null);
-                this.isLoading.set(false);
+                this.userInfo.set(null);
+                localStorage.removeItem(this.LEVEL_KEY);
+                this.loading.set(false);
             }
         });
     }
 
+    private me(): Observable<UserInfoDto> {
+        return this.session.getHeaders().pipe(
+            switchMap(headers =>
+                this.http.get<UserInfoDto>(CONST_API_PATHS.USERS.ME, { headers })
+            ));
+    }
+    //#endregion
+
+    //#region register, login, logout
     register(request: RegisterRequestDto): Observable<UserInfoDto> {
         return this.http
             .post<UserInfoDto>(CONST_API_PATHS.USERS.REGISTER, request)
-        //.pipe(catchError(this.handleError));
     }
 
     login(request: LoginRequestDto): Observable<TokenResponseDto> {
@@ -55,39 +76,28 @@ export class UserService {
         return this.http
             .post<TokenResponseDto>(CONST_API_PATHS.USERS.LOGIN, request, { headers })
             .pipe(
-                tap(response => {
-                    this.session.saveLoginResponse(response);
+                tap(tokens => {
+                    this.session.saveLoginResponse(tokens);
                     this.loadUser();
                 })
             );
-    }
-
-    me(): Observable<UserInfoDto> {
-        return this.session.getHeaders().pipe(
-            switchMap(headers =>
-                this.http.get<UserInfoDto>(CONST_API_PATHS.USERS.ME, { headers })
-                    .pipe(
-                        tap(response => this.currentUserInfo.set(response))
-                    )
-            ));
     }
 
     logout(): Observable<boolean> {
         return this.session.getHeaders().pipe(
             switchMap(headers => {
                 this.session.clear();
-                this.currentUserInfo.set(null);
+                this.userInfo.set(null);
                 return this.http.post<boolean>(CONST_API_PATHS.USERS.LOGOUT, {}, { headers });
             }));
     }
+    //#endregion
 
     setLevel(level: string) {
         return this.session.getHeaders().pipe(
             switchMap(headers => {
-                return this.http.post<boolean>(CONST_API_PATHS.USERS.LEVEL, { level}, { headers })
-                .pipe(
-                    tap(() => this.loadUser())
-                )
+                return this.http.post<boolean>(CONST_API_PATHS.USERS.LEVEL, { level }, { headers })
+                    .pipe(tap(() => this.loadUser()))
             })
         )
     }

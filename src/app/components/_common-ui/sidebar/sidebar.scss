@@ -5,7 +5,7 @@
     background-color: var(--bg-color);
     display: grid;
     grid-template-rows: auto 1fr auto;
-    border: 1px solid var(--mid-color);
+    border: 1px solid var(--border-color);
 }
 
 .side-menu-list {
@@ -39,5 +39,5 @@ a.item-out {
 }
 
 .break-line {
-    border-bottom: 1px solid var(--mid-color);
+    border-bottom: 1px solid var(--border-color);
 }
