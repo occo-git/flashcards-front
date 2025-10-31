@@ -3,7 +3,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { UserService } from '@app/services/user/user.service';
+import { SvgIconComponent } from '@components/_common-ui/svg-icon/svg-icon.component';
 import { LoaderComponent } from "../loader/loader.component";
+import { SVG_ICON } from "@app/components/svg-icon.constants"
 
 @Component({
   selector: 'app-sidebar',
@@ -14,12 +16,15 @@ import { LoaderComponent } from "../loader/loader.component";
     RouterLinkActive,
     MatExpansionModule,
     MatListModule,
+    SvgIconComponent
     //LoaderComponent
-],
+  ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss'
 })
 export class SidebarComponent {
+
+  ICON = SVG_ICON;
 
   constructor(
     public userService: UserService

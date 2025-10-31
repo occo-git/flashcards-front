@@ -1,19 +1,19 @@
 <div class="flashcard" (click)="toggleTranslation()">
   @if (card) {
     <div class="header">
-      <span class="level">{{ card.level }}</span>
       <span class="part-of-speech">{{ card.partOfSpeech }}</span>
+      <a (click)="onStar()" class="card-star">⭐</a>
     </div>
     <div class="photo-container">
       @if (isLoading()) {
         <app-loader></app-loader>
       }
       @else if (imageUrl()) {
-        <img [src]="imageUrl()" alt="{{ card.text }}">
+        <img [src]="imageUrl()" alt="{{ card.wordText }}">
       }    
     </div>
     <div class="text">
-      {{ showTranslation() ? card.translation.ru : card.text }}
+      {{ showTranslation() ? card.translation.ru : card.wordText }}
     </div>
     <div class="transcription">
       {{ card.transcription }}

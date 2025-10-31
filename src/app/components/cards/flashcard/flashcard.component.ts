@@ -51,4 +51,8 @@ export class FlashcardComponent implements OnInit, OnChanges {
       }
     });
   }
+
+  onStar() {
+    
+  }
 }

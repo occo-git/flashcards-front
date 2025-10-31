@@ -22,8 +22,8 @@ export class FlashcardDeckComponent {
   userLevel = computed(() => this.userService.userLevel());
   cards = computed(() => this.flashcardService.cardsSignal());
   currentCard = computed(() => this.cards()[this.currentIndex()] || null);
-  previousCardText = computed(() => this.currentIndex() > 0 ? this.cards()[this.currentIndex() - 1]?.text : '');
-  nextCardText = computed(() => this.currentIndex() < this.cards().length - 1 ? this.cards()[this.currentIndex() + 1]?.text : '');
+  previousCardText = computed(() => this.currentIndex() > 0 ? this.cards()[this.currentIndex() - 1]?.wordText : '');
+  nextCardText = computed(() => this.currentIndex() < this.cards().length - 1 ? this.cards()[this.currentIndex() + 1]?.wordText : '');
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 

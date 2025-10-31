@@ -7,4 +7,8 @@
     width: 400px;
     margin: 2px;
     user-select: none;
+
+    &:hover {
+        color: var(--light-color);
+    }
 }

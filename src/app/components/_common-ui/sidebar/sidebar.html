@@ -3,17 +3,19 @@
     <mat-expansion-panel class="menu-panel">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <span class="menu-icon">💡</span> Start Activity
+                <app-svg-icon [svg]="ICON.PLAY"></app-svg-icon>
+                Start Activity
             </mat-panel-title>
         </mat-expansion-panel-header>
         <a mat-list-item routerLink="quiz" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <span class="menu-icon">✨</span> Start Quiz
+            <app-svg-icon [svg]="ICON.BULB"></app-svg-icon>
+            Start Quiz
         </a>
         <a mat-list-item routerLink="type-word" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <span class="menu-icon">⌨️</span> Type Word
+            <app-svg-icon [svg]="ICON.TAP"></app-svg-icon> Type Word
         </a>
         <a mat-list-item routerLink="fill-blank" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <span class="menu-icon">🧩</span> Fill Blank
+            <app-svg-icon [svg]="ICON.PUZZLE"></app-svg-icon> Fill Blank
         </a>
     </mat-expansion-panel>
 
@@ -21,18 +23,18 @@
     <mat-expansion-panel class="menu-panel">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <span class="menu-icon">📚</span> View {{ userLevel() }} Cards
+                <app-svg-icon [svg]="ICON.DRAWER"></app-svg-icon> View {{ userLevel() }} Cards
             </mat-panel-title>
         </mat-expansion-panel-header>
         <a mat-list-item routerLink="cards-deck" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <span class="menu-icon">📗</span> All Cards
+            <app-svg-icon [svg]="ICON.COPY"></app-svg-icon> All Cards
         </a>
         <a mat-list-item routerLink="cards-deck" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
             [queryParams]="{type: 'marked'}">
-            <span class="menu-icon">💡</span> Marked Cards
+            <app-svg-icon [svg]="ICON.BOOKMARK"></app-svg-icon> Marked Cards
         </a>
         <a mat-list-item routerLink="words-list" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <span class="menu-icon">📃</span> Words List
+            <app-svg-icon [svg]="ICON.DOC"></app-svg-icon> Words List
         </a>
         <!--<a mat-list-item routerLink="choose-theme" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <span class="menu-icon">🎯</span> By Theme ☰
@@ -44,22 +46,26 @@
     </mat-expansion-panel>
 
     <!-- My Progress -->
-    <a class="item-out" mat-list-item routerLink="progress" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <span class="menu-icon">📈</span> My Progress
+    <a class="item-out" mat-list-item routerLink="progress" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <app-svg-icon [svg]="ICON.DASHBOARD"></app-svg-icon> My Progress
     </a>
     <!-- Change {lev} Level -->
-    <a class="item-out" mat-list-item routerLink="change-level" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <span class="menu-icon">📶</span> Change {{ userLevel() }} Level
-    </a>  
-</mat-nav-list> 
+    <a class="item-out" mat-list-item routerLink="change-level" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <app-svg-icon [svg]="ICON.CROWN"></app-svg-icon> Change {{ userLevel() }} Level
+    </a>
+</mat-nav-list>
 <div class="break-line"></div>
 <mat-nav-list class="side-menu-list">
     <!-- Help -->
-    <a class="item-out" mat-list-item routerLink="help" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <span class="menu-icon">ℹ️</span> Help
-    </a>  
+    <a class="item-out" mat-list-item routerLink="help" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <app-svg-icon [svg]="ICON.INFO"></app-svg-icon> Help
+    </a>
     <!-- Logout -->
-    <a class="item-out" mat-list-item routerLink="logout" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <span class="menu-icon">⬅️</span> Logout
+    <a class="item-out" mat-list-item routerLink="logout" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <app-svg-icon [svg]="ICON.LOGOUT"></app-svg-icon> Logout
     </a>
 </mat-nav-list>

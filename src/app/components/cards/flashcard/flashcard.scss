@@ -23,14 +23,13 @@ $card-padding: 32px;
 
   .header {
     //background-color: blue;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: auto auto;
 
     .level {
       background-color: var(--light-color);
+      color: var(--second-color);
       font-size: 0.9rem;
-      color: var(--mid-color);
       padding: 4px;
       border-radius: var(--border-R);
     }
@@ -39,7 +38,12 @@ $card-padding: 32px;
       font-size: 0.9rem;
       font-style: italic;
       padding: 4px;
-      color: var(--mid-color);
+      color: var(--second-color);
+    }
+
+    .card-star {
+      text-align: right;
+      font-size: 1.2rem;
     }
   }
 
@@ -71,7 +75,7 @@ $card-padding: 32px;
 
   .transcription {
     font-size: 1rem;
-    color: var(--mid-color);
+    color: var(--second-color);
     text-align: left;
   }
 

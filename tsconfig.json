@@ -16,6 +16,7 @@
     "module": "preserve",  
     "baseUrl": "src",
     "paths": {
+      "@assets/*": ["assets/*"],
       "@app/*": ["app/*"],
       "@components/*": ["app/components/*"],
       "@config/*": ["app/config/*"],

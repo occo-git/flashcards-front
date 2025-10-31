@@ -1,5 +1,5 @@
 <button 
   class="word-item" 
   (click)="onWordClick()">
-    {{word.text}} - {{word.translation.ru}}
+    {{word.wordText}} - {{word.translation.ru}} @if(word.isMarked) { ⭐ }
 </button>

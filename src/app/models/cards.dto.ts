@@ -26,20 +26,22 @@ export interface LevelFilterDto {
 //#endregion Respond
 export interface CardDto {
   id: number
-  text: string
+  wordText: string
   transcription: string
   partOfSpeech: string
   translation: { en: string; ru: string }
   example: string
   level: string //'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+  isMarked: boolean
   difficulty: number
   imageUrl?: string
 }
 
 export interface WordDto {
   id: number
-  text: string
+  wordText: string
   translation: TranslationDto
+  isMarked: boolean
 }
 
 export interface CardExtendedDto { 
