@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
-import { UserSessionService } from '@app/services/user-session/user-session.service';
-import { CardsPageRequestDto, CardDto, WordDto, CardRequestDto, CardExtendedDto, LevelFilterDto, ThemeDto, TranslationDto } from '@app/models/cards.dto';
+import { UserSessionService } from '@services/user-session/user-session.service';
+import { CardsPageRequestDto, CardDto, WordDto, CardRequestDto, CardExtendedDto, LevelFilterDto, ThemeDto, TranslationDto } from '@models/cards.dto';
 import { CONST_API_PATHS } from '@services/api.constants';
 
 @Injectable({
@@ -76,7 +76,8 @@ export class FlashcardService {
         const allTheme: ThemeDto = {
           id: 0,
           level: request.level,
-          translation: { 'en': '🎯 All', 'ru': '' } as TranslationDto,
+          isAll: true,
+          translation: { 'en': '• All', 'ru': '' } as TranslationDto,
           wordsCount: 0
         };
 

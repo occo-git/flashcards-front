@@ -1,8 +1,8 @@
-<!-- <div class="filter-title">🎯</div> -->
-<mat-select class="theme-selector" panelClass="custom-dropdown-panel" [(value)]="selectedThemeId">
+<div class="filter-title"><app-svg-icon [svg]="ICON.FOLDER"></app-svg-icon></div>
+<mat-select class="theme-selector" panelClass="custom-dropdown-panel" [value]="selectedThemeId()" (selectionChange)="onThemeChange($event)">
     @for (theme of themes(); track theme.id) {
     <mat-option [value]="theme.id">
-       {{ theme.translation.en }}
+        {{ theme.translation.en }}
     </mat-option>
     }
 </mat-select>

@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
-import { UserSessionService } from '@app/services/user-session/user-session.service';
-import { RegisterRequestDto, LoginRequestDto, TokenResponseDto } from '@app/models/auth.dtos'
-import { UserInfoDto } from '@app/models/user.dtos'
+import { UserSessionService } from '@services/user-session/user-session.service';
+import { RegisterRequestDto, LoginRequestDto, TokenResponseDto } from '@models/auth.dtos'
+import { UserInfoDto } from '@models/user.dtos'
 import { CONST_API_PATHS } from '@services/api.constants'
 
 @Injectable({

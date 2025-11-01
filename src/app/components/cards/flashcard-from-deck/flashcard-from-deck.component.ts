@@ -1,9 +1,12 @@
-import { Component, signal, computed, effect, ViewEncapsulation } from '@angular/core';
+import { Component, signal, computed, Input, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { FlashcardComponent } from '@components/cards/flashcard/flashcard.component';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
-import { UserService } from '@app/services/user/user.service';
-import { DeckFilterDto, CardRequestDto } from '@app/models/cards.dto';
+import { UserService } from '@services/user/user.service';
+import { DeckFilterDto, CardRequestDto } from '@models/cards.dto';
+import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
+import { SVG_ICON } from '@components/svg-icon.constants';
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -13,14 +16,22 @@ import { FilterComponent } from "@components/cards/filter/filter.component";
   selector: 'app-flashcard-from-deck',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
-  imports: [FlashcardComponent, ErrorMessageComponent, FilterComponent],
+  imports: [FlashcardComponent, ErrorMessageComponent, SvgIconComponent, FilterComponent],
   templateUrl: './flashcard-from-deck.html',
   styleUrl: './flashcard-from-deck.scss'
 })
 export class FlashcardFromDeckComponent {
+  @Input() set themeId(value: number) {
+    this.selectedThemeId.set(value);
+    this.loadFlashcard(); // ← Перезагружаем карточки
+  }
+
+  ICON = SVG_ICON;
   userLevel = computed(() => this.userService.userLevel());
-  card = computed(() => this.flashcardService.cardSignal());  
+  selectedThemeId = signal<number>(0);
+  card = computed(() => this.flashcardService.cardSignal());
   index = computed(() => this.card()?.index ?? 0);
+  isMarked = computed(() => this.card()?.card?.isMarked ?? false);
   total = computed(() => this.card()?.total ?? 0);
   prevCard = computed(() => this.card()?.prevCard);
   nextCard = computed(() => this.card()?.nextCard);
@@ -28,10 +39,17 @@ export class FlashcardFromDeckComponent {
   errorResponse = signal<HttpErrorResponse | null>(null);
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private flashcardService: FlashcardService
   ) {
-    this.loadFlashcard();
+    this.activatedRoute.queryParams.subscribe(params => {
+      const wordId = +params['wordId'] || 0;
+      if (wordId > 0)
+        this.loadFlashcard(wordId);
+      else
+        this.loadFlashcard();
+    });
   }
 
   private loadFlashcard(wordId: number = 0) {
@@ -43,7 +61,7 @@ export class FlashcardFromDeckComponent {
     const filter: DeckFilterDto = {
       level: this.userLevel()!,
       isMarked: 0,
-      themeId: 0,
+      themeId: this.selectedThemeId(),
       difficulty: 0
     }
     const request: CardRequestDto = {
@@ -65,12 +83,16 @@ export class FlashcardFromDeckComponent {
   onPreviousCard() {
     if (this.prevCard()) {
       this.loadFlashcard(this.prevCard()!.id);
-    }      
+    }
   }
 
   onNextCard() {
     if (this.nextCard())
       this.loadFlashcard(this.nextCard()!.id)
+  }
+
+  onBookmark(mark: boolean) {
+
   }
 
   clearError() {

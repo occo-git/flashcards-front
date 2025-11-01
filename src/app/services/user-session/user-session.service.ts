@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { TokenResponseDto, RefreshTokenRequestDto } from '@app/models/auth.dtos'
+import { TokenResponseDto, RefreshTokenRequestDto } from '@models/auth.dtos'
 import { CONST_API_PATHS } from '@services/api.constants'
 
 @Injectable({

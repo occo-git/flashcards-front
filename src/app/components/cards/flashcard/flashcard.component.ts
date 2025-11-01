@@ -1,7 +1,7 @@
 import { Component, Input, signal, OnInit, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FileService } from '@services/files/file.service';
-import { CardDto } from '@app/models/cards.dto';
-import { LoaderComponent } from "@app/components/_common-ui/loader/loader.component";
+import { CardDto } from '@models/cards.dto';
+import { LoaderComponent } from "@components/_common-ui/loader/loader.component";
 
 @Component({
   selector: 'app-flashcard',
@@ -50,9 +50,5 @@ export class FlashcardComponent implements OnInit, OnChanges {
         this.isLoading.set(false);
       }
     });
-  }
-
-  onStar() {
-    
   }
 }

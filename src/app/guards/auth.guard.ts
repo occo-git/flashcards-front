@@ -1,8 +1,8 @@
 // src/app/guards/auth.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { UserSessionService } from '@app/services/user-session/user-session.service';
-import { CONST_ROUTES } from '@app/routing/routes.constans';
+import { UserSessionService } from '@services/user-session/user-session.service';
+import { CONST_ROUTES } from '@routing/routes.constans';
 
 @Injectable({
     providedIn: 'root'

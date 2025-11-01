@@ -2,16 +2,16 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { UserService } from '@app/services/user/user.service';
-import { RegisterRequestDto } from '@app/models/auth.dtos'
+import { UserService } from '@services/user/user.service';
+import { RegisterRequestDto } from '@models/auth.dtos'
 
-import { CONST_VALIDATION } from '@app/validation/validation.constants'
+import { CONST_VALIDATION } from '@validation/validation.constants'
 import { CustomValidators } from '@validation/custom-validators';
 import { ErrorMessageDirective } from '@validation/error-message/error-message.directive'
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { CONST_ROUTES } from '@app/routing/routes.constans';
+import { CONST_ROUTES } from '@routing/routes.constans';
 
 @Component({
     selector: 'app-register',

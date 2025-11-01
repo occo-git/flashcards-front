@@ -1,11 +1,12 @@
-import { Component, signal, computed, effect, ViewEncapsulation } from '@angular/core';
+import { Component, signal, computed, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 import { MatSelectModule } from '@angular/material/select';
 import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
-import { FlashcardComponent } from '@components/cards/flashcard/flashcard.component';
-import { UserService } from '@app/services/user/user.service';
+import { UserService } from '@services/user/user.service';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
-import { LevelFilterDto, ThemeDto } from '@app/models/cards.dto';
+import { LevelFilterDto, ThemeDto } from '@models/cards.dto';
+import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
+import { SVG_ICON } from '@components/svg-icon.constants';
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,19 +15,20 @@ import { HttpErrorResponse } from '@angular/common/http';
   selector: 'app-filter',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
-  imports: [MatSelectModule, ErrorMessageComponent],
+  imports: [MatSelectModule, SvgIconComponent, ErrorMessageComponent],
   templateUrl: './filter.html',
   styleUrl: './filter.scss'
 })
 export class FilterComponent {
+@Output() themeSelected = new EventEmitter<number>();
 
+  ICON = SVG_ICON;
   userLevel = computed(() => this.userService.userLevel());
   themes = computed(() => this.flashcardService.themesSignal());
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
+  selectedThemeId = signal<number>(0);
 
-  selectedThemeId: number = 0;
-  
   constructor(
     private userService: UserService,
     private flashcardService: FlashcardService
@@ -55,6 +57,11 @@ export class FilterComponent {
     });
   }
 
+  onThemeChange(event: any) {
+    const themeId = +event.value; // '+' to get number from string
+    this.selectedThemeId.set(themeId);
+    this.themeSelected.emit(themeId);
+  }
 
   clearError() {
     this.errorResponse.set(null);

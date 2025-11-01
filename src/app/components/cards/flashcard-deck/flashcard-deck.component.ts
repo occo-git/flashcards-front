@@ -3,8 +3,8 @@ import { Component, signal, computed, effect, ViewEncapsulation } from '@angular
 import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
 import { FlashcardComponent } from '@components/cards/flashcard/flashcard.component';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
-import { UserService } from '@app/services/user/user.service';
-import { CardsPageRequestDto, DeckFilterDto } from '@app/models/cards.dto';
+import { UserService } from '@services/user/user.service';
+import { CardsPageRequestDto, DeckFilterDto } from '@models/cards.dto';
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -18,6 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./flashcard-deck.scss']
 })
 export class FlashcardDeckComponent {
+
   currentIndex = signal<number>(0);
   userLevel = computed(() => this.userService.userLevel());
   cards = computed(() => this.flashcardService.cardsSignal());
@@ -74,6 +75,10 @@ export class FlashcardDeckComponent {
     if (this.currentIndex() < this.cards().length - 1) {
       this.currentIndex.update(index => index + 1);
     }
+  }
+
+  onBookmark(mark: boolean) {
+
   }
 
   clearError() {

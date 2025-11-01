@@ -35,15 +35,12 @@ $card-padding: 32px;
     }
 
     .part-of-speech {
+      //background-color: orange;
       font-size: 0.9rem;
       font-style: italic;
+      text-align: left;
       padding: 4px;
       color: var(--second-color);
-    }
-
-    .card-star {
-      text-align: right;
-      font-size: 1.2rem;
     }
   }
 

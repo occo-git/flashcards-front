@@ -1,9 +1,9 @@
 import { Component, signal, computed, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '@app/services/user/user.service';
+import { UserService } from '@services/user/user.service';
 import { CONST_ROUTES } from '@routing/routes.constans'
 
-import { LoaderComponent } from '@app/components/_common-ui/loader/loader.component';
+import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
 

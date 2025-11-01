@@ -1,6 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
-import { FlashcardService } from '@app/services/flashcard/flashcard.service';
-import { UserService } from '@app/services/user/user.service';
+import { FlashcardService } from '@services/flashcard/flashcard.service';
+import { UserService } from '@services/user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoaderComponent } from "../loader/loader.component";
 

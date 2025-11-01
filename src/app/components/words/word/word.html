@@ -1,5 +1,8 @@
-<button 
-  class="word-item" 
-  (click)="onWordClick()">
-    {{word.wordText}} - {{word.translation.ru}} @if(word.isMarked) { ⭐ }
+<button class="word-item" (click)="onWordClick()">
+  {{word.wordText}} - {{word.translation.ru}}
 </button>
+@if(word.isMarked) {
+<div class="word-bookmark">
+  <app-svg-icon [svg]="ICON.BOOKMARK" size="sm"></app-svg-icon>
+</div>
+}

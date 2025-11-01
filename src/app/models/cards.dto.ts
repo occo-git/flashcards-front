@@ -59,6 +59,7 @@ export interface CardInfo {
 
 export interface ThemeDto {
   id: number
+  isAll: boolean
   level: string
   translation: TranslationDto
   wordsCount: number

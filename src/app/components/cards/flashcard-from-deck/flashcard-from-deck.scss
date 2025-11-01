@@ -8,7 +8,7 @@ $card-height: 700px;
   margin-top: -64px;
 }
 
-.flashcard-deck-container {  
+.flashcard-deck-container {
   //background-color: yellow;
   display: flex;
   flex-direction: column;
@@ -22,13 +22,24 @@ $card-height: 700px;
     color: var(--second-color);
   }
 
+  .card-bookmark {
+    height: 1px;
+    //background-color: red;
+    width: $card-width;
+    text-align: right;
+    font-size: 1.2rem;
+    translate: -24px 0px;
+    cursor: pointer;
+    user-select: none;
+  }
+
   .deck {
     //;
     height: $card-height;
-    width: $card-width;    
+    width: $card-width;
   }
 
-  .navigation {    
+  .navigation {
     //background-color: green;
     width: $card-width;
     display: grid;

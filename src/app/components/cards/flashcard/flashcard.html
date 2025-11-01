@@ -1,30 +1,29 @@
 <div class="flashcard" (click)="toggleTranslation()">
   @if (card) {
-    <div class="header">
-      <span class="part-of-speech">{{ card.partOfSpeech }}</span>
-      <a (click)="onStar()" class="card-star">⭐</a>
-    </div>
-    <div class="photo-container">
-      @if (isLoading()) {
-        <app-loader></app-loader>
-      }
-      @else if (imageUrl()) {
-        <img [src]="imageUrl()" alt="{{ card.wordText }}">
-      }    
-    </div>
-    <div class="text">
-      {{ showTranslation() ? card.translation.ru : card.wordText }}
-    </div>
-    <div class="transcription">
-      {{ card.transcription }}
-    </div>
-    <div class="translation-en">
-      {{ card.translation.en }}
-    </div>
-    <div class="example">
-      {{ card.example }}
-    </div>
+  <div class="header">
+    <span class="part-of-speech">{{ card.partOfSpeech }}</span>
+  </div>
+  <div class="photo-container">
+    @if (isLoading()) {
+    <app-loader></app-loader>
+    }
+    @else if (imageUrl()) {
+    <img [src]="imageUrl()" alt="{{ card.wordText }}">
+    }
+  </div>
+  <div class="text">
+    {{ showTranslation() ? card.translation.ru : card.wordText }}
+  </div>
+  <div class="transcription">
+    {{ card.transcription }}
+  </div>
+  <div class="translation-en">
+    {{ card.translation.en }}
+  </div>
+  <div class="example">
+    {{ card.example }}
+  </div>
   } @else {
-     <!-- loader -->
+  <!-- loader -->
   }
 </div>

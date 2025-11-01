@@ -1,13 +1,15 @@
 import { Component, ViewEncapsulation, signal, computed } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { LoaderComponent } from '@app/components/_common-ui/loader/loader.component';
+import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
 import { WordComponent } from '@components/words/word/word.component';
-import { UserService } from '@app/services/user/user.service';
+import { UserService } from '@services/user/user.service';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
 import { DeckFilterDto, CardsPageRequestDto } from '@models/cards.dto'
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CONST_ROUTES } from '@app/routing/routes.constans';
 
 const CONST_PAGE_SIZE = 10;
 
@@ -31,6 +33,7 @@ export class WordListComponent {
   errorResponse = signal<HttpErrorResponse | null>(null);
 
   constructor(
+    private router: Router,
     private userService: UserService,
     private flashcardService: FlashcardService
   ) {
@@ -106,7 +109,9 @@ export class WordListComponent {
   }
 
   onWordSelected(wordId: number) {
-
+    this.router.navigate([CONST_ROUTES.CARDS.CARDS_DECK], {
+      queryParams: { wordId }  // ← Передаём wordId
+    });
   }
 
   clearError() {

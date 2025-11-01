@@ -2,11 +2,11 @@ import { Component, ViewEncapsulation, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
-import { UserService } from '@app/services/user/user.service';
+import { UserService } from '@services/user/user.service';
 import { LoginRequestDto } from '@models/auth.dtos';
 import { CONST_ROUTES } from '@routing/routes.constans'
 
-import { CONST_VALIDATION } from '@app/validation/validation.constants'
+import { CONST_VALIDATION } from '@validation/validation.constants'
 import { CustomValidators } from '@validation/custom-validators';
 import { ErrorMessageDirective } from '@validation/error-message/error-message.directive'
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';

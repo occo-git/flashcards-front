@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { LevelsComponent } from "@app/components/_common-ui/levels/levels.component";
+import { LevelsComponent } from "@components/_common-ui/levels/levels.component";
 
 @Component({
   selector: 'app-change-level',
