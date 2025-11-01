@@ -25,10 +25,16 @@ export class FlashcardFromDeckComponent {
     this.selectedThemeId.set(value);
     this.loadFlashcard(); // ← Перезагружаем карточки
   }
+  @Input() set bookmarkId(value: number) {
+    this.selectedBookmarkId.set(value);
+    this.loadFlashcard(); // ← Перезагружаем карточки
+  }
 
   ICON = SVG_ICON;
   userLevel = computed(() => this.userService.userLevel());
   selectedThemeId = signal<number>(0);
+  selectedBookmarkId = signal<number>(0);
+
   card = computed(() => this.flashcardService.cardSignal());
   index = computed(() => this.card()?.index ?? 0);
   isMarked = computed(() => this.card()?.card?.isMarked ?? false);
@@ -60,7 +66,7 @@ export class FlashcardFromDeckComponent {
 
     const filter: DeckFilterDto = {
       level: this.userLevel()!,
-      isMarked: 0,
+      isMarked: this.selectedBookmarkId(),
       themeId: this.selectedThemeId(),
       difficulty: 0
     }

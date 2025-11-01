@@ -4,7 +4,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
 import { UserService } from '@services/user/user.service';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
-import { LevelFilterDto, ThemeDto } from '@models/cards.dto';
+import { LevelFilterDto, ThemeDto, BookmarkDto } from '@models/cards.dto';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';
 
@@ -20,14 +20,22 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './filter.scss'
 })
 export class FilterComponent {
-@Output() themeSelected = new EventEmitter<number>();
+  @Output() themeSelected = new EventEmitter<number>();
+  @Output() bookmarkSelected = new EventEmitter<number>();
 
   ICON = SVG_ICON;
   userLevel = computed(() => this.userService.userLevel());
   themes = computed(() => this.flashcardService.themesSignal());
+  bookmarks = signal<BookmarkDto[]>([
+    { id: 0, isAll: true, name: '• All' },
+    { id: 1, isAll: false, name: 'Marked' },
+    { id: -1, isAll: false, name: 'Not Marked' }
+  ]);
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
+
   selectedThemeId = signal<number>(0);
+  selectedBookmarkId = signal<number>(0);
 
   constructor(
     private userService: UserService,
@@ -61,6 +69,12 @@ export class FilterComponent {
     const themeId = +event.value; // '+' to get number from string
     this.selectedThemeId.set(themeId);
     this.themeSelected.emit(themeId);
+  }
+
+  onBookmarkChange(event: any) {
+    const bookmarkId = +event.value; // '+' to get number from string
+    this.selectedBookmarkId.set(bookmarkId);
+    this.bookmarkSelected.emit(bookmarkId);
   }
 
   clearError() {

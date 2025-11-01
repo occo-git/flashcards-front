@@ -1,9 +1,33 @@
-<div class="filter-title"><app-svg-icon [svg]="ICON.FOLDER"></app-svg-icon></div>
-<mat-select class="theme-selector" panelClass="custom-dropdown-panel" [value]="selectedThemeId()" (selectionChange)="onThemeChange($event)">
-    @for (theme of themes(); track theme.id) {
-    <mat-option [value]="theme.id">
-        {{ theme.translation.en }}
-    </mat-option>
-    }
-</mat-select>
+<div class="filter-container">
+
+    <div class="filter-item">
+        <div class="filter-title"><app-svg-icon [svg]="ICON.BOOKMARK"></app-svg-icon></div>
+        <mat-select class="dropdown-selector s150" panelClass="custom-dropdown-panel" [value]="selectedBookmarkId()"
+            (selectionChange)="onBookmarkChange($event)">
+
+            @for (bookmark of bookmarks(); track bookmark.id) {
+            <mat-option [value]="bookmark.id">
+                {{ bookmark.name }}
+            </mat-option>
+            }
+
+        </mat-select>
+    </div>
+
+    <div class="filter-item">
+        <div class="filter-title"><app-svg-icon [svg]="ICON.FOLDER"></app-svg-icon></div>
+        <mat-select class="dropdown-selector s400" panelClass="custom-dropdown-panel" [value]="selectedThemeId()"
+            (selectionChange)="onThemeChange($event)">
+
+            @for (theme of themes(); track theme.id) {
+            <mat-option [value]="theme.id">
+                {{ theme.translation.en }}
+            </mat-option>
+            }
+
+        </mat-select>
+    </div>
+
+
+</div>
 <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

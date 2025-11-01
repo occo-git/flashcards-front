@@ -11,32 +11,28 @@
             <input 
                 class="input-control" type="text" id="username" name="username" required 
                 formControlName="username"                
-                appErrorMessage
-                [errorElement]="usernameError"/>
+                appErrorMessage [errorElement]="usernameError"/>
             <div></div><div class="error-message" #usernameError></div>
 
             <label class="label-control" for="username">E-mail</label>
             <input 
                 class="input-control" type="text" id="email" name="email" required 
                 formControlName="email"
-                appErrorMessage
-                [errorElement]="emailError"/>
+                appErrorMessage [errorElement]="emailError"/>
             <div></div><div class="error-message" #emailError></div>
 
             <label class="label-control" for="password">Password</label>
             <input 
                 class="input-control" type="password" id="password" name="password" required 
                 formControlName="password"
-                appErrorMessage
-                [errorElement]="passwordError"/>
+                appErrorMessage [errorElement]="passwordError"/>
             <div></div><div class="error-message" #passwordError></div>
 
             <label class="label-control" for="password-confirm">Confirm</label>
             <input 
                 class="input-control" type="password" id="password-confirm" name="password-confirm" required 
                 formControlName="passwordConfirm"
-                appErrorMessage
-                [errorElement]="passwordConfirmError"/>
+                appErrorMessage [errorElement]="passwordConfirmError"/>
             <div></div><div class="error-message" #passwordConfirmError></div>
 
             <div class="submit-control">

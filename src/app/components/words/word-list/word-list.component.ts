@@ -17,7 +17,7 @@ const CONST_PAGE_SIZE = 10;
   selector: 'app-word-list',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
-  imports: [LoaderComponent, WordComponent, ErrorMessageComponent],
+  imports: [WordComponent, ErrorMessageComponent],
   templateUrl: './word-list.html',
   styleUrl: './word-list.scss'
 })

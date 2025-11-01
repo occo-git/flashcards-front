@@ -21,7 +21,7 @@
       "@components/*": ["app/components/*"],
       "@config/*": ["app/config/*"],
       "@validation/*": ["app/validation/*"],
-      "@guards/*": ["app/guards/*"],
+      "@guards/*": ["app/routing/guards/*"],
       "@models/*": ["app/models/*"],
       "@routing/*": ["app/routing/*"],
       "@services/*": ["app/services/*"],

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from './components/_common-ui/layout/layout.component';
+import { LayoutComponent } from '@components/_common-ui/layout/layout.component';
 import { AuthGuard } from '@guards/auth.guard';
 import { RedirectIfAuthenticatedGuard } from '@guards/redirect-if-auth.guard';
-import { CONST_ROUTES } from './routing/routes.constans';
+import { CONST_ROUTES } from '@routing/routes.constans';
 
 // Define the application routes (lazy-loaded where appropriate for performance)
 export const routes: Routes = [
@@ -10,7 +10,7 @@ export const routes: Routes = [
     // Default route for unauthenticated users (login or register)
     { path: CONST_ROUTES.ROOT, redirectTo: CONST_ROUTES.AUTH.LOGIN, pathMatch: 'full' },
 
-    // Login and Registration routes (no LayoutComponent)
+    // Login and Registration routes, redirect to default page if already authenticated
     {
         path: CONST_ROUTES.AUTH.LOGIN,
         canActivate: [RedirectIfAuthenticatedGuard],
@@ -29,7 +29,7 @@ export const routes: Routes = [
 
             // Start Activity children
             { path: CONST_ROUTES.ACTIVITY.QUIZ, loadComponent: () => import('@components/activities/quiz/start-quiz.component').then(c => c.StartQuizComponent) },
-            //{ path: CONST_ROUTES.ACTIVITY.TYPE_WORD, loadComponent: () => import('@components/activities/type-word/type-word.component').then(c => c.TypeWordComponent) },
+            { path: CONST_ROUTES.ACTIVITY.TYPE_WORD, loadComponent: () => import('@components/activities/type-word/type-word.component').then(c => c.TypeWordComponent) },
             { path: CONST_ROUTES.ACTIVITY.FILL_BLANK, loadComponent: () => import('@components/activities/fill-blank/fill-blank.component').then(c => c.FillBlankComponent) },
 
             // View Cards children

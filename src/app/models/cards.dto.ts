@@ -21,6 +21,8 @@ export interface DeckFilterDto {
 export interface LevelFilterDto {
   level: string
 }
+
+
 //#endregion
 
 //#endregion Respond
@@ -70,3 +72,9 @@ export interface TranslationDto {
   ru: string
 }
 //#endregion
+
+export interface BookmarkDto {
+  id: number  
+  isAll: boolean
+  name: string
+}
