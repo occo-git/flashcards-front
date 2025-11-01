@@ -2,11 +2,11 @@ import { Injectable, signal, computed } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { UserSessionService } from '@services/user-session/user-session.service';
 import { RegisterRequestDto, LoginRequestDto, TokenResponseDto } from '@models/auth.dtos'
 import { UserInfoDto } from '@models/user.dtos'
-import { CONST_API_PATHS } from '@services/api.constants'
+import { CONST_API_PATHS, SKIP_AUTH } from '@services/api.constants'
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +14,7 @@ import { CONST_API_PATHS } from '@services/api.constants'
 export class UserService {
 
     private readonly LEVEL_KEY = 'userLevel';
-    private userInfo = signal<UserInfoDto | null>(null);    
+    private userInfo = signal<UserInfoDto | null>(null);
     private loading = signal<boolean>(false);
 
     get currentUserInfo() { return this.userInfo.asReadonly(); }
@@ -58,23 +58,28 @@ export class UserService {
     }
 
     private me(): Observable<UserInfoDto> {
-        return this.session.getHeaders().pipe(
-            switchMap(headers =>
-                this.http.get<UserInfoDto>(CONST_API_PATHS.USERS.ME, { headers })
-            ));
+        return this.http
+            .get<UserInfoDto>(CONST_API_PATHS.USERS.ME)
     }
     //#endregion
 
     //#region register, login, logout
     register(request: RegisterRequestDto): Observable<UserInfoDto> {
         return this.http
-            .post<UserInfoDto>(CONST_API_PATHS.USERS.REGISTER, request)
+            .post<UserInfoDto>(CONST_API_PATHS.USERS.REGISTER, request, {
+                context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
+            })
     }
 
     login(request: LoginRequestDto): Observable<TokenResponseDto> {
         const headers = this.session.getLoginHeaders();
         return this.http
-            .post<TokenResponseDto>(CONST_API_PATHS.USERS.LOGIN, request, { headers })
+            .post<TokenResponseDto>(
+                CONST_API_PATHS.USERS.LOGIN,
+                request, {
+                headers,
+                context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
+            })
             .pipe(
                 tap(tokens => {
                     this.session.saveLoginResponse(tokens);
@@ -84,21 +89,16 @@ export class UserService {
     }
 
     logout(): Observable<boolean> {
-        return this.session.getHeaders().pipe(
-            switchMap(headers => {
-                this.session.clear();
-                this.userInfo.set(null);
-                return this.http.post<boolean>(CONST_API_PATHS.USERS.LOGOUT, {}, { headers });
-            }));
+        this.session.clear();
+        this.userInfo.set(null);
+        return this.http
+            .post<boolean>(CONST_API_PATHS.USERS.LOGOUT, {});
     }
     //#endregion
 
     setLevel(level: string) {
-        return this.session.getHeaders().pipe(
-            switchMap(headers => {
-                return this.http.post<boolean>(CONST_API_PATHS.USERS.LEVEL, { level }, { headers })
-                    .pipe(tap(() => this.loadUser()))
-            })
-        )
+        return this.http
+            .post<boolean>(CONST_API_PATHS.USERS.LEVEL, { level })
+            .pipe(tap(() => this.loadUser()))
     }
 }

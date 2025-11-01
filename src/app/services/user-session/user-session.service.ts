@@ -3,9 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
 import { TokenResponseDto, RefreshTokenRequestDto } from '@models/auth.dtos'
-import { CONST_API_PATHS } from '@services/api.constants'
+import { CONST_API_PATHS, SKIP_AUTH } from '@services/api.constants'
 
 @Injectable({
   providedIn: 'root'
@@ -115,7 +115,12 @@ export class UserSessionService {
     const request: RefreshTokenRequestDto = { refreshToken };
 
     return this.httpClient
-      .post<TokenResponseDto>(CONST_API_PATHS.USERS.REFRESH, request, { headers: headers })
+      .post<TokenResponseDto>(
+        CONST_API_PATHS.USERS.REFRESH, 
+        request, { 
+          headers: headers,
+          context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
+        })
       .pipe(
         tap(response => this.saveLoginResponse(response)),
         map(() => this.getAuthHeaders()), // return HttpHeaders

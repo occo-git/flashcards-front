@@ -1,4 +1,7 @@
+import { HttpContextToken } from '@angular/common/http';
 import { environment } from '@env/environment';
+
+export const SKIP_AUTH = new HttpContextToken<boolean>(() => false);
 
 export interface ApiPaths {
   ROOT: string

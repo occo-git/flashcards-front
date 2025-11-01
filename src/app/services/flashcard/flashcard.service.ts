@@ -31,61 +31,51 @@ export class FlashcardService {
   ) { }
 
   getFlashcard(request: CardRequestDto): Observable<CardExtendedDto> {
-    return this.session.getHeaders().pipe(
-      switchMap(headers =>
-        this.http.post<CardExtendedDto>(CONST_API_PATHS.CARDS.CARD_FROM_DECK, request, { headers })
-      ),
-      tap(card => this.card.set(card))  // save signal
-    );
+    return this.http.post<CardExtendedDto>(CONST_API_PATHS.CARDS.CARD_FROM_DECK, request)
+      .pipe(
+        tap(card => this.card.set(card))  // save signal
+      );
   }
 
   getFlashcards(request: CardsPageRequestDto): Observable<CardDto[]> {
-    return this.session.getHeaders().pipe(
-      switchMap(headers =>
-        this.http.post<CardDto[]>(CONST_API_PATHS.CARDS.DECK, request, { headers })
-      ),
-      tap(response => this.cards.set(response))  // save signal
-    );
+    return this.http.post<CardDto[]>(CONST_API_PATHS.CARDS.DECK, request)
+      .pipe(
+        tap(response => this.cards.set(response))  // save signal
+      );
   }
 
   getWords(request: CardsPageRequestDto): Observable<WordDto[]> {
-    return this.session.getHeaders().pipe(
-      switchMap(headers =>
-        this.http.post<WordDto[]>(CONST_API_PATHS.CARDS.DECK, request, { headers })
-      ),
-      tap(response => this.words.set(response))  // save signal
-    );
+    return this.http.post<WordDto[]>(CONST_API_PATHS.CARDS.DECK, request)
+      .pipe(
+        tap(response => this.words.set(response))  // save signal
+      );
   }
 
   getLevels(): Observable<string[]> {
-    return this.session.getHeaders().pipe(
-      switchMap(headers =>
-        this.http.get<string[]>(CONST_API_PATHS.CARDS.LEVELS, { headers })
-      ),
-      tap(response => this.levels.set(response)) // save signal
-    );
+    return this.http.get<string[]>(CONST_API_PATHS.CARDS.LEVELS)
+      .pipe(
+        tap(response => this.levels.set(response)) // save signal
+      );
   }
 
   getThemes(request: LevelFilterDto): Observable<ThemeDto[]> {
-    return this.session.getHeaders().pipe(
-      switchMap(headers =>
-        this.http.post<ThemeDto[]>(CONST_API_PATHS.CARDS.THEMES, request, { headers })
-      ),
-      map(response => {
-        // All themes
-        const allTheme: ThemeDto = {
-          id: 0,
-          level: request.level,
-          isAll: true,
-          translation: { 'en': '• All', 'ru': '' } as TranslationDto,
-          wordsCount: 0
-        };
+    return this.http.post<ThemeDto[]>(CONST_API_PATHS.CARDS.THEMES, request)
+      .pipe(
+        map(response => {
+          // All themes
+          const allTheme: ThemeDto = {
+            id: 0,
+            level: request.level,
+            isAll: true,
+            translation: { 'en': '• All', 'ru': '' } as TranslationDto,
+            wordsCount: 0
+          };
 
-        return [allTheme, ...response];
-      }),
-      tap(themesWithAll => {
-        this.themes.set(themesWithAll); // сохраняем в сигнал
-      })
-    );
+          return [allTheme, ...response];
+        }),
+        tap(themesWithAll => {
+          this.themes.set(themesWithAll); // сохраняем в сигнал
+        })
+      );
   }
 }
