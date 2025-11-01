@@ -84,7 +84,7 @@ export class UserSessionService {
   //#endregion
 
   //#region headers
-  getLoginHeaders(): HttpHeaders {
+  getSessionHeaders(): HttpHeaders {
     return new HttpHeaders({
       [this.CONST_SESSION_KEY]: uuidv4() // new sessionId
     });
@@ -115,12 +115,7 @@ export class UserSessionService {
     const request: RefreshTokenRequestDto = { refreshToken };
 
     return this.httpClient
-      .post<TokenResponseDto>(
-        CONST_API_PATHS.USERS.REFRESH, 
-        request, { 
-          headers: headers,
-          context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
-        })
+      .post<TokenResponseDto>(CONST_API_PATHS.USERS.REFRESH, request, { headers })
       .pipe(
         tap(response => this.saveLoginResponse(response)),
         map(() => this.getAuthHeaders()), // return HttpHeaders

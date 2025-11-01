@@ -8,3 +8,11 @@
     display: grid;
     grid-template-columns: 25% auto;
 }
+
+.redirect-login {
+    align-items: left;
+    padding: 16px;
+    font-size: 0.9rem;
+    color: var(--prime-color);
+    width: 100%;
+}

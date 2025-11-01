@@ -8,9 +8,11 @@ export const SVG_ICON = {
     DRAWER: '/svg/drawer.svg',
     FOLDER: '/svg/folder-closed.svg',
     INFO: '/svg/info.svg',
+    LOGIN: '/svg/login.svg',
     LOGOUT: '/svg/logout.svg',
     PLAY: '/svg/play.svg',
     PUZZLE: '/svg/puzzle.svg',
     TAP: '/svg/tap.svg',
     TARGET: '/svg/target.svg',
+    USER: '/svg/user.svg',
 } as const;

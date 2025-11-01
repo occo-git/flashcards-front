@@ -1,22 +1,27 @@
 import { Component, signal, computed, ViewEncapsulation } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '@services/user/user.service';
 import { CONST_ROUTES } from '@routing/routes.constans'
 
+import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
+
+import { SVG_ICON } from '@components/svg-icon.constants';
 
 @Component({
     selector: 'app-logout',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
-    imports: [LoaderComponent, ErrorMessageComponent],
+    imports: [ReactiveFormsModule, LoaderComponent, ErrorMessageComponent, SvgIconComponent],
     templateUrl: './logout.html',
     styleUrl: './logout.scss'
 })
 export class LogoutComponent {
-
+    form = new FormGroup({});
+    ICON = SVG_ICON;
     username = computed(() => this.userService.currentUserInfo()?.username);
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);

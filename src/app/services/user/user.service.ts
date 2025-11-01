@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { tap, finalize } from 'rxjs/operators';
 
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { UserSessionService } from '@services/user-session/user-session.service';
@@ -59,7 +59,7 @@ export class UserService {
 
     private me(): Observable<UserInfoDto> {
         return this.http
-            .get<UserInfoDto>(CONST_API_PATHS.USERS.ME)
+            .get<UserInfoDto>(CONST_API_PATHS.USERS.ME);
     }
     //#endregion
 
@@ -72,11 +72,9 @@ export class UserService {
     }
 
     login(request: LoginRequestDto): Observable<TokenResponseDto> {
-        const headers = this.session.getLoginHeaders();
+        const headers = this.session.getSessionHeaders();
         return this.http
-            .post<TokenResponseDto>(
-                CONST_API_PATHS.USERS.LOGIN,
-                request, {
+            .post<TokenResponseDto>(CONST_API_PATHS.USERS.LOGIN, request, {
                 headers,
                 context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
             })
@@ -89,16 +87,18 @@ export class UserService {
     }
 
     logout(): Observable<boolean> {
-        this.session.clear();
-        this.userInfo.set(null);
         return this.http
-            .post<boolean>(CONST_API_PATHS.USERS.LOGOUT, {});
+            .post<boolean>(CONST_API_PATHS.USERS.LOGOUT, {})
+            .pipe(
+                finalize(() => { // in any case
+                    this.session.clear();
+                    this.userInfo.set(null);
+                }));
     }
     //#endregion
 
     setLevel(level: string) {
         return this.http
-            .post<boolean>(CONST_API_PATHS.USERS.LEVEL, { level })
-            .pipe(tap(() => this.loadUser()))
+            .post<boolean>(CONST_API_PATHS.USERS.LEVEL, { level });
     }
 }

@@ -1,9 +1,10 @@
 import { Component, signal, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { UserService } from '@services/user/user.service';
 import { RegisterRequestDto } from '@models/auth.dtos'
+import { SvgIconComponent } from "@app/components/_common-ui/svg-icon/svg-icon.component";
 
 import { CONST_VALIDATION } from '@validation/validation.constants'
 import { CustomValidators } from '@validation/custom-validators';
@@ -12,17 +13,17 @@ import { ErrorMessageComponent } from '@components/_common-ui/error-message/erro
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { CONST_ROUTES } from '@routing/routes.constans';
+import { SVG_ICON } from '@components/svg-icon.constants';
 
 @Component({
     selector: 'app-register',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
-    imports: [ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent],
+    imports: [ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent, SvgIconComponent],
     templateUrl: './register.html',
     styleUrl: './register.scss'
 })
 export class RegisterComponent {
-
     form = new FormGroup(
         {
             username: new FormControl(
@@ -47,8 +48,9 @@ export class RegisterComponent {
         },
         {
             validators: CustomValidators.match('password', 'passwordConfirm', 'Passwords must match')
-        })
-
+        });
+    ICON = SVG_ICON;
+    ROUTES = CONST_ROUTES;
     isLoading = signal<boolean>(false);
     errorResponse  = signal<HttpErrorResponse | null>(null);
     

@@ -1,46 +1,40 @@
-<div>
-    <form 
-        class="form-control" 
-        [formGroup]="form"  
-        (ngSubmit)="onSubmit()">
+<form class="form-control" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="control-title">
+        <app-svg-icon [svg]="ICON.USER" size="lg"></app-svg-icon>
+        <h2>Register</h2>
+    </div>
+    <div class="register-container">
+        <label class="label-control" for="username">Username</label>
+        <input class="input-control" type="text" id="username" name="username" required formControlName="username"
+            appErrorMessage [errorElement]="usernameError" />
+        <div></div>
+        <div class="error-message" #usernameError></div>
 
-        <div class="register-container">
-            <h2>Register</h2><div></div>
+        <label class="label-control" for="username">E-mail</label>
+        <input class="input-control" type="text" id="email" name="email" required formControlName="email"
+            appErrorMessage [errorElement]="emailError" />
+        <div></div>
+        <div class="error-message" #emailError></div>
 
-            <label class="label-control" for="username">Username</label>
-            <input 
-                class="input-control" type="text" id="username" name="username" required 
-                formControlName="username"                
-                appErrorMessage [errorElement]="usernameError"/>
-            <div></div><div class="error-message" #usernameError></div>
+        <label class="label-control" for="password">Password</label>
+        <input class="input-control" type="password" id="password" name="password" required formControlName="password"
+            appErrorMessage [errorElement]="passwordError" />
+        <div></div>
+        <div class="error-message" #passwordError></div>
 
-            <label class="label-control" for="username">E-mail</label>
-            <input 
-                class="input-control" type="text" id="email" name="email" required 
-                formControlName="email"
-                appErrorMessage [errorElement]="emailError"/>
-            <div></div><div class="error-message" #emailError></div>
+        <label class="label-control" for="password-confirm">Confirm</label>
+        <input class="input-control" type="password" id="password-confirm" name="password-confirm" required
+            formControlName="passwordConfirm" appErrorMessage [errorElement]="passwordConfirmError" />
+        <div></div>
+        <div class="error-message" #passwordConfirmError></div>
 
-            <label class="label-control" for="password">Password</label>
-            <input 
-                class="input-control" type="password" id="password" name="password" required 
-                formControlName="password"
-                appErrorMessage [errorElement]="passwordError"/>
-            <div></div><div class="error-message" #passwordError></div>
-
-            <label class="label-control" for="password-confirm">Confirm</label>
-            <input 
-                class="input-control" type="password" id="password-confirm" name="password-confirm" required 
-                formControlName="passwordConfirm"
-                appErrorMessage [errorElement]="passwordConfirmError"/>
-            <div></div><div class="error-message" #passwordConfirmError></div>
-
-            <div class="submit-control">
-                <button type="submit" [disabled]="form.invalid">Register</button>
-            </div>
+        <div class="submit-control">
+            <button type="submit" [disabled]="form.invalid">Register</button>
         </div>
+    </div>
+    <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+</form>
 
-        <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
-    </form>
-
+<div class="redirect-login">
+    Have an account? <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
 </div>

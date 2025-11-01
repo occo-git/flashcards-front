@@ -14,15 +14,13 @@ export const AppHttpInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   const router = inject(Router);
-  const userService = inject(UserService);
   const session = inject(UserSessionService);
 
-return session.getHeaders().pipe(
+  return session.getHeaders().pipe(
     switchMap(headers => next(req.clone({ headers }))),
     catchError(err => {
       if (err.status === 401) {
-        // logout and redirect to Login page
-        userService.logout();
+        // redirect to Login page
         router.navigate([`/${CONST_ROUTES.AUTH.LOGIN}`]);
       }
       return throwError(() => err);

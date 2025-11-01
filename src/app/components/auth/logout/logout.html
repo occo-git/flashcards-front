@@ -1,16 +1,16 @@
-<form action="" class="form-control">
+<form class="form-control" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="control-title">
+        <app-svg-icon [svg]="ICON.LOGOUT" size="lg"></app-svg-icon>
+        <h2>Logout</h2>
+        @if (isLoading()) { <app-loader></app-loader> }
+    </div>
     <div class="logout-container">
-        <h2>⬅️&nbsp;&nbsp;Logout</h2>
-        <div>
-            @if (isLoading()) {
-            <app-loader></app-loader>
-            }
-        </div>
-
         <label class="label-control">Username</label>
         <label class="label-control-value">{{ username() }}</label>
 
-        <button type="submit" (click)="onSubmit()">Logout</button>
+        <div class="submit-control">
+            <button type="submit">Logout</button>
+        </div>
     </div>
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 </form>

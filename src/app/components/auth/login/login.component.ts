@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation, signal } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { UserService } from '@services/user/user.service';
 import { LoginRequestDto } from '@models/auth.dtos';
-import { CONST_ROUTES } from '@routing/routes.constans'
+import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 
 import { CONST_VALIDATION } from '@validation/validation.constants'
 import { CustomValidators } from '@validation/custom-validators';
@@ -12,11 +12,14 @@ import { ErrorMessageDirective } from '@validation/error-message/error-message.d
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { CONST_ROUTES } from '@routing/routes.constans'
+import { SVG_ICON } from '@components/svg-icon.constants';
+
 @Component({
     selector: 'app-login',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
-    imports: [ ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent ],
+    imports: [ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent, SvgIconComponent],
     templateUrl: './login.html',
     styleUrl: './login.scss'
 })
@@ -34,14 +37,15 @@ export class LoginComponent {
                 CustomValidators.minLength(8, 'Password must be at least 8 characters long'),
                 CustomValidators.pattern(CONST_VALIDATION.MIN_REGEX, 'Password must contain at least one letter and one number')
             ]),
-        })
-
+        })        
+    ICON = SVG_ICON;
+    ROUTES = CONST_ROUTES;
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);
 
     constructor(
-        private userService: UserService,
-        private router: Router
+        private router: Router,
+        private userService: UserService        
     ) { }
 
     onSubmit() {
