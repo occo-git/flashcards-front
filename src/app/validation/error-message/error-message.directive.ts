@@ -40,6 +40,7 @@ export class ErrorMessageDirective implements OnInit, OnDestroy {
       this.errorElement.textContent = '';
     }
   }
+  
   ngOnDestroy() {
     if (this.statusSubscription) {
       this.statusSubscription.unsubscribe();

@@ -1,4 +1,4 @@
-<app-filter (themeSelected)="themeId = $event" (bookmarkSelected)="bookmarkId = $event"></app-filter>
+<app-filter (filter)="applyFilter($event)"></app-filter>
 <div class="flashcard-deck-container">
     <div class="card-counter">
         {{ index() }} / {{ total() }}
@@ -11,7 +11,7 @@
     <div class="deck">
         <app-flashcard [card]="card()?.card"></app-flashcard>
     </div>
-    <div class="navigation">
+    <div class="navigation-controls">
         <button class="left" (click)="onPreviousCard()" [disabled]="!prevCard()">
             {{ prevCard()?.wordText }}
         </button>
@@ -19,6 +19,16 @@
             {{ nextCard()?.wordText }}
         </button>
     </div>
-
+    @if (filter().isMarked === 0) { <!-- All -->
+    <div class="bookmark-controls">
+        <button (click)="onBookmark()">
+            @if (isMarked()) {
+            <app-svg-icon [svg]="ICON.UNBOOKMARK" size="sm"></app-svg-icon>Unmark
+            } @else {
+            <app-svg-icon [svg]="ICON.BOOKMARK" size="sm"></app-svg-icon>Mark
+            }
+        </button>
+    </div>
+    }
 </div>
 <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

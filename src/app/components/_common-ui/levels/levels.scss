@@ -4,31 +4,18 @@
     background-color: magenta;
 }*/
 
-.levels-container {
-    //background-color: red;
-    display: grid;
-    grid-template-rows: auto auto;
-}
-
-.levels {
-    //background-color: red;
-    display: flex;
-    flex-direction: row;
-    padding: 24px;
-    gap: 16px;
-}
-
 .level {
     background-color: var(--light-color);
     color: var(--dark-color);
     width: 40px;
     height: 40px;
     border: 1px solid var(--border-color);
-    border-radius: var(--border-R);
+    border-radius: var(--border-r);
     cursor: pointer;
     position: relative;
     align-content: center;
     text-align: center;
+    user-select: none;
 
     &.checked {
         background-color: var(--prime-color);

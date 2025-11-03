@@ -28,7 +28,7 @@ export class FlashcardComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['card']) {
       if (this.card)
-        this.loadImage(this.card.id); // Обновляем изображение при изменении карточки
+        this.loadImage(this.card.id);
       else
         this.imageUrl.set(null);
     }

@@ -1,12 +1,7 @@
-<div class="border-control">
-    <div class="levels-container">
-        <h2>📈&nbsp;&nbsp;Change&nbsp;{{userLevel()}}&nbsp;Level</h2>
-        <div class="levels">
-            @for (level of levels(); track $index) {
-            <div class="level" [class.checked]="level === userLevel()" (click)="onLevelSelected(level)">
-                {{level}}
-            </div>
-            }
-        </div>
+<div class="levels">
+    @for (level of levels(); track $index) {
+    <div class="level" [class.checked]="level === userLevel()" (click)="onLevelSelected(level)">
+        {{level}}
     </div>
+    }
 </div>

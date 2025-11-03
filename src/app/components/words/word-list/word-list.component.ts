@@ -1,15 +1,15 @@
-import { Component, ViewEncapsulation, signal, computed } from '@angular/core';
+import { Component, ViewEncapsulation, signal, computed, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
+import { FilterComponent } from "@app/components/cards/filter/filter.component";
 import { WordComponent } from '@components/words/word/word.component';
-import { UserService } from '@services/user/user.service';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
 import { DeckFilterDto, CardsPageRequestDto } from '@models/cards.dto'
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CONST_ROUTES } from '@app/routing/routes.constans';
+import { FilterService } from '@app/services/filer/filter.service';
 
 const CONST_PAGE_SIZE = 10;
 
@@ -17,45 +17,43 @@ const CONST_PAGE_SIZE = 10;
   selector: 'app-word-list',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
-  imports: [WordComponent, ErrorMessageComponent],
+  imports: [WordComponent, ErrorMessageComponent, FilterComponent],
   templateUrl: './word-list.html',
   styleUrl: './word-list.scss'
 })
 export class WordListComponent {
+  filter = computed(() => this.filterService.getFilter());
 
   firstId = signal<number>(0);
   currentWordId = signal<number>(0);
   hasPrevious = signal<boolean>(false);
   hasNext = signal<boolean>(true);
-  userLevel = computed(() => this.userService.userLevel());
   words = computed(() => this.flashcardService.wordsSignal());
+
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 
   constructor(
     private router: Router,
-    private userService: UserService,
+    private filterService: FilterService,
     private flashcardService: FlashcardService
   ) {
-    this.loadWordsPage(0, true); // first item, forward
+    this.loadWordsPage();
   }
 
-  private loadWordsPage(wordId: number, isDirectionForward: boolean) {
-    if (this.isLoading() || !this.userLevel()) return;
+  applyFilter(filter: DeckFilterDto) {
+    this.loadWordsPage();
+  }
+
+  private loadWordsPage(wordId: number = 0, isDirectionForward: boolean = true) { // default: 0 - first item, true - forward
+    if (this.isLoading()) return;
 
     this.isLoading.set(true);
     this.errorResponse.set(null);
 
-    const filter: DeckFilterDto = {
-      level: this.userLevel()!,
-      isMarked: 0,
-      themeId: 0,
-      difficulty: 0
-    }
-
     const request: CardsPageRequestDto = {
-      filter: filter,
       wordId: wordId,
+      filter: this.filter(),
       isDirectionForward: isDirectionForward,
       pageSize: CONST_PAGE_SIZE
     };

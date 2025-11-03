@@ -99,6 +99,7 @@ export class UserService {
 
     setLevel(level: string) {
         return this.http
-            .post<boolean>(CONST_API_PATHS.USERS.LEVEL, { level });
+            .post<boolean>(CONST_API_PATHS.USERS.LEVEL, { level })
+            .pipe(tap(() => this.loadUser()));
     }
 }

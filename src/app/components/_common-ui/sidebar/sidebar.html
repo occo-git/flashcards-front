@@ -1,5 +1,6 @@
-<mat-nav-list class="side-menu-list">
-    <!-- Start Activity (expandable) -->
+<mat-nav-list class="side-menu-list">  
+    
+    <!-- Start Activity (expandable) -->  
     <mat-expansion-panel class="menu-panel">
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -23,18 +24,19 @@
     <mat-expansion-panel class="menu-panel">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <app-svg-icon [svg]="ICON.DRAWER"></app-svg-icon> View {{ userLevel() }} Cards
+                <app-svg-icon [svg]="ICON.DRAWER"></app-svg-icon> View Cards
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <a mat-list-item routerLink="cards-deck" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <app-svg-icon [svg]="ICON.COPY"></app-svg-icon> All Cards
+        <a mat-list-item routerLink="cards-deck" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+            [queryParams]="{bookmarkId: 0}">
+            <app-svg-icon [svg]="ICON.COPY"></app-svg-icon> Deck
         </a>
         <a mat-list-item routerLink="cards-deck" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-            [queryParams]="{type: 'marked'}">
-            <app-svg-icon [svg]="ICON.BOOKMARK"></app-svg-icon> Marked Cards
+            [queryParams]="{bookmarkId: 1}">
+            <app-svg-icon [svg]="ICON.BOOKMARK"></app-svg-icon> Marked
         </a>
         <a mat-list-item routerLink="words-list" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <app-svg-icon [svg]="ICON.DOC"></app-svg-icon> Words List
+            <app-svg-icon [svg]="ICON.DOC"></app-svg-icon> List
         </a>
         <!--<a mat-list-item routerLink="choose-theme" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <span class="menu-icon">🎯</span> By Theme ☰
@@ -44,17 +46,19 @@
             <span class="menu-icon">💪</span> By Difficulty ☰
         </a> -->
     </mat-expansion-panel>
-
+     
+    <!-- Change {lev} Level -->
+    <a class="item-out" mat-list-item routerLink="change-level" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <app-svg-icon [svg]="ICON.CROWN"></app-svg-icon> Change Level - {{ userLevel() }}
+    </a>    
+    
     <!-- My Progress -->
     <a class="item-out" mat-list-item routerLink="progress" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
         <app-svg-icon [svg]="ICON.DASHBOARD"></app-svg-icon> My Progress
     </a>
-    <!-- Change {lev} Level -->
-    <a class="item-out" mat-list-item routerLink="change-level" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <app-svg-icon [svg]="ICON.CROWN"></app-svg-icon> Change {{ userLevel() }} Level
-    </a>
+
 </mat-nav-list>
 <div class="break-line"></div>
 <mat-nav-list class="side-menu-list">

@@ -5,7 +5,7 @@ $card-height: 700px;
 
 :host {
   //background-color: magenta;
-  margin-top: -64px;
+  padding: 0px;
 }
 
 .flashcard-deck-container {
@@ -38,11 +38,18 @@ $card-height: 700px;
     width: $card-width;
   }
 
-  .navigation {
+  .navigation-controls {
     //background-color: green;
     width: $card-width;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding: 8px;
     gap: 8px;
+  }
+  
+  .bookmark-controls {
+    display: flex;
+    flex-direction: column;
+    //padding: 16px;
   }
 }

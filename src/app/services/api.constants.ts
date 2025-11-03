@@ -21,6 +21,13 @@ export interface ApiPaths {
     THEMES: string
     DECK: string
     LIST: string
+    CHANGE_MARK: string
+  }
+  ACTIVITY: {
+    QUIZ: string
+    TYPEWORD: string
+    FILL_BLANK: string
+    SAVE: string
   }
   IMAGES: string
 }
@@ -42,7 +49,14 @@ export const CONST_API_PATHS: ApiPaths = {
     THEMES: `${environment.apiUrl}/cards/themes`,
     DECK: `${environment.apiUrl}/cards/deck`,
     CARD_FROM_DECK: `${environment.apiUrl}/cards/card-from-deck`,
-    LIST: `${environment.apiUrl}/cards/list`
+    LIST: `${environment.apiUrl}/cards/list`,
+    CHANGE_MARK: `${environment.apiUrl}/cards/change-mark`
+  },
+  ACTIVITY: {
+    QUIZ: `${environment.apiUrl}/activity/quiz`,
+    TYPEWORD: `${environment.apiUrl}/activity/type-word`,
+    FILL_BLANK: `${environment.apiUrl}/activity/fill-blank`,
+    SAVE: `${environment.apiUrl}/activity/save`
   },
   IMAGES: `${environment.apiUrl}/images`
 };

@@ -1,10 +1,9 @@
 import { Component, signal, computed, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-
 import { MatSelectModule } from '@angular/material/select';
+
 import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
-import { UserService } from '@services/user/user.service';
-import { FlashcardService } from '@services/flashcard/flashcard.service';
-import { LevelFilterDto, ThemeDto, BookmarkDto } from '@models/cards.dto';
+import { FilterService } from '@services/filer/filter.service';
+import { DeckFilterDto } from '@models/cards.dto';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';
 
@@ -19,42 +18,32 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './filter.html',
   styleUrl: './filter.scss'
 })
-export class FilterComponent {
-  @Output() themeSelected = new EventEmitter<number>();
-  @Output() bookmarkSelected = new EventEmitter<number>();
+export class FilterComponent  {
+  @Output() filter = new EventEmitter<DeckFilterDto>();
 
   ICON = SVG_ICON;
-  userLevel = computed(() => this.userService.userLevel());
-  themes = computed(() => this.flashcardService.themesSignal());
-  bookmarks = signal<BookmarkDto[]>([
-    { id: 0, isAll: true, name: '• All' },
-    { id: 1, isAll: false, name: 'Marked' },
-    { id: -1, isAll: false, name: 'Not Marked' }
-  ]);
+  bookmarks = computed(() => this.filterService.bookmarksSignal());
+  themes = computed(() => this.filterService.themesSignal());
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 
-  selectedThemeId = signal<number>(0);
-  selectedBookmarkId = signal<number>(0);
+  selectedBookmarkId = computed(() => this.filterService.selectedBookmarkId());
+  selectedThemeId = computed(() => this.filterService.selectedThemeId());
+  selectedDifficultyId = computed(() => this.filterService.selectedDifficultyId());
 
   constructor(
-    private userService: UserService,
-    private flashcardService: FlashcardService
+    private filterService: FilterService
   ) {
     this.loadThemes();
   }
 
   private loadThemes() {
-    if (this.isLoading() || !this.userLevel()) return;
+    if (this.isLoading()) return;
 
     this.errorResponse.set(null);
     this.isLoading.set(true);
 
-    const filter: LevelFilterDto = {
-      level: this.userLevel()!
-    }
-
-    this.flashcardService.getThemes(filter).subscribe({
+    this.filterService.getThemes().subscribe({
       next: themes => {
         this.isLoading.set(false);
       },
@@ -67,14 +56,18 @@ export class FilterComponent {
 
   onThemeChange(event: any) {
     const themeId = +event.value; // '+' to get number from string
-    this.selectedThemeId.set(themeId);
-    this.themeSelected.emit(themeId);
+    this.filterService.selectedThemeId.set(themeId);
+    this.emit();
   }
 
   onBookmarkChange(event: any) {
     const bookmarkId = +event.value; // '+' to get number from string
-    this.selectedBookmarkId.set(bookmarkId);
-    this.bookmarkSelected.emit(bookmarkId);
+    this.filterService.selectedBookmarkId.set(bookmarkId);
+    this.emit();
+  }
+
+  private emit() {
+    this.filter.emit(this.filterService.getFilter());
   }
 
   clearError() {

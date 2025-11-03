@@ -1,16 +1,16 @@
 import { Component, signal, computed, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { FilterComponent } from "@components/cards/filter/filter.component";
 import { FlashcardComponent } from '@components/cards/flashcard/flashcard.component';
+import { FilterService } from '@services/filer/filter.service';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
-import { UserService } from '@services/user/user.service';
-import { DeckFilterDto, CardRequestDto } from '@models/cards.dto';
+import { DeckFilterDto, CardRequestDto, WordRequestDto } from '@models/cards.dto';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FilterComponent } from "@components/cards/filter/filter.component";
 
 @Component({
   selector: 'app-flashcard-from-deck',
@@ -21,58 +21,46 @@ import { FilterComponent } from "@components/cards/filter/filter.component";
   styleUrl: './flashcard-from-deck.scss'
 })
 export class FlashcardFromDeckComponent {
-  @Input() set themeId(value: number) {
-    this.selectedThemeId.set(value);
-    this.loadFlashcard(); // ← Перезагружаем карточки
-  }
-  @Input() set bookmarkId(value: number) {
-    this.selectedBookmarkId.set(value);
-    this.loadFlashcard(); // ← Перезагружаем карточки
-  }
-
   ICON = SVG_ICON;
-  userLevel = computed(() => this.userService.userLevel());
-  selectedThemeId = signal<number>(0);
-  selectedBookmarkId = signal<number>(0);
+  filter = computed(() => this.filterService.getFilter());
 
   card = computed(() => this.flashcardService.cardSignal());
-  index = computed(() => this.card()?.index ?? 0);
+  wordId = computed(() => this.card()?.card?.id);
   isMarked = computed(() => this.card()?.card?.isMarked ?? false);
+  index = computed(() => this.card()?.index ?? 0);
   total = computed(() => this.card()?.total ?? 0);
   prevCard = computed(() => this.card()?.prevCard);
   nextCard = computed(() => this.card()?.nextCard);
+
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private userService: UserService,
+    private filterService: FilterService,
     private flashcardService: FlashcardService
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
+      this.filterService.applyFilterParams(params);
+
       const wordId = +params['wordId'] || 0;
-      if (wordId > 0)
-        this.loadFlashcard(wordId);
-      else
-        this.loadFlashcard();
+      this.loadFlashcard(wordId);
     });
   }
 
+  applyFilter(filter: DeckFilterDto) {
+    this.loadFlashcard();
+  }
+
   private loadFlashcard(wordId: number = 0) {
-    if (this.isLoading() || !this.userLevel()) return;
+    if (this.isLoading()) return;
 
     this.errorResponse.set(null);
     this.isLoading.set(true);
 
-    const filter: DeckFilterDto = {
-      level: this.userLevel()!,
-      isMarked: this.selectedBookmarkId(),
-      themeId: this.selectedThemeId(),
-      difficulty: 0
-    }
     const request: CardRequestDto = {
       wordId: wordId,
-      filter: filter
+      filter: this.filter()
     };
 
     this.flashcardService.getFlashcard(request).subscribe({
@@ -97,8 +85,24 @@ export class FlashcardFromDeckComponent {
       this.loadFlashcard(this.nextCard()!.id)
   }
 
-  onBookmark(mark: boolean) {
+  onBookmark() {
+    if (!this.wordId()) return;
 
+    this.errorResponse.set(null);
+    this.isLoading.set(true);
+    const wordId = this.wordId()!;
+
+    const request: WordRequestDto = { wordId: wordId };
+    this.flashcardService.changeMark(request).subscribe({
+      next: card => {
+        this.isLoading.set(false);
+        this.loadFlashcard(wordId);
+      },
+      error: err => {
+        this.errorResponse.set(err);
+        this.isLoading.set(false);
+      }
+    });
   }
 
   clearError() {

@@ -1,5 +1,5 @@
 import { Component, signal, computed } from '@angular/core';
-import { FlashcardService } from '@services/flashcard/flashcard.service';
+import { FilterService } from '@services/filer/filter.service';
 import { UserService } from '@services/user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoaderComponent } from "../loader/loader.component";
@@ -13,13 +13,13 @@ import { LoaderComponent } from "../loader/loader.component";
 export class LevelsComponent {
 
   constructor(
-    private flashcardService: FlashcardService,
+    private filterService: FilterService,
     public userService: UserService
   ) {
     this.init();
   }
 
-  levels = computed(() => this.flashcardService.levelsSignal());
+  levels = computed(() => this.filterService.levelsSignal());
   userLevel = computed(() => this.userService.currentUserInfo()?.level);
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
@@ -28,7 +28,7 @@ export class LevelsComponent {
     this.isLoading.set(true);
     this.errorResponse.set(null);
 
-    this.flashcardService.getLevels().subscribe({
+    this.filterService.getLevels().subscribe({
       next: levels => {
         this.isLoading.set(false);
         this.errorResponse.set(null);

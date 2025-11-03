@@ -1,8 +1,9 @@
 @use 'app/styles/form-styles.scss' as *;
 
-/*:host {
-    background-color: magenta;
-}*/
+:host {
+    //background-color: magenta;
+    padding: 32px;
+}
 
 .logout-container {
     //background-color: red;

@@ -1,4 +1,8 @@
 //#region Request
+export interface WordRequestDto {
+  wordId: number
+}
+
 export interface CardsPageRequestDto {
   wordId: number
   filter: DeckFilterDto
@@ -21,8 +25,6 @@ export interface DeckFilterDto {
 export interface LevelFilterDto {
   level: string
 }
-
-
 //#endregion
 
 //#endregion Respond
@@ -46,7 +48,7 @@ export interface WordDto {
   isMarked: boolean
 }
 
-export interface CardExtendedDto { 
+export interface CardExtendedDto {
   card: CardDto
   prevCard: CardInfo,
   nextCard: CardInfo
@@ -54,7 +56,7 @@ export interface CardExtendedDto {
   total: number
 }
 
-export interface CardInfo { 
+export interface CardInfo {
   id: number
   wordText: string
 }
@@ -74,7 +76,7 @@ export interface TranslationDto {
 //#endregion
 
 export interface BookmarkDto {
-  id: number  
+  id: number
   isAll: boolean
   name: string
 }

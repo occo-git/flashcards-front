@@ -14,5 +14,6 @@ export const SVG_ICON = {
     PUZZLE: '/svg/puzzle.svg',
     TAP: '/svg/tap.svg',
     TARGET: '/svg/target.svg',
+    UNBOOKMARK: '/svg/unbookmark.svg',
     USER: '/svg/user.svg',
 } as const;

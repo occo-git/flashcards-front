@@ -1,8 +1,9 @@
 @use 'styles.scss' as *;
 
-/*:host {
+:host {
     //background-color: magenta;
-}*/
+    padding: 32px;
+}
 
 .progress-container {
     display: grid;
