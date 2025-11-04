@@ -49,7 +49,7 @@ export class RegisterComponent {
         {
             validators: CustomValidators.match('password', 'passwordConfirm', 'Passwords must match')
         });
-    ICON = SVG_ICON;
+    readonly ICON = SVG_ICON;
     ROUTES = CONST_ROUTES;
     isLoading = signal<boolean>(false);
     errorResponse  = signal<HttpErrorResponse | null>(null);

@@ -38,7 +38,7 @@ export class LoginComponent {
                 CustomValidators.pattern(CONST_VALIDATION.MIN_REGEX, 'Password must contain at least one letter and one number')
             ]),
         })        
-    ICON = SVG_ICON;
+    readonly ICON = SVG_ICON;
     ROUTES = CONST_ROUTES;
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);

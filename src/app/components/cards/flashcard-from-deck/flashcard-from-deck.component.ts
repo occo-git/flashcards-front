@@ -21,7 +21,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './flashcard-from-deck.scss'
 })
 export class FlashcardFromDeckComponent {
-  ICON = SVG_ICON;
+  readonly ICON = SVG_ICON;
   filter = computed(() => this.filterService.getFilter());
 
   card = computed(() => this.flashcardService.cardSignal());

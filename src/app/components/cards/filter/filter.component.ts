@@ -21,7 +21,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class FilterComponent  {
   @Output() filter = new EventEmitter<DeckFilterDto>();
 
-  ICON = SVG_ICON;
+  readonly ICON = SVG_ICON;
   bookmarks = computed(() => this.filterService.bookmarksSignal());
   themes = computed(() => this.filterService.themesSignal());
   isLoading = signal<boolean>(false);

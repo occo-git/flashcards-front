@@ -1,4 +1,9 @@
-<button class="word-item" (click)="onWordClick()">
+@if (simple) {
+<button class="word-item" (click)="onWordClick()" [disabled]="disabled">
+  {{word.wordText}}
+</button>
+} @else {
+<button class="word-item" (click)="onWordClick()" [disabled]="disabled">
   {{word.wordText}} - {{word.translation.ru}}
 </button>
 <div class="word-bookmark">
@@ -6,3 +11,4 @@
   <app-svg-icon [svg]="ICON.BOOKMARK" size="sm"></app-svg-icon>
   }
 </div>
+}

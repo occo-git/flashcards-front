@@ -13,6 +13,6 @@ import { SVG_ICON } from '@app/components/svg-icon.constants';
 })
 export class ChangeLevelComponent {
   
-  ICON = SVG_ICON;
-  
+  readonly ICON = SVG_ICON;
+
 }

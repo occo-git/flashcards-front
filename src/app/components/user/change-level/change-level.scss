@@ -9,12 +9,12 @@
     //background-color: red;
     display: grid;
     grid-template-rows: auto auto;
-}
 
-.levels {
-    //background-color: red;
-    display: flex;
-    flex-direction: row;
-    padding: 0px 8px 16px 8px;
-    gap: 16px;
+    .levels {
+        //background-color: red;
+        display: flex;
+        flex-direction: row;
+        padding: 0px 8px 16px 8px;
+        gap: 16px;
+    }
 }

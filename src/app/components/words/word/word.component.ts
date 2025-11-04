@@ -13,9 +13,11 @@ import { SVG_ICON } from '@components/svg-icon.constants';
 })
 export class WordComponent {
   @Input() word!: WordDto;
+  @Input() simple: boolean = false;
+  @Input() disabled: boolean = false;
   @Output() wordClick = new EventEmitter<number>();
 
-  ICON = SVG_ICON;
+  readonly ICON = SVG_ICON;
 
   onWordClick() {
     this.wordClick.emit(this.word.id);

@@ -1,8 +1,29 @@
 <app-filter (filter)="applyFilter($event)"></app-filter>
-<div class="quiz-container">
-    <div class="quiz-counter">
-    
+<div class="start-quiz-container">
+    <div class="result-counter">
+        <app-svg-icon [svg]="ICON.TICK" size="md"></app-svg-icon> 
+        @if (total() > 0) { {{ result() }} / {{ total() }} }
     </div>
-    
+    <div class="border-control">
+        <div class="control-title">
+            <app-svg-icon [svg]="ICON.BULB" size="lg"></app-svg-icon>
+            <h2>Quiz</h2>
+            <!-- @if (isLoading()) { <app-loader></app-loader> } -->
+        </div>
+        <div class="quiz-container">
+            <div class="word-text">{{ word()?.translation?.ru }}</div>
+            <div class="quiz-words-container">
+                @if (quiz()) {
+                @for (word of quiz()?.words; track word.id) {
+                <app-word [simple]="true" [word]="word" (wordClick)="onWordSelected($event)"></app-word>
+                }
+                } @else {
+                @for (i of [].constructor(OPTIONS_COUNT); track i) {
+                <app-word [simple]="true" [disabled]="true"></app-word>
+                }
+                }
+            </div>
+        </div>
+    </div>
 </div>
 <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

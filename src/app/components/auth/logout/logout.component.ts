@@ -21,7 +21,7 @@ import { SVG_ICON } from '@components/svg-icon.constants';
 })
 export class LogoutComponent {
     form = new FormGroup({});
-    ICON = SVG_ICON;
+    readonly ICON = SVG_ICON;
     username = computed(() => this.userService.currentUserInfo()?.username);
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);

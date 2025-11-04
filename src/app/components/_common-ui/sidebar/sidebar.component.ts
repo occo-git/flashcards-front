@@ -24,7 +24,7 @@ import { SVG_ICON } from "@components/svg-icon.constants"
 })
 export class SidebarComponent {
 
-  ICON = SVG_ICON;
+  readonly ICON = SVG_ICON;
 
   constructor(
     public userService: UserService
