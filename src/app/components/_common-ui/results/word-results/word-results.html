@@ -1,0 +1,20 @@
+<div #resultsContainer class="scrollable">
+    @for (result of results(); track result.wordId) {
+    <div class="word-result">
+        @if (result.isOk) { 
+            <app-svg-icon [svg]="ICON.TICK" size="sm"></app-svg-icon> 
+        } @else {
+            <app-svg-icon size="sm"></app-svg-icon> 
+        }
+        <div class="text-parts">
+        @for (textPart of result.textParts; track textPart.text) {
+            @if (textPart.isBold) { 
+                &nbsp;<div class="text-part-bold">{{textPart.text}}</div>
+            } @else {
+                &nbsp;<div class="text-part">{{textPart.text}}</div>
+            }
+        }
+        </div>
+    </div>
+    }
+</div>  

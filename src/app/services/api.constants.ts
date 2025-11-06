@@ -13,6 +13,7 @@ export interface ApiPaths {
     ME: string
     LOGOUT: string
     LEVEL: string
+    SAVE_PROGRESS: string
   }
   CARDS: {
     BY_ID: string
@@ -25,9 +26,8 @@ export interface ApiPaths {
   }
   ACTIVITY: {
     QUIZ: string
-    TYPEWORD: string
+    TYPE_WORD: string
     FILL_BLANK: string
-    SAVE: string
   }
   IMAGES: string
 }
@@ -41,7 +41,8 @@ export const CONST_API_PATHS: ApiPaths = {
     REFRESH: `${environment.apiUrl}/users/refresh`,
     ME: `${environment.apiUrl}/users/me`,
     LOGOUT: `${environment.apiUrl}/users/logout`,
-    LEVEL: `${environment.apiUrl}/users/level`
+    LEVEL: `${environment.apiUrl}/users/level`,
+    SAVE_PROGRESS: `${environment.apiUrl}/users/progress/save`
   },
   CARDS: {
     BY_ID: `${environment.apiUrl}/cards`,
@@ -54,9 +55,8 @@ export const CONST_API_PATHS: ApiPaths = {
   },
   ACTIVITY: {
     QUIZ: `${environment.apiUrl}/activity/quiz`,
-    TYPEWORD: `${environment.apiUrl}/activity/type-word`,
-    FILL_BLANK: `${environment.apiUrl}/activity/fill-blank`,
-    SAVE: `${environment.apiUrl}/activity/save`
+    TYPE_WORD: `${environment.apiUrl}/activity/type-word`,
+    FILL_BLANK: `${environment.apiUrl}/activity/fill-blank`
   },
   IMAGES: `${environment.apiUrl}/images`
 };

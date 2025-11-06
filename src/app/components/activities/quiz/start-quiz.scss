@@ -1,4 +1,3 @@
-// Импорт переменных для цветов и теней
 @use 'styles.scss' as *;
 
 :host {
@@ -8,7 +7,7 @@
     align-items: center;
 }
 
-.start-quiz-container {
+.activity-container {
     display: flex;
     flex-direction: column;
 
@@ -19,21 +18,16 @@
         color: var(--second-color);
     }
 
-    .quiz-container {
+    .word-text {
+        font-size: 1.5rem;
+        color: var(--dark-color);
+        text-align: center;
+    }
+
+    .words-container {
         display: flex;
         flex-direction: column;
-
-        .word-text {
-            font-size: 1.5rem;
-            color: var(--dark-color);
-            text-align: left;
-        }
-
-        .quiz-words-container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 32px;
-        }
+        gap: 8px;
+        margin-top: 16px;
     }
 }

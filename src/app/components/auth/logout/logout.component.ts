@@ -1,15 +1,16 @@
 import { Component, signal, computed, ViewEncapsulation } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '@services/user/user.service';
-import { CONST_ROUTES } from '@routing/routes.constans'
 
-import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
+import { UserService } from '@services/user/user.service';
 import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
+import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
+
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { SVG_ICON } from '@components/svg-icon.constants';
+import { CONST_ROUTES } from '@routing/routes.constans'
 
 @Component({
     selector: 'app-logout',

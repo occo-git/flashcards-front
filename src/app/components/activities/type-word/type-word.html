@@ -1,1 +1,22 @@
-<p>type-word works!</p>
+<app-filter (filter)="applyFilter($event)"></app-filter>
+<div class="activity-container">
+    <div class="result-counter">
+        <app-svg-icon [svg]="ICON.TICK" size="md"></app-svg-icon>
+        @if (total() > 0) { {{ result() }} / {{ total() }} }
+    </div>
+    <form class="form-control" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="control-title">
+            <app-svg-icon [svg]="ICON.TAP" size="lg"></app-svg-icon>
+            <h2>Type Word</h2>
+            <!-- @if (isLoading()) { <app-loader></app-loader> } -->
+        </div>
+        <div class="word-text">{{ word()?.translation?.ru }}</div>
+        <div class="input-container">
+            <input class="input-control" type="text" id="wordText" name="wordtext" required formControlName="wordText"
+                appErrorMessage [errorElement]="wordTextError" />
+            <div class="error-message" #wordTextError></div>
+        </div>
+    </form>
+</div>
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+<app-word-results #resultsComponent></app-word-results>

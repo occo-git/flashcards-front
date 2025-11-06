@@ -1,2 +1,33 @@
-// Импорт переменных для цветов и теней
-@use 'styles.scss' as *; // "stylePreprocessorOptions": { "includePaths": ["src"] }
+@use 'app/styles/form-styles.scss' as *;
+
+:host {
+    //background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.activity-container {
+    display: flex;
+    flex-direction: column;
+
+    .result-counter {
+        //background-color: blue;
+        text-align: right;
+        font-size: 0.9rem;
+        color: var(--second-color);
+    }
+
+    .fill-blank-text {
+        font-size: 1.2rem;
+        color: var(--dark-color);
+        text-align: center;
+    }
+
+    .words-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 16px;
+    }
+}

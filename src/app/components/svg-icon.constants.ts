@@ -1,6 +1,7 @@
 export const SVG_ICON = {
     BOOKMARK: '/svg/bookmark.svg',
     BULB: '/svg/bulb.svg',
+    CIRCLE: '/svg/circle.svg',
     COPY: '/svg/copy.svg',
     CROWN: '/svg/crown.svg',
     DASHBOARD: '/svg/dashboard.svg',

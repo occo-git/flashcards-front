@@ -1,4 +1,5 @@
 import { Component, Input, signal, OnInit, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+
 import { FileService } from '@services/files/file.service';
 import { CardDto } from '@models/cards.dto';
 import { LoaderComponent } from "@components/_common-ui/loader/loader.component";

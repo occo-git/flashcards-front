@@ -80,3 +80,14 @@ export interface BookmarkDto {
   isAll: boolean
   name: string
 }
+
+export interface ActivityResultDto {
+  isOk: boolean
+  wordId: number
+  textParts: ActivityResultTextPartDto[]
+}
+
+export interface ActivityResultTextPartDto {
+  text: string
+  isBold?: boolean
+}

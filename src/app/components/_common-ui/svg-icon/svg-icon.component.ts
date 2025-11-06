@@ -10,15 +10,15 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrl: './svg-icon.scss'
 })
 export class SvgIconComponent {
-@Input() set svg(value: string) {
+  @Input() set svg(value: string) {
     this.safePath = this.sanitizer.bypassSecurityTrustResourceUrl(value);
   }
   @Input() size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' = 'md';
 
   safePath!: SafeResourceUrl;
-  
-  constructor(private sanitizer: DomSanitizer) {}
-  
+
+  constructor(private sanitizer: DomSanitizer) { }
+
   get sizeClass(): string {
     return `svg-icon ${this.size}`;
   }
