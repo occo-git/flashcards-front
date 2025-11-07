@@ -17,20 +17,28 @@
     text-align: center;
     user-select: none;
 
-    &.checked {
-        background-color: var(--prime-color);
-        color: var(--light-color);
-        border-color: var(--light-color);
-        transform: scale(1.38);
-    }
-
     &:hover:not(:disabled) {
         background-color: var(--prime-color-dark);
         color: var(--light-color);
         border-color: var(--light-color);
+        z-index: 2;
+    }
+
+    &.checked {
+        background-color: var(--prime-color);
+        color: var(--light-color);
+        border-color: var(--light-color);
+        transform: scale(1.2); // 40 → 48px
+        z-index: 3;
     }
 
     &:active:not(:disabled) {
-        transform: scale(0.98);
+        transform: scale(0.95); // 40 → 38px, checked: 48 → ~45.6px
+        transition: transform 0.1s ease;
+        z-index: 4;
+    }
+
+    &.checked:active:not(:disabled) {
+        transform: scale(1.2) scale(0.95); // 1.2 * 0.95 = 1.14 → ~45.6px
     }
 }

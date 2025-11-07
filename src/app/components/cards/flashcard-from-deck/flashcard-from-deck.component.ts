@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FilterService } from '@services/filer/filter.service';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
 import { DeckFilterDto, CardRequestDto, WordRequestDto } from '@models/cards.dto';
-import { FilterComponent } from "@components/cards/filter/filter.component";
+import { FilterComponent } from "@app/components/_common-ui/filter/filter.component";
 import { FlashcardComponent } from '@components/cards/flashcard/flashcard.component';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';

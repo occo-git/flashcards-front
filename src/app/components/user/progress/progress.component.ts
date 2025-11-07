@@ -1,13 +1,15 @@
 import { Component, computed, signal, ViewEncapsulation } from '@angular/core';
 
 import { ActivityService } from '@services/activity/activity.service';
-import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { ProgressResponseDto, ProgressSummaryGroup } from '@models/activity.dto';
+
+import { ProgressBarComponent } from "@components/_common-ui/progress-bar/progress-bar.component";
+import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';
+import { ICONS, USER_ITEMS } from '@components/_common-ui/ui.constants';
 
 import { ErrorMessageComponent } from "@components/_common-ui/error-message/error-message.component";
 import { HttpErrorResponse } from '@angular/common/http';
-import { ProgressBarComponent } from "@app/components/_common-ui/progress/progress-bar/progress-bar.component";
 
 @Component({
   selector: 'app-progress',
@@ -20,6 +22,9 @@ import { ProgressBarComponent } from "@app/components/_common-ui/progress/progre
 export class ProgressComponent {
 
   readonly ICON = SVG_ICON;
+  readonly ICONS = ICONS;
+  readonly USER_ITEMS = USER_ITEMS;
+
   progress = signal<ProgressResponseDto | null>(null);
   groupedProgress = computed(() => {
     const data = this.progress();
@@ -34,15 +39,8 @@ export class ProgressComponent {
 
     return Array
       .from(grouped.entries())
-      .map(([name, groups]) => ({name, groups}));
+      .map(([name, groups]) => ({ name, groups }));
   });
-  percentFor(group: ProgressSummaryGroup) {
-    return computed(() => {
-      const { correctCount, totalAttempts } = group;
-      if (totalAttempts === 0) return 0;
-      return Math.round((correctCount / totalAttempts) * 100);
-    });
-  }
 
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);

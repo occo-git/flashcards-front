@@ -13,6 +13,7 @@ export const SVG_ICON = {
     LOGOUT: '/svg/logout.svg',
     PLAY: '/svg/play.svg',
     PUZZLE: '/svg/puzzle.svg',
+    SQUARE: '/svg/square.svg',
     TAP: '/svg/tap.svg',
     TICK: '/svg/tick.svg',
     TARGET: '/svg/target.svg',

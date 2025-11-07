@@ -1,0 +1,67 @@
+@use 'styles.scss' as *;
+
+$height: 32px;
+$padding: 0px;
+$font-size: 0.8rem;
+$shadow: 2px 2px 4px var(--prime-color);
+
+:host {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.progress-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    min-width: 250px;
+    width: 100%;
+    height: $height;
+    padding: $padding;
+    background: var(--mid-color);
+    border-radius: var(--border-r);
+    border: 1px solid var(--border-color);
+}
+
+.progress-fill {
+    background-color: var(--prime-color-dark);
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    border-radius: var(--border-r);
+    box-shadow: $shadow;    
+    translate: -2px -2px;
+}
+
+.percent-value {
+    //background-color: red;  
+    color: var(--light-color);
+    position: absolute;
+    left: 8px;
+    top: $padding;
+    height: $height;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: $font-size;
+    align-content: center;
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.progress-value {
+    //background-color: green;
+    color: var(--light-color);
+    position: absolute;
+    right: 8px;
+    top: $padding;
+    height: $height;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: $font-size;
+    align-content: center;
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+}

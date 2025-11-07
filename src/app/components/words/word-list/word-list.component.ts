@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, signal, computed, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FilterComponent } from "@app/components/cards/filter/filter.component";
+import { FilterComponent } from "@app/components/_common-ui/filter/filter.component";
 import { WordComponent } from '@components/words/word/word.component';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
 import { DeckFilterDto, CardsPageRequestDto } from '@models/cards.dto'

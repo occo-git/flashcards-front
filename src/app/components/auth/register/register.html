@@ -1,7 +1,7 @@
 <form class="form-control" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="control-title">
-        <app-svg-icon [svg]="ICON.USER" size="lg"></app-svg-icon>
-        <h2>Register</h2>
+        <app-svg-icon [svg]="ICONS[USER_ITEMS.REGISTER]" size="lg"></app-svg-icon>
+        <h2>{{ USER_ITEMS.REGISTER }}</h2>
     </div>
     <div class="register-container">
         <label class="label-control" for="username">Username</label>

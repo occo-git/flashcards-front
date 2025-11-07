@@ -5,7 +5,7 @@ import { FilterService } from '@services/filer/filter.service';
 import { DeckFilterDto } from '@models/cards.dto';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';
-import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
+import { FILTER_ITEMS, ICONS } from '../ui.constants';
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -21,7 +21,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class FilterComponent  {
   @Output() filter = new EventEmitter<DeckFilterDto>();
 
-  readonly ICON = SVG_ICON;
+  readonly ICONS = ICONS;
+  readonly FILTER_ITEMS = FILTER_ITEMS;
+
   bookmarks = computed(() => this.filterService.bookmarksSignal());
   themes = computed(() => this.filterService.themesSignal());
   isLoading = signal<boolean>(false);

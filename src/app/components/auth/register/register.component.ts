@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { CONST_ROUTES } from '@routing/routes.constans';
 import { SVG_ICON } from '@components/svg-icon.constants';
+import { ICONS, USER_ITEMS } from '@app/components/_common-ui/ui.constants';
 
 @Component({
     selector: 'app-register',
@@ -49,8 +50,12 @@ export class RegisterComponent {
         {
             validators: CustomValidators.match('password', 'passwordConfirm', 'Passwords must match')
         });
+
     readonly ICON = SVG_ICON;
-    ROUTES = CONST_ROUTES;
+    readonly ICONS = ICONS;
+    readonly USER_ITEMS = USER_ITEMS;    
+    readonly ROUTES = CONST_ROUTES;
+    
     isLoading = signal<boolean>(false);
     errorResponse  = signal<HttpErrorResponse | null>(null);
     

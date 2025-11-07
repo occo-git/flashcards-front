@@ -1,26 +1,27 @@
 <div class="border-control">
     <div class="control-title">
-        <app-svg-icon [svg]="ICON.DASHBOARD" size="lg"></app-svg-icon>
-        <h2>Progress</h2>
+        <app-svg-icon [svg]="ICONS[USER_ITEMS.PROGRESS]" size="xl"></app-svg-icon>
+        <h2>{{ USER_ITEMS.PROGRESS }}</h2>
     </div>
     <div class="progress-container">
         @for (summary of groupedProgress(); track summary.name) {
-        <div class="summary-container">
-            <div class="summary-name">{{ summary.name }}</div>
+        <div class="summary-container border-control">
+            <div class="summary-title">
+                <app-svg-icon [svg]="ICONS[summary.name]" size="lg"></app-svg-icon>
+                <div class="summary-name">{{ summary.name }}</div>
+            </div>
             <div class="summary-groups">
-                @let count = summary.groups.length;
                 @for (group of summary.groups; track group.key) {
                 <div class="summary-group">
-                    @if (count > 1) {
-                    <div class="group-key">{{ group.key }}</div>
-                    }
                     <div class="group-content">
-                        <app-progress-bar [percent]="percentFor(group)()"></app-progress-bar>
-                        {{ percentFor(group)() }}% ({{ group.correctCount }} / {{ group.totalAttempts }})
+                        <app-svg-icon [svg]="ICONS[group.key]"></app-svg-icon>
+                        <div class="group-key">{{ group.key }}</div>
+                        <app-progress-bar [total]="group.totalAttempts" [value]="group.correctCount"></app-progress-bar>
                     </div>
                 </div>
                 }
             </div>
+
         </div>
         }
     </div>

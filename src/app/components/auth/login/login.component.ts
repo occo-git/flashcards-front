@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { CONST_ROUTES } from '@routing/routes.constans'
 import { SVG_ICON } from '@components/svg-icon.constants';
+import { ICONS, USER_ITEMS } from '@components/_common-ui/ui.constants';
 
 @Component({
     selector: 'app-login',
@@ -37,15 +38,18 @@ export class LoginComponent {
                 CustomValidators.minLength(8, 'Password must be at least 8 characters long'),
                 CustomValidators.pattern(CONST_VALIDATION.MIN_REGEX, 'Password must contain at least one letter and one number')
             ]),
-        })        
+        })
     readonly ICON = SVG_ICON;
-    ROUTES = CONST_ROUTES;
+    readonly ICONS = ICONS;
+    readonly USER_ITEMS = USER_ITEMS;
+    readonly ROUTES = CONST_ROUTES;
+    
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);
 
     constructor(
         private router: Router,
-        private userService: UserService        
+        private userService: UserService
     ) { }
 
     onSubmit() {
@@ -73,7 +77,7 @@ export class LoginComponent {
             console.log('Form is invalid');
         }
     }
-    
+
     clearError() {
         this.errorResponse.set(null);
         this.isLoading.set(false);

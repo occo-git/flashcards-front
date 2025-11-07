@@ -6,8 +6,8 @@
     </div>
     <div class="border-control">
         <div class="control-title">
-            <app-svg-icon [svg]="ICON.BULB" size="lg"></app-svg-icon>
-            <h2>Quiz</h2>
+            <app-svg-icon [svg]="ICONS[ACTIVITY_ITEMS.QUIZ]" size="xl"></app-svg-icon>
+            <h2> {{ ACTIVITY_ITEMS.QUIZ }}</h2>
             <!-- @if (isLoading()) { <app-loader></app-loader> } -->
         </div>
         <div class="word-text">{{ word()?.translation?.ru }}</div>

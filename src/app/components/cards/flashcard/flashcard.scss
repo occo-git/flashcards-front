@@ -44,22 +44,21 @@ $card-padding: 32px;
     }
   }
 
-  // Место для фото
   .photo-container {
-    background-color: var(--light-color); // Цвет фона на случай отсутствия изображения
+    background-color: var(--light-color);
     width: 100%;
     height: 0;
-    padding-top: 100%; // Соотношение сторон 1:1
-    position: relative; // Для абсолютного позиционирования изображения
+    padding-top: 100%; // rate 1:1
+    position: relative; 
     border-radius: var(--border-R);
 
     img {
-      position: absolute; // Абсолютное позиционирование
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; // Обеспечивает обрезку изображения с сохранением пропорций
+      object-fit: cover; // keep proportions
       border-radius: var(--border-R);
     }
   }

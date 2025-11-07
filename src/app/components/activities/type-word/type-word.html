@@ -6,8 +6,8 @@
     </div>
     <form class="form-control" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="control-title">
-            <app-svg-icon [svg]="ICON.TAP" size="lg"></app-svg-icon>
-            <h2>Type Word</h2>
+            <app-svg-icon [svg]="ICONS[ACTIVITY_ITEMS.TYPE_WORD]" size="xl"></app-svg-icon>
+            <h2>{{ ACTIVITY_ITEMS.TYPE_WORD }}</h2>
             <!-- @if (isLoading()) { <app-loader></app-loader> } -->
         </div>
         <div class="word-text">{{ word()?.translation?.ru }}</div>

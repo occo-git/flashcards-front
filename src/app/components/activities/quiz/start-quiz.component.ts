@@ -6,15 +6,15 @@ import { ActivityService } from '@services/activity/activity.service';
 import { ActivityProgressRequestDto, ActivityRequestDto } from '@models/activity.dto';
 import { DeckFilterDto, WordDto } from '@models/cards.dto';
 
-import { FilterComponent } from "@components/cards/filter/filter.component";
+import { FilterComponent } from "@app/components/_common-ui/filter/filter.component";
 import { WordComponent } from "@components/words/word/word.component";
 import { WordResultsComponent } from "@components/_common-ui/results/word-results/word-results.component";
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';
+import { ACTIVITY_ITEMS, ICONS } from '@app/components/_common-ui/ui.constants';
 
 import { ErrorMessageComponent } from "@components/_common-ui/error-message/error-message.component";
 import { HttpErrorResponse } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-start-quiz',
@@ -29,9 +29,11 @@ export class StartQuizComponent {
 
   readonly OPTIONS_COUNT: number = 4;
   readonly ICON = SVG_ICON;
+  readonly ICONS = ICONS;
+  readonly ACTIVITY_ITEMS = ACTIVITY_ITEMS;
 
   filter = computed(() => this.filterService.getFilter());
-  activityType = signal<string | null>(null);
+  activityType = ACTIVITY_ITEMS.QUIZ;
   quiz = computed(() => this.activityService.quiz());
   word = signal<WordDto | null>(null);
   wordId = computed(() => this.word()?.id ?? 0);
@@ -63,13 +65,11 @@ export class StartQuizComponent {
     }
     this.activityService.getQuiz(request).subscribe({
       next: response => {
-        this.activityType.set(response.activityType);
         const randomIndex = Math.floor(Math.random() * response.words.length);
         this.word.set(response.words[randomIndex]);
         this.isLoading.set(false);
       },
       error: err => {
-        this.activityType.set(null);
         this.activityService.clearQuiz();
         this.errorResponse.set(err);
         this.isLoading.set(false);
@@ -98,19 +98,16 @@ export class StartQuizComponent {
     if (this.resultsComponent && word)
       this.resultsComponent.addWordResult(word, result);
 
-    const actitvityType = this.activityType();
-    if (actitvityType) {
-      const activityProgressRequest: ActivityProgressRequestDto = {
-        activityType: actitvityType,
-        wordId: this.wordId(),
-        fillBlankId: null,
-        isSuccess: result
-      };
-      this.activityService.saveProgress(activityProgressRequest).subscribe({
-        next: response => { this.loadQuiz(); },
-        error: err => { this.errorResponse.set(err); }
-      });    
-    }
+    const activityProgressRequest: ActivityProgressRequestDto = {
+      activityType: this.activityType,
+      wordId: this.wordId(),
+      fillBlankId: null,
+      isSuccess: result
+    };
+    this.activityService.saveProgress(activityProgressRequest).subscribe({
+      next: response => { this.loadQuiz(); },
+      error: err => { this.errorResponse.set(err); }
+    });
   }
 
   clearError() {

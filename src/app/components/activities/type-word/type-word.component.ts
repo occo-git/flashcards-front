@@ -9,7 +9,7 @@ import { ActivityProgressRequestDto, ActivityRequestDto } from '@models/activity
 import { DeckFilterDto, WordDto } from '@models/cards.dto';
 
 import { WordResultsComponent } from "@components/_common-ui/results/word-results/word-results.component";
-import { FilterComponent } from "@components/cards/filter/filter.component";
+import { FilterComponent } from "@app/components/_common-ui/filter/filter.component";
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';
 
@@ -18,6 +18,7 @@ import { CustomValidators } from '@validation/custom-validators';
 import { ErrorMessageDirective } from '@validation/error-message/error-message.directive'
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ACTIVITY_ITEMS, ICONS } from '@app/components/_common-ui/ui.constants';
 
 @Component({
   selector: 'app-type-word',
@@ -37,11 +38,13 @@ export class TypeWordComponent {
 
   readonly OPTIONS_COUNT: number = 1;
   readonly ICON = SVG_ICON;
+  readonly ICONS = ICONS;
+  readonly ACTIVITY_ITEMS = ACTIVITY_ITEMS;
 
   filter = computed(() => this.filterService.getFilter());
+  activityType = ACTIVITY_ITEMS.TYPE_WORD;
   word = signal<WordDto | null>(null);
   wordId = computed(() => this.word()?.id ?? 0);
-  activityType = signal<string | null>(null);
   result = signal<number>(0);
   total = signal<number>(0);
 
@@ -69,12 +72,10 @@ export class TypeWordComponent {
     }
     this.activityService.getTypeWord(request).subscribe({
       next: response => {
-        this.activityType.set(response.activityType);
         this.word.set(response.word);
         this.isLoading.set(false);
       },
       error: err => {
-        this.activityType.set(null);
         this.activityService.clearTypeWord();
         this.errorResponse.set(err);
         this.isLoading.set(false);
@@ -124,19 +125,16 @@ export class TypeWordComponent {
     if (this.resultsComponent && word)
       this.resultsComponent.addWordResult(word, result);
 
-    const actitvityType = this.activityType();
-    if (actitvityType) {
-      const activityProgressRequest: ActivityProgressRequestDto = {
-        activityType: actitvityType,
-        wordId: this.wordId(),
-        fillBlankId: null,
-        isSuccess: result
-      };
-      this.activityService.saveProgress(activityProgressRequest).subscribe({
-        next: response => { this.loadTypeWord(); },
-        error: err => { this.errorResponse.set(err); }
-      });    
-    }
+    const activityProgressRequest: ActivityProgressRequestDto = {
+      activityType: this.activityType,
+      wordId: this.wordId(),
+      fillBlankId: null,
+      isSuccess: result
+    };
+    this.activityService.saveProgress(activityProgressRequest).subscribe({
+      next: response => { this.loadTypeWord(); },
+      error: err => { this.errorResponse.set(err); }
+    });
   }
 
   clearError() {

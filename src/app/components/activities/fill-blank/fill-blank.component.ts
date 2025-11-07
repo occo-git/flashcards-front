@@ -6,11 +6,12 @@ import { ActivityService } from '@services/activity/activity.service';
 import { ActivityProgressRequestDto, ActivityRequestDto } from '@models/activity.dto';
 import { DeckFilterDto, WordDto } from '@models/cards.dto';
 
-import { FilterComponent } from "@components/cards/filter/filter.component";
+import { FilterComponent } from "@app/components/_common-ui/filter/filter.component";
 import { WordComponent } from "@components/words/word/word.component";
 import { WordResultsComponent } from "@components/_common-ui/results/word-results/word-results.component";
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';
+import { ACTIVITY_ITEMS, ICONS } from '@components/_common-ui/ui.constants';
 
 import { ErrorMessageComponent } from "@components/_common-ui/error-message/error-message.component";
 import { HttpErrorResponse } from '@angular/common/http';
@@ -28,9 +29,11 @@ export class FillBlankComponent {
 
   readonly OPTIONS_COUNT: number = 4;
   readonly ICON = SVG_ICON;
+  readonly ICONS = ICONS;
+  readonly ACTIVITY_ITEMS = ACTIVITY_ITEMS;
 
   filter = computed(() => this.filterService.getFilter());
-  activityType = signal<string | null>(null);
+  activityType = ACTIVITY_ITEMS.FILL_BLANK;
   fillBlank = computed(() => this.activityService.fillBlank());
   fillBlankId = computed(() => this.activityService.fillBlank()?.fillBlank.id ?? 0);
   fillBlankTemplate = computed(() => this.activityService.fillBlank()?.fillBlank?.blankTemplate);
@@ -64,14 +67,12 @@ export class FillBlankComponent {
     }
     this.activityService.getFillBlank(request).subscribe({
       next: response => {
-        this.activityType.set(response.activityType);
         const wordId = response.fillBlank.wordId;
         const word = response.words.find(w => w.id === wordId);
         this.word.set(word!);
         this.isLoading.set(false);
       },
       error: err => {
-        this.activityType.set(null);
         this.activityService.clearFillBlank();
         this.errorResponse.set(err);
         this.isLoading.set(false);
@@ -101,19 +102,16 @@ export class FillBlankComponent {
     if (this.resultsComponent && fillBlankTemplate && word)
       this.resultsComponent.addFillBlankRusult(fillBlankTemplate, word, result);
 
-    const actitvityType = this.activityType();
-    if (actitvityType) {
-      const activityProgressRequest: ActivityProgressRequestDto = {
-        activityType: actitvityType,
-        wordId: this.wordId(),
-        fillBlankId: this.fillBlankId(),
-        isSuccess: result
-      };
-      this.activityService.saveProgress(activityProgressRequest).subscribe({
-        next: response => { this.loadFillBlank(); },
-        error: err => { this.errorResponse.set(err); }
-      });      
-    }
+    const activityProgressRequest: ActivityProgressRequestDto = {
+      activityType: this.activityType,
+      wordId: this.wordId(),
+      fillBlankId: this.fillBlankId(),
+      isSuccess: result
+    };
+    this.activityService.saveProgress(activityProgressRequest).subscribe({
+      next: response => { this.loadFillBlank(); },
+      error: err => { this.errorResponse.set(err); }
+    });
   }
 
   clearError() {

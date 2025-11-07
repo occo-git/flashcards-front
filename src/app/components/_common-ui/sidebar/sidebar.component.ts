@@ -3,8 +3,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { UserService } from '@services/user/user.service';
+
+import { ACTIVITY_ITEMS, CARDS_ITEMS, USER_ITEMS, ICONS } from '@components/_common-ui/ui.constants'
 import { SvgIconComponent } from '@components/_common-ui/svg-icon/svg-icon.component';
-import { LoaderComponent } from "../loader/loader.component";
 import { SVG_ICON } from "@components/svg-icon.constants"
 
 @Component({
@@ -17,14 +18,16 @@ import { SVG_ICON } from "@components/svg-icon.constants"
     MatExpansionModule,
     MatListModule,
     SvgIconComponent
-    //LoaderComponent
   ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss'
 })
 export class SidebarComponent {
 
-  readonly ICON = SVG_ICON;
+  readonly ICONS = ICONS;
+  readonly ACTIVITY_ITEMS = ACTIVITY_ITEMS;
+  readonly CARDS_ITEMS = CARDS_ITEMS;
+  readonly USER_ITEMS = USER_ITEMS;
 
   constructor(
     public userService: UserService

@@ -5,11 +5,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '@services/user/user.service';
 import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
+import { SVG_ICON } from '@components/svg-icon.constants';
+import { ICONS, USER_ITEMS } from '@app/components/_common-ui/ui.constants';
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { SVG_ICON } from '@components/svg-icon.constants';
 import { CONST_ROUTES } from '@routing/routes.constans'
 
 @Component({
@@ -23,6 +24,9 @@ import { CONST_ROUTES } from '@routing/routes.constans'
 export class LogoutComponent {
     form = new FormGroup({});
     readonly ICON = SVG_ICON;
+    readonly ICONS = ICONS;
+    readonly USER_ITEMS = USER_ITEMS;
+
     username = computed(() => this.userService.currentUserInfo()?.username);
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);

@@ -1,7 +1,7 @@
 <div class="filter-container">
 
     <div class="filter-item">
-        <div class="filter-title"><app-svg-icon [svg]="ICON.BOOKMARK"></app-svg-icon></div>
+        <div class="filter-title"><app-svg-icon [svg]="ICONS[FILTER_ITEMS.BOOKMARK]"></app-svg-icon></div>
         <mat-select class="dropdown-selector s150" panelClass="custom-dropdown-panel" [value]="selectedBookmarkId()"
             (selectionChange)="onBookmarkChange($event)">
 
@@ -15,7 +15,7 @@
     </div>
 
     <div class="filter-item">
-        <div class="filter-title"><app-svg-icon [svg]="ICON.FOLDER"></app-svg-icon></div>
+        <div class="filter-title"><app-svg-icon [svg]="ICONS[FILTER_ITEMS.THEME]"></app-svg-icon></div>
         <mat-select class="dropdown-selector s400" panelClass="custom-dropdown-panel" [value]="selectedThemeId()"
             (selectionChange)="onThemeChange($event)">
 

@@ -1,0 +1,79 @@
+import { SVG_ICON } from "../svg-icon.constants";
+
+export const ACTIVITY_ITEMS = {
+    START_ACTIVITY: 'Start Activity',
+    QUIZ: 'Quiz',
+    TYPE_WORD: 'Type Word',
+    FILL_BLANK: 'Fill Blank'
+}
+
+export const CARDS_ITEMS = {
+    VIEW_CARDS: 'View Cards',
+    DECK: 'Deck',
+    MARKED: 'Marked',
+    LIST: 'List'
+}
+
+export const USER_ITEMS = {
+    REGISTER: 'Register',
+    LOGIN: 'Login',
+    LOGOUT: 'Logout',
+    CHANGE_LEVEL: 'Change Level',
+    PROGRESS: 'My Progress',
+    HELP: 'Help'
+};
+
+export const LEVEL_ITEMS = {
+    A1: 'A1',
+    A2: 'A2',
+    B1: 'B1',
+    B2: 'B2',
+    C1: 'C1',
+    C2: 'C2',
+}
+
+export const PROGRESS_ITEMS = {
+    ALL_CARDS: 'All Cards',
+    TOTAL: 'Total',
+    BY_LEVEL: 'By Level',
+    BY_ACTIVITY: 'By Activity'
+}
+
+export const FILTER_ITEMS = {
+    BOOKMARK: 'Mark',
+    THEME: 'Theme'
+}
+
+export const ICONS: Record<string, string> = {    
+    [ACTIVITY_ITEMS.START_ACTIVITY]: SVG_ICON.PLAY,
+    [ACTIVITY_ITEMS.QUIZ]: SVG_ICON.BULB,
+    [ACTIVITY_ITEMS.TYPE_WORD]: SVG_ICON.TAP,
+    [ACTIVITY_ITEMS.FILL_BLANK]: SVG_ICON.PUZZLE,
+
+    [CARDS_ITEMS.VIEW_CARDS]: SVG_ICON.DRAWER,
+    [CARDS_ITEMS.DECK]: SVG_ICON.COPY,
+    [CARDS_ITEMS.MARKED]: SVG_ICON.BOOKMARK,
+    [CARDS_ITEMS.LIST]: SVG_ICON.DOC,
+
+    [USER_ITEMS.REGISTER]: SVG_ICON.USER,
+    [USER_ITEMS.LOGIN]: SVG_ICON.LOGIN,
+    [USER_ITEMS.LOGOUT]: SVG_ICON.LOGOUT,
+    [USER_ITEMS.CHANGE_LEVEL]: SVG_ICON.CROWN,
+    [USER_ITEMS.PROGRESS]: SVG_ICON.DASHBOARD,
+    [USER_ITEMS.HELP]: SVG_ICON.INFO,
+
+    [LEVEL_ITEMS.A1]: SVG_ICON.SQUARE,
+    [LEVEL_ITEMS.A2]: SVG_ICON.SQUARE,
+    [LEVEL_ITEMS.B1]: SVG_ICON.SQUARE,
+    [LEVEL_ITEMS.B2]: SVG_ICON.SQUARE,
+    [LEVEL_ITEMS.C1]: SVG_ICON.SQUARE,
+    [LEVEL_ITEMS.C2]: SVG_ICON.SQUARE,
+
+    [PROGRESS_ITEMS.ALL_CARDS]: SVG_ICON.DRAWER,
+    [PROGRESS_ITEMS.TOTAL]: SVG_ICON.COPY,
+    [PROGRESS_ITEMS.BY_LEVEL]: SVG_ICON.CROWN,
+    [PROGRESS_ITEMS.BY_ACTIVITY]: SVG_ICON.PLAY,
+
+    [FILTER_ITEMS.BOOKMARK]: SVG_ICON.BOOKMARK,
+    [FILTER_ITEMS.THEME]: SVG_ICON.FOLDER
+};

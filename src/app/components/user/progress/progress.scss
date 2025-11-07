@@ -3,6 +3,7 @@
 :host {
     //background-color: magenta;
     padding: 32px;
+    width: 600px;
 }
 
 .progress-container {
@@ -10,17 +11,25 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    padding: 16px;
+    padding-bottom: 24px;
 
     .summary-container {
         //background-color: red;
         display: flex;
         flex-direction: column;
         gap: 16px;
+        padding-bottom: 32px;
 
-        .summary-name {
-            color: var(--prime-color);
-            font-size: 1.5rem;
+        .summary-title {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;   
+            align-items: center;
+
+            .summary-name {
+                color: var(--prime-color);
+                font-size: 1.5rem;
+            }
         }
 
         .summary-groups {
@@ -35,16 +44,15 @@
                 gap: 8px;
 
                 .group-key {
-                    color: var(--prime-color);
-                    font-size: 1.2rem;
+                    color: var(--dark-color);
+                    font-size: .9rem;
                 }
 
                 .group-content {
                     display: grid;
-                    grid-template-columns: 1fr 30%;
-                    color: var(--second-color);
-                    font-size: 0.9rem;
-                    gap: 16px;
+                    grid-template-columns: 30px 20% 1fr;
+                    gap: 8px;
+                    padding-left: 16px;
                     align-items: center;
                 }
             }

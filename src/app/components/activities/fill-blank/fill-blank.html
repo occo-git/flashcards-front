@@ -6,8 +6,8 @@
     </div>
     <div class="border-control">
         <div class="control-title">
-            <app-svg-icon [svg]="ICON.PUZZLE" size="lg"></app-svg-icon>
-            <h2>Fill Blank</h2>
+            <app-svg-icon [svg]="ICONS[ACTIVITY_ITEMS.FILL_BLANK]" size="xl"></app-svg-icon>
+            <h2>{{ ACTIVITY_ITEMS.FILL_BLANK }}</h2>
             <!-- @if (isLoading()) { <app-loader></app-loader> } -->
         </div>
         <div class="fill-blank-text">{{ fillBlank()?.fillBlank?.blankTemplate }}</div>
