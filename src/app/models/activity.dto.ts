@@ -36,4 +36,15 @@ export interface FillBlankDto {
     wordId: number
     blankTemplate: string
 }
+
+export interface ProgressResponseDto {
+    groups: ProgressSummaryGroup[]
+}
+
+export interface ProgressSummaryGroup {
+    name: string
+    key: string
+    correctCount: number
+    totalAttempts: number
+}
 //#endregion

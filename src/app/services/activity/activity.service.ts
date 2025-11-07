@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { ActivityProgressRequestDto, ActivityRequestDto, FillBlankResponseDto, QuizResponseDto, TypeWordResponseDto } from '@app/models/activity.dto';
+import { ActivityProgressRequestDto, ActivityRequestDto, FillBlankResponseDto, ProgressResponseDto, QuizResponseDto, TypeWordResponseDto } from '@app/models/activity.dto';
 import { CONST_API_PATHS } from '@services/api.constants';
 import { Observable, tap } from 'rxjs';
 
@@ -55,7 +55,13 @@ export class ActivityService {
   }
   //#endregion
 
+  //#region Progress
+  getProgress(): Observable<ProgressResponseDto> {
+    return this.http.get<ProgressResponseDto>(CONST_API_PATHS.USERS.PROGRESS);
+  }
+
   saveProgress(request: ActivityProgressRequestDto): Observable<boolean> {
     return this.http.post<boolean>(CONST_API_PATHS.USERS.SAVE_PROGRESS, request);
   }
+  //#endregion
 }

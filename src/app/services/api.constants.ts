@@ -13,6 +13,7 @@ export interface ApiPaths {
     ME: string
     LOGOUT: string
     LEVEL: string
+    PROGRESS: string
     SAVE_PROGRESS: string
   }
   CARDS: {
@@ -42,6 +43,7 @@ export const CONST_API_PATHS: ApiPaths = {
     ME: `${environment.apiUrl}/users/me`,
     LOGOUT: `${environment.apiUrl}/users/logout`,
     LEVEL: `${environment.apiUrl}/users/level`,
+    PROGRESS: `${environment.apiUrl}/users/progress`,
     SAVE_PROGRESS: `${environment.apiUrl}/users/progress/save`
   },
   CARDS: {

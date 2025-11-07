@@ -6,8 +6,48 @@
 }
 
 .progress-container {
-    display: grid;
-    grid-template-columns: 25% auto;
-    grid-template-rows: auto auto auto;
-    gap: 16px;
+    //background-color: red;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 16px;
+
+    .summary-container {
+        //background-color: red;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .summary-name {
+            color: var(--prime-color);
+            font-size: 1.5rem;
+        }
+
+        .summary-groups {
+            //background-color: green;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .summary-group {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                .group-key {
+                    color: var(--prime-color);
+                    font-size: 1.2rem;
+                }
+
+                .group-content {
+                    display: grid;
+                    grid-template-columns: 1fr 30%;
+                    color: var(--second-color);
+                    font-size: 0.9rem;
+                    gap: 16px;
+                    align-items: center;
+                }
+            }
+        }
+    }
 }

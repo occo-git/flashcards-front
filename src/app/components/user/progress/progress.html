@@ -4,7 +4,25 @@
         <h2>Progress</h2>
     </div>
     <div class="progress-container">
-        <label class="label-control">Username</label>
-        <label class="label-control-value">Username</label>
+        @for (summary of groupedProgress(); track summary.name) {
+        <div class="summary-container">
+            <div class="summary-name">{{ summary.name }}</div>
+            <div class="summary-groups">
+                @let count = summary.groups.length;
+                @for (group of summary.groups; track group.key) {
+                <div class="summary-group">
+                    @if (count > 1) {
+                    <div class="group-key">{{ group.key }}</div>
+                    }
+                    <div class="group-content">
+                        <app-progress-bar [percent]="percentFor(group)()"></app-progress-bar>
+                        {{ percentFor(group)() }}% ({{ group.correctCount }} / {{ group.totalAttempts }})
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        }
     </div>
 </div>
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
