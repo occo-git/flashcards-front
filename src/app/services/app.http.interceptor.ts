@@ -2,7 +2,6 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, switchMap, throwError } from 'rxjs';
-import { UserService } from '@services/user/user.service';
 import { UserSessionService } from '@services/user-session/user-session.service';
 import { CONST_ROUTES } from '@routing/routes.constans';
 import { SKIP_AUTH } from '@services/api.constants';
@@ -15,6 +14,8 @@ export const AppHttpInterceptor: HttpInterceptorFn = (req, next) => {
 
   const router = inject(Router);
   const session = inject(UserSessionService);
+
+  console.log('request >>>  ' + req);
 
   return session.getHeaders().pipe(
     switchMap(headers => next(req.clone({ headers }))),

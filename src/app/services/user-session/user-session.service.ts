@@ -15,11 +15,23 @@ export class UserSessionService {
   private CONST_ACCESS_KEY = 'accessToken';
   private CONST_REFRESH_KEY = 'refreshToken';
   private CONST_SESSION_EXPIRE_SEC = 30 * 24 * 60 * 60; // 30 days
-  private CONST_BEFORE_EXPIRE_SEC: number = 60; // 1 min before expiration
+  private CONST_TOKEN_BEFORE_EXPIRE_SEC: number = 60; // 1 min before expiration
 
   constructor(
-        private httpClient: HttpClient
-    ) { }
+    private httpClient: HttpClient
+  ) { }
+
+  isAuthenticated(): boolean {
+    const accessToken = this.getAccessToken();
+    const sessionId = this.getSessionId();
+    // User is authenticated if accessToken exists, is not expired, and sessionId exists
+    return !!accessToken && !this.isAccessTokenExpired() && !!sessionId;
+  }
+
+  saveLoginResponse(response: TokenResponseDto) {
+    this.saveSessionId(response.sessionId);
+    this.saveTokens(response.accessToken, response.refreshToken);
+  }
 
   //#region sessionId
   private saveSessionId(sessionId: string): void {
@@ -72,7 +84,7 @@ export class UserSessionService {
 
   //#region cookies
   private setCookie(name: string, value: string = '', maxAgeSeconds: number = -1): void {
-      document.cookie = `${name}=${value}; max-age=${maxAgeSeconds}; path=/; Secure; SameSite=Strict`;
+    document.cookie = `${name}=${value}; max-age=${maxAgeSeconds}; path=/; Secure; SameSite=Strict`;
   }
 
   private getCookie(name: string): string | null {
@@ -80,6 +92,12 @@ export class UserSessionService {
       new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
     return matches ? decodeURIComponent(matches[1]) : null;
+  }
+
+  clearCookies() {
+    this.setCookie(this.CONST_SESSION_KEY);
+    this.setCookie(this.CONST_ACCESS_KEY);
+    this.setCookie(this.CONST_REFRESH_KEY);
   }
   //#endregion
 
@@ -101,7 +119,7 @@ export class UserSessionService {
   }
 
   getHeaders(): Observable<HttpHeaders> {
-    if (!this.isAccessTokenExpired(this.CONST_BEFORE_EXPIRE_SEC)) {
+    if (!this.isAccessTokenExpired(this.CONST_TOKEN_BEFORE_EXPIRE_SEC)) {
       return of(this.getAuthHeaders());
     }
 
@@ -116,7 +134,11 @@ export class UserSessionService {
     const request: RefreshTokenRequestDto = { refreshToken };
 
     return this.httpClient
-      .post<TokenResponseDto>(CONST_API_PATHS.USERS.REFRESH, request, { headers })
+      .post<TokenResponseDto>(CONST_API_PATHS.USERS.REFRESH, request,
+        {
+          headers: headers,
+          context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
+        })
       .pipe(
         tap(response => this.saveLoginResponse(response)),
         map(() => this.getAuthHeaders()), // return HttpHeaders
@@ -127,23 +149,4 @@ export class UserSessionService {
       );
   }
   //#endregion
-
-  saveLoginResponse(response: TokenResponseDto) {
-    this.saveSessionId(response.sessionId);
-    this.saveTokens(response.accessToken, response.refreshToken);
-  }
-
-  clearCookies() {
-    this.setCookie(this.CONST_SESSION_KEY);
-    this.setCookie(this.CONST_ACCESS_KEY);
-    this.setCookie(this.CONST_REFRESH_KEY);
-  }
-
-  isAuthenticated(): boolean {
-    const accessToken = this.getAccessToken();
-    const sessionId = this.getSessionId();
-
-    // User is authenticated if accessToken exists, is not expired, and sessionId exists
-    return !!accessToken && !this.isAccessTokenExpired() && !!sessionId;
-  }
 }
