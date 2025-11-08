@@ -2,15 +2,24 @@ import { Component, signal, computed } from '@angular/core';
 import { FilterService } from '@services/filer/filter.service';
 import { UserService } from '@services/user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { LoaderComponent } from "../loader/loader.component";
+import { SvgIconComponent } from "../svg-icon/svg-icon.component";
+import { SVG_ICON } from '@app/components/svg-icon.constants';
 
 @Component({
   selector: 'app-levels',
   //imports: [LoaderComponent],
   templateUrl: './levels.html',
-  styleUrl: './levels.scss'
+  styleUrl: './levels.scss',
+  imports: [SvgIconComponent]
 })
 export class LevelsComponent {
+
+  readonly ICON = SVG_ICON;
+  levels = computed(() => this.filterService.levelsSignal());
+  reversedLevels = computed(() => this.levels().slice().reverse());
+  userLevel = computed(() => this.userService.currentUserInfo()?.level);
+  isLoading = signal<boolean>(false);
+  errorResponse = signal<HttpErrorResponse | null>(null);
 
   constructor(
     private filterService: FilterService,
@@ -18,11 +27,6 @@ export class LevelsComponent {
   ) {
     this.init();
   }
-
-  levels = computed(() => this.filterService.levelsSignal());
-  userLevel = computed(() => this.userService.currentUserInfo()?.level);
-  isLoading = signal<boolean>(false);
-  errorResponse = signal<HttpErrorResponse | null>(null);
 
   private init() {
     this.isLoading.set(true);

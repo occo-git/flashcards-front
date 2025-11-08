@@ -105,9 +105,10 @@ export class UserSessionService {
       return of(this.getAuthHeaders());
     }
 
+    // Token soon will be expired, try to refresh exiting token
     const refreshToken = this.getRefreshToken();
     if (!refreshToken) {
-      this.clear();
+      this.clearCookies();
       return throwError(() => new Error('No refresh token'));
     }
 
@@ -120,7 +121,7 @@ export class UserSessionService {
         tap(response => this.saveLoginResponse(response)),
         map(() => this.getAuthHeaders()), // return HttpHeaders
         catchError(err => {
-          this.clear();
+          this.clearCookies();
           return throwError(() => err);
         })
       );
@@ -132,7 +133,7 @@ export class UserSessionService {
     this.saveTokens(response.accessToken, response.refreshToken);
   }
 
-  clear() {
+  clearCookies() {
     this.setCookie(this.CONST_SESSION_KEY);
     this.setCookie(this.CONST_ACCESS_KEY);
     this.setCookie(this.CONST_REFRESH_KEY);

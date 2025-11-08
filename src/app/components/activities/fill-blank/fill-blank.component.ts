@@ -32,8 +32,8 @@ export class FillBlankComponent {
   readonly ICONS = ICONS;
   readonly ACTIVITY_ITEMS = ACTIVITY_ITEMS;
 
-  filter = computed(() => this.filterService.getFilter());
   activityType = ACTIVITY_ITEMS.FILL_BLANK;
+  filter = computed(() => this.filterService.getFilter());
   fillBlank = computed(() => this.activityService.fillBlank());
   fillBlankId = computed(() => this.activityService.fillBlank()?.fillBlank.id ?? 0);
   fillBlankTemplate = computed(() => this.activityService.fillBlank()?.fillBlank?.blankTemplate);

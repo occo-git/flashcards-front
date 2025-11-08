@@ -41,8 +41,8 @@ export class TypeWordComponent {
   readonly ICONS = ICONS;
   readonly ACTIVITY_ITEMS = ACTIVITY_ITEMS;
 
-  filter = computed(() => this.filterService.getFilter());
   activityType = ACTIVITY_ITEMS.TYPE_WORD;
+  filter = computed(() => this.filterService.getFilter());
   word = signal<WordDto | null>(null);
   wordId = computed(() => this.word()?.id ?? 0);
   result = signal<number>(0);

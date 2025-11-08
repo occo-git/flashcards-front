@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, signal } from '@angular/core';
+import { Component, ElementRef, ViewChild, ViewEncapsulation, signal } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -25,6 +25,7 @@ import { ICONS, USER_ITEMS } from '@components/_common-ui/ui.constants';
     styleUrl: './login.scss'
 })
 export class LoginComponent {
+    @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
     form = new FormGroup(
         {
             username: new FormControl(
@@ -43,7 +44,8 @@ export class LoginComponent {
     readonly ICONS = ICONS;
     readonly USER_ITEMS = USER_ITEMS;
     readonly ROUTES = CONST_ROUTES;
-    
+
+    showPassword = signal<boolean>(false);
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);
 
@@ -76,6 +78,11 @@ export class LoginComponent {
         } else {
             console.log('Form is invalid');
         }
+    }
+
+    togglePasswordVisibility() {
+        this.showPassword.set(!this.showPassword());
+        this.passwordInput.nativeElement.focus();
     }
 
     clearError() {

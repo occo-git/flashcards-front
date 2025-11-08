@@ -1,7 +1,7 @@
-<div class="levels">
-    @for (level of levels(); track $index) {
-    <div class="level" [class.checked]="level === userLevel()" (click)="onLevelSelected(level)">
-        {{level}}
+@for (level of reversedLevels(); track $index) {
+<div class="level-container">
+    <div class="level" [class.checked]="level.name === userLevel()" (click)="onLevelSelected(level.name)">
+        <app-svg-icon [svg]="ICON.DOT_0"></app-svg-icon> {{level.name}} - {{ level.description }}
     </div>
-    }
 </div>
+}

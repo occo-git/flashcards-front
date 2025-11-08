@@ -32,8 +32,8 @@ export class StartQuizComponent {
   readonly ICONS = ICONS;
   readonly ACTIVITY_ITEMS = ACTIVITY_ITEMS;
 
-  filter = computed(() => this.filterService.getFilter());
   activityType = ACTIVITY_ITEMS.QUIZ;
+  filter = computed(() => this.filterService.getFilter());
   quiz = computed(() => this.activityService.quiz());
   word = signal<WordDto | null>(null);
   wordId = computed(() => this.word()?.id ?? 0);

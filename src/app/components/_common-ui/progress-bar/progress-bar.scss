@@ -1,6 +1,6 @@
 @use 'styles.scss' as *;
 
-$height: 32px;
+$height: 24px;
 $padding: 0px;
 $font-size: 0.8rem;
 $shadow: 2px 2px 4px var(--prime-color);
@@ -25,18 +25,19 @@ $shadow: 2px 2px 4px var(--prime-color);
 }
 
 .progress-fill {
-    background-color: var(--prime-color-dark);
+    background-color: var(--prime-color);//var(--light-color);
     display: flex;
     flex-direction: row;
     height: 100%;
+    border: 1px solid var(--prime-color-dark);
     border-radius: var(--border-r);
     box-shadow: $shadow;    
-    translate: -2px -2px;
+    translate: -1px -2px;
 }
 
 .percent-value {
     //background-color: red;  
-    color: var(--light-color);
+    color: var(--light-color);//(--dark-color);
     position: absolute;
     left: 8px;
     top: $padding;
@@ -52,7 +53,7 @@ $shadow: 2px 2px 4px var(--prime-color);
 
 .progress-value {
     //background-color: green;
-    color: var(--light-color);
+    color: var(--light-color);//(--dark-color);
     position: absolute;
     right: 8px;
     top: $padding;

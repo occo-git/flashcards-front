@@ -25,10 +25,12 @@
             flex-direction: row;
             gap: 8px;   
             align-items: center;
+            border-bottom: 1px solid var(--mid-color);
 
             .summary-name {
-                color: var(--prime-color);
-                font-size: 1.5rem;
+                color: var(--dark-color);
+                font-size: 1rem;
+                font-weight: 500;
             }
         }
 
@@ -45,7 +47,7 @@
 
                 .group-key {
                     color: var(--dark-color);
-                    font-size: .9rem;
+                    font-size: 1rem;
                 }
 
                 .group-content {

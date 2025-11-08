@@ -61,6 +61,11 @@ export interface CardInfo {
   wordText: string
 }
 
+export interface LevelDto {
+  name: string
+  description: string
+}
+
 export interface ThemeDto {
   id: number
   isAll: boolean

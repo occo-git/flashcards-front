@@ -14,7 +14,7 @@ export class WordResultsComponent {
   @ViewChild('resultsContainer') resultsContainer!: ElementRef;
 
   readonly SPLITER = '____';
-  ICON = SVG_ICON;
+  readonly ICON = SVG_ICON;
   results = signal<ActivityResultDto[]>([]);
 
   scrollToBottom(): void {

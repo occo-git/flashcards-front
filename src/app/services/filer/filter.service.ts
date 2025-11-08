@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '@services/user/user.service';
 import { Observable, tap, map } from 'rxjs';
-import { BookmarkDto, DeckFilterDto, LevelFilterDto, ThemeDto, TranslationDto } from '@app/models/cards.dto';
+import { BookmarkDto, DeckFilterDto, LevelDto, LevelFilterDto, ThemeDto, TranslationDto } from '@models/cards.dto';
 import { CONST_API_PATHS } from '@services/api.constants';
 import { Params } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { Params } from '@angular/router';
 })
 export class FilterService {
 
-  private levels = signal<string[]>([]);
+  private levels = signal<LevelDto[]>([]);
   private themes = signal<ThemeDto[]>([]);
   private bookmarks = signal<BookmarkDto[]>([
     { id: 0, isAll: true, name: '• All' },
@@ -19,11 +19,11 @@ export class FilterService {
     { id: -1, isAll: false, name: 'Unmarked' }
   ]);
   get levelsSignal() { return this.levels.asReadonly(); }
-  get bookmarksSignal() { return this.bookmarks.asReadonly(); }
   get themesSignal() { return this.themes.asReadonly(); }
+  get bookmarksSignal() { return this.bookmarks.asReadonly(); }
 
-  selectedBookmarkId = signal<number>(0);
   selectedThemeId = signal<number>(0);
+  selectedBookmarkId = signal<number>(0);
   selectedDifficultyId = signal<number>(0);
 
   constructor(
@@ -31,8 +31,8 @@ export class FilterService {
     private userService: UserService
   ) { }
 
-  getLevels(): Observable<string[]> {
-    return this.http.get<string[]>(CONST_API_PATHS.CARDS.LEVELS)
+  getLevels(): Observable<LevelDto[]> {
+    return this.http.get<LevelDto[]>(CONST_API_PATHS.CARDS.LEVELS)
       .pipe(
         tap(response => this.levels.set(response)) // save signal
       );

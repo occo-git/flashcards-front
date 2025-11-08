@@ -91,7 +91,7 @@ export class UserService {
             .post<boolean>(CONST_API_PATHS.USERS.LOGOUT, {})
             .pipe(
                 finalize(() => { // in any case
-                    this.session.clear();
+                    this.session.clearCookies();
                     this.userInfo.set(null);
                 }));
     }

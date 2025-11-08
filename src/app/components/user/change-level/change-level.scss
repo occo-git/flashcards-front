@@ -11,10 +11,11 @@
     flex-direction: column;
 
     .levels {
-        //background-color: red;
+        //background-color: green;
         display: flex;
         flex-direction: row;
-        padding: 0px 8px 16px 8px;
+        width: auto;
+        padding: 16px 32px 32px 32px;
         gap: 16px;
     }
 }

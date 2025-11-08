@@ -41,7 +41,7 @@
     <!-- Change {lev} Level -->
     <a class="item-out" mat-list-item routerLink="change-level" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
-        <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_LEVEL]"></app-svg-icon> {{ USER_ITEMS.CHANGE_LEVEL}} - {{ userLevel() }}
+        <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_LEVEL]"></app-svg-icon> {{ USER_ITEMS.CHANGE_LEVEL}} <app-svg-icon [svg]="ICON.DOT_0" size="sm"></app-svg-icon> {{ userLevel() }}
     </a>    
     
     <!-- My Progress -->
