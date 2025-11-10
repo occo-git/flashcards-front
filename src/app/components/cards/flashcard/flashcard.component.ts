@@ -3,18 +3,21 @@ import { Component, Input, signal, OnInit, OnChanges, SimpleChanges, ViewEncapsu
 import { FileService } from '@services/files/file.service';
 import { CardDto } from '@models/cards.dto';
 import { LoaderComponent } from "@components/_common-ui/loader/loader.component";
+import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
+import { SVG_ICON } from '@components/svg-icon.constants';
 
 @Component({
   selector: 'app-flashcard',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
-  imports: [LoaderComponent],
+  imports: [LoaderComponent, SvgIconComponent],
   templateUrl: './flashcard.html',
   styleUrls: ['./flashcard.scss']
 })
 export class FlashcardComponent implements OnInit, OnChanges {
   @Input() card: CardDto | undefined;
 
+  ICON = SVG_ICON;
   imageUrl = signal<string | null>(null);
   isLoading = signal<boolean>(false);
   showTranslation = signal(false);

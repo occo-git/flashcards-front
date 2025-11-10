@@ -38,7 +38,13 @@ export interface CardDto {
   level: string //'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
   isMarked: boolean
   difficulty: number
-  imageUrl?: string
+  imageAttributes: ImageAttributes
+}
+
+export interface ImageAttributes {
+  by: string
+  link: string
+  source: string
 }
 
 export interface WordDto {

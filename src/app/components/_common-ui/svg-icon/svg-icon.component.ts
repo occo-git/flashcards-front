@@ -13,7 +13,7 @@ export class SvgIconComponent {
   @Input() set svg(value: string) {
     this.safePath = this.sanitizer.bypassSecurityTrustResourceUrl(value);
   }
-  @Input() size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' = 'md';
+  @Input() size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' = 'md';
 
   safePath!: SafeResourceUrl;
 

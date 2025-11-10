@@ -7,7 +7,7 @@
     </div>
     <div class="card-bookmark">
         @if (isMarked()) {
-        <app-svg-icon [svg]="ICON.BOOKMARK" size="lg"></app-svg-icon>
+        <app-svg-icon [svg]="ICON.BOOKMARK_1" size="lg"></app-svg-icon>
         }
     </div>
     <div class="deck">
@@ -25,9 +25,9 @@
     <div class="bookmark-controls">
         <button (click)="onBookmark()">
             @if (isMarked()) {
-            <app-svg-icon [svg]="ICON.UNBOOKMARK" size="sm"></app-svg-icon>Unmark
+            <app-svg-icon [svg]="ICON.BOOKMARK_0" size="sm"></app-svg-icon>Unmark
             } @else {
-            <app-svg-icon [svg]="ICON.BOOKMARK" size="sm"></app-svg-icon>Mark
+            <app-svg-icon [svg]="ICON.BOOKMARK_1" size="sm"></app-svg-icon>Mark
             }
         </button>
     </div>

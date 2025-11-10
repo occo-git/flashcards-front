@@ -111,6 +111,20 @@ h3 {
   text-align: left;
 }
 
+a {
+  color: var(--prime-color);                    
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: var(--prime-color-dark);
+  }
+}
+
 .border-control {
   background-color: var(--light-color);
   min-width: 400px;

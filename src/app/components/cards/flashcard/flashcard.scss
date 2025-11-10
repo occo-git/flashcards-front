@@ -49,7 +49,7 @@ $card-padding: 32px;
     width: 100%;
     height: 0;
     padding-top: 100%; // rate 1:1
-    position: relative; 
+    position: relative;
     border-radius: var(--border-R);
 
     img {
@@ -60,6 +60,28 @@ $card-padding: 32px;
       height: 100%;
       object-fit: cover; // keep proportions
       border-radius: var(--border-R);
+    }
+  }
+
+  .photo-attributes {
+    //background-color: gray;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    height: 1px;
+    translate: 0px -16px;
+    color: var(--second-color);
+
+    .photo-by {
+      //background-color: red;
+      //background-color: var(--bg-color);
+      height: 24px;
+      padding-right: 8px;
+      border: 1px solid var(--mid-color);
+      border-radius: var(--border-r);
+      font-size: 0.6rem;
+      align-content: center;
+      cursor: pointer;
+      user-select: none;
     }
   }
 

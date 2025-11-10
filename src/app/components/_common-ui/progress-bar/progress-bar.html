@@ -1,5 +1,7 @@
 <div class="progress-container">
+    @if (percent() > 0) {
     <div class="progress-fill" [style.width.%]="percent()"></div>
+    }
     <div class="percent-value">{{ percent() }}%</div>
     <div class="progress-value">{{ value }} / {{ total }}</div>
 </div>

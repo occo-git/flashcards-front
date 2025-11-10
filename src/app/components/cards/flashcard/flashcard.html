@@ -11,6 +11,16 @@
     <img [src]="imageUrl()" alt="{{ card.wordText }}">
     }
   </div>
+  <div class="photo-attributes">
+    @if (card.imageAttributes) {
+    <div></div>
+    <a [href]="card.imageAttributes.link" target="_blank">
+      <div class="photo-by">
+        <app-svg-icon [svg]="ICON.LINK" size="xs"></app-svg-icon>{{card.imageAttributes.by}}
+      </div>
+    </a>
+    }
+  </div>
   <div class="word-text">
     {{ showTranslation() ? card.translation.ru : card.wordText }}
   </div>

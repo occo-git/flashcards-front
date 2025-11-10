@@ -1,5 +1,7 @@
 export const SVG_ICON = {
     BOOKMARK: '/svg/bookmark.svg',
+    BOOKMARK_0: '/svg/bookmark-0.svg',
+    BOOKMARK_1: '/svg/bookmark-1.svg',
     BULB: '/svg/bulb.svg',
     CIRCLE: '/svg/circle.svg',
     COPY: '/svg/copy.svg',
@@ -13,6 +15,7 @@ export const SVG_ICON = {
     EYE_OPEN: '/svg/eye_open.svg',
     FOLDER: '/svg/folder-closed.svg',
     INFO: '/svg/info.svg',
+    LINK: '/svg/link.svg',
     LOGIN: '/svg/login.svg',
     LOGOUT: '/svg/logout.svg',
     NIGHT: '/svg/night.svg',
