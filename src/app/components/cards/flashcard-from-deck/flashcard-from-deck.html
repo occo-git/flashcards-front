@@ -1,5 +1,7 @@
 <app-filter (filter)="applyFilter($event)"></app-filter>
+
 <div class="flashcard-deck-container">
+    @if (card()) {
     <div class="card-counter">
         {{ index() }} / {{ total() }}
     </div>
@@ -29,6 +31,9 @@
             }
         </button>
     </div>
+    }} @else {
+    <div class="border-control">No cards match the filter.</div>
     }
 </div>
+
 <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

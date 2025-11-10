@@ -33,8 +33,7 @@
         </div>
     </div>
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+    <div class="redirect-login">
+        Have an account? <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
+    </div>
 </form>
-
-<div class="redirect-login">
-    Have an account? <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
-</div>

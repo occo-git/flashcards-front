@@ -2,44 +2,50 @@
 
 :host {
     //background-color: magenta;
+    display: flex;
+    flex-direction: column;
     padding: 32px;
+    align-items: center;
 }
 
 .login-container {
+    //background-color: red;
     display: grid;
     grid-template-columns: 25% auto;
+    padding-bottom: 16px;
 }
 
 .password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .password-wrapper .input-control {
-  padding-right: 24px;
-  width: 100%;
+    padding-right: 24px;
+    width: 100%;
 }
 
 .toggle-password {
-  position: absolute;
-  right: 0px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    right: 0px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  app-svg-icon {
-    pointer-events: none;
-  }
+    app-svg-icon {
+        pointer-events: none;
+    }
 }
 
 .redirect-register {
-    align-items: left;
-    padding: 16px;
-    font-size: 0.9rem;
-    color: var(--prime-color);
+    color: var(--dark-color);
     width: 100%;
+    padding-top: 16px;
+    font-size: 0.8rem;
+    text-align: left;
+    border-top: 1px solid var(--mid-color);
 }

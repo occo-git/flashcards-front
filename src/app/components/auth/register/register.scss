@@ -2,18 +2,23 @@
 
 :host {
     //background-color: magenta;
+    display: flex;
+    flex-direction: column;
     padding: 32px;
+    align-items: center;
 }
 
 .register-container {
     display: grid;
     grid-template-columns: 25% auto;
+     padding-bottom: 16px;
 }
 
 .redirect-login {
-    align-items: left;
-    padding: 16px;
-    font-size: 0.9rem;
-    color: var(--prime-color);
+    color: var(--dark-color);
     width: 100%;
+    padding-top: 16px;
+    font-size: 0.8rem;
+    text-align: left;
+    border-top: 1px solid var(--mid-color);
 }

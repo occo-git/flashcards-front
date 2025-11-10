@@ -4,7 +4,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { FilterService } from '@services/filer/filter.service';
 import { DeckFilterDto } from '@models/cards.dto';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
-import { SVG_ICON } from '@components/svg-icon.constants';
 import { FILTER_ITEMS, ICONS } from '../ui.constants';
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
@@ -14,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   selector: 'app-filter',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
-  imports: [MatSelectModule, SvgIconComponent, ErrorMessageComponent],
+  imports: [MatSelectModule, SvgIconComponent],
   templateUrl: './filter.html',
   styleUrl: './filter.scss'
 })

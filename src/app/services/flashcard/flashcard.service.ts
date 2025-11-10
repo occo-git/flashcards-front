@@ -29,16 +29,9 @@ export class FlashcardService {
         tap(card => this.card.set(card))  // save signal
       );
   }
-
-  getFlashcards(request: CardsPageRequestDto): Observable<CardDto[]> {
-    return this.http.post<CardDto[]>(CONST_API_PATHS.CARDS.DECK, request)
-      .pipe(
-        tap(response => this.cards.set(response))  // save signal
-      );
-  }
-
+  
   getWords(request: CardsPageRequestDto): Observable<WordDto[]> {
-    return this.http.post<WordDto[]>(CONST_API_PATHS.CARDS.DECK, request)
+    return this.http.post<WordDto[]>(CONST_API_PATHS.CARDS.LIST, request)
       .pipe(
         tap(response => this.words.set(response))  // save signal
       );

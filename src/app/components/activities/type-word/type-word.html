@@ -19,4 +19,6 @@
     </form>
 </div>
 <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+@if (word()) {
 <app-word-results #resultsComponent></app-word-results>
+}

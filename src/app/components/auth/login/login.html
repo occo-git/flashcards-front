@@ -26,8 +26,7 @@
         </div>
     </div>
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+    <div class="redirect-register">
+        Don't have an account? <a [href]="ROUTES.AUTH.REGISTER">Register here.</a>
+    </div>
 </form>
-
-<div class="redirect-register">
-    Don't have an account? <a [href]="ROUTES.AUTH.REGISTER">Register here.</a>
-</div>

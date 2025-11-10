@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation, signal, computed, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { FilterComponent } from "@app/components/_common-ui/filter/filter.component";
 import { WordComponent } from '@components/words/word/word.component';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
-import { DeckFilterDto, CardsPageRequestDto } from '@models/cards.dto'
+import { DeckFilterDto, CardsPageRequestDto, WordDto } from '@models/cards.dto'
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -24,21 +24,24 @@ const CONST_PAGE_SIZE = 10;
 export class WordListComponent {
   filter = computed(() => this.filterService.getFilter());
 
-  firstId = signal<number>(0);
-  currentWordId = signal<number>(0);
+  words = signal<WordDto[]>([]);
   hasPrevious = signal<boolean>(false);
-  hasNext = signal<boolean>(true);
-  words = computed(() => this.flashcardService.wordsSignal());
+  hasNext = signal<boolean>(false);
 
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private filterService: FilterService,
     private flashcardService: FlashcardService
   ) {
-    this.loadWordsPage();
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.filterService.applyFilterParams(params);
+
+      this.loadWordsPage();
+    });
   }
 
   applyFilter(filter: DeckFilterDto) {
@@ -59,25 +62,17 @@ export class WordListComponent {
     };
 
     this.flashcardService.getWords(request).subscribe({
-      next: (words) => {
-        this.currentWordId.set(wordId);
+      next: (allWords) => {
+        // allWords = [prevWord?, ...pageWords..., nextWord?]
+        // prevWord, nextWord - can be null
 
-        if (words.length > 0) {
-          if (isDirectionForward) {
-            if (!this.firstId())
-              this.firstId.set(words[0].id);
-            this.hasPrevious.set(this.currentWordId() !== 0);
-            this.hasNext.set(words.length === CONST_PAGE_SIZE);
-          } else {
-            this.hasPrevious.set(this.firstId() < words[0].id);
-            this.hasNext.set(true);
-          }
-        }
-        else {
-          this.hasPrevious.set(false);
-          this.hasNext.set(false);
-        }
-
+        const hasPrev = allWords[0] !== null;
+        const hasNext = allWords[allWords.length - 1] !== null;
+        const pageWords = allWords.slice(1, -1) as WordDto[];
+        
+        this.words.set(pageWords);
+        this.hasPrevious.set(hasPrev);
+        this.hasNext.set(hasNext);
         this.isLoading.set(false);
       },
       error: (err) => {
