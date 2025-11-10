@@ -3,8 +3,15 @@
 :host {
     //background-color: red;
     height: 50px;
-    //display: grid;
-    align-items: center;
-    justify-items: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
     border-bottom: 1px solid var(--border-color);
+}
+
+.settings-container {
+    //background-color: red;
+    align-content: center;
 }

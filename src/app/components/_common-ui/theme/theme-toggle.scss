@@ -1,0 +1,11 @@
+@use 'styles.scss' as *;
+
+.theme-toggle {
+    cursor: pointer;
+    padding: 2px;
+    border-radius: var(--border-r);
+}
+
+.theme-toggle:hover {
+    background: var(--mid-color);
+}

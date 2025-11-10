@@ -1,0 +1,7 @@
+<div class="theme-toggle" (click)="themeService.toggle()">
+    @if (themeService.currentTheme() == THEMES.LIGHT) {
+    <app-svg-icon [svg]="ICON.NIGHT"></app-svg-icon>
+    } @else {
+    <app-svg-icon [svg]="ICON.SUNNY"></app-svg-icon>
+    }
+</div>
