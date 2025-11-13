@@ -35,9 +35,9 @@ export interface CardDto {
   partOfSpeech: string
   translation: { en: string; ru: string }
   example: string
-  level: string //'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
-  isMarked: boolean
+  level: string //'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
   difficulty: number
+  isMarked: boolean
   imageAttributes: ImageAttributes
 }
 

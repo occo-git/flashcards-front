@@ -1,7 +1,7 @@
 import { Component, signal, computed, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 
-import { FilterService } from '@services/filer/filter.service';
+import { FilterService } from '@app/services/filter/filter.service';
 import { DeckFilterDto } from '@models/cards.dto';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { FILTER_ITEMS, ICONS } from '../ui.constants';

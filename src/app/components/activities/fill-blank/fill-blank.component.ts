@@ -1,6 +1,6 @@
 import { Component, computed, signal, ViewChild, ViewEncapsulation } from '@angular/core';
 
-import { FilterService } from '@services/filer/filter.service';
+import { FilterService } from '@app/services/filter/filter.service';
 import { SoundService } from '@services/sound/sound.service';
 import { ActivityService } from '@services/activity/activity.service';
 import { ActivityProgressRequestDto, ActivityRequestDto } from '@models/activity.dto';

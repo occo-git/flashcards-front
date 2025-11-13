@@ -1,5 +1,5 @@
 import { Component, signal, computed } from '@angular/core';
-import { FilterService } from '@services/filer/filter.service';
+import { FilterService } from '@app/services/filter/filter.service';
 import { UserService } from '@services/user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SvgIconComponent } from "../svg-icon/svg-icon.component";

@@ -9,7 +9,7 @@ import { DeckFilterDto, CardsPageRequestDto, WordDto } from '@models/cards.dto'
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CONST_ROUTES } from '@app/routing/routes.constans';
-import { FilterService } from '@app/services/filer/filter.service';
+import { FilterService } from '@app/services/filter/filter.service';
 
 const CONST_PAGE_SIZE = 10;
 

@@ -117,7 +117,8 @@ a {
 
   &:hover,
   &:focus {
-    text-decoration: underline;
+    color: var(--prime-color-dark);
+    //text-decoration: underline;
   }
 
   &:visited {
