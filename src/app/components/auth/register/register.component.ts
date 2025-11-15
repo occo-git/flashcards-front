@@ -53,12 +53,13 @@ export class RegisterComponent {
 
     readonly ICON = SVG_ICON;
     readonly ICONS = ICONS;
-    readonly USER_ITEMS = USER_ITEMS;    
+    readonly USER_ITEMS = USER_ITEMS;
     readonly ROUTES = CONST_ROUTES;
-    
+
+    showPassword = signal<boolean>(false);
     isLoading = signal<boolean>(false);
-    errorResponse  = signal<HttpErrorResponse | null>(null);
-    
+    errorResponse = signal<HttpErrorResponse | null>(null);
+
     constructor(
         private userService: UserService,
         private router: Router
@@ -88,6 +89,10 @@ export class RegisterComponent {
                 });
             }
         }
+    }
+
+    togglePasswordVisibility() {
+        this.showPassword.set(!this.showPassword());
     }
 
     clearError() {

@@ -14,6 +14,32 @@
      padding-bottom: 16px;
 }
 
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper .input-control {
+    padding-right: 24px;
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    app-svg-icon {
+        pointer-events: none;
+    }
+}
+
 .redirect-login {
     color: var(--dark-color);
     width: 100%;

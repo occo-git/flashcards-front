@@ -17,14 +17,22 @@
         <div class="error-message" #emailError></div>
 
         <label class="label-control" for="password">Password</label>
-        <input class="input-control" type="password" id="password" name="password" required formControlName="password"
-            appErrorMessage [errorElement]="passwordError" />
+        <div class="password-wrapper">
+            <input class="input-control" [type]="showPassword() ? 'text' : 'password'" id="password" name="password"
+                required formControlName="password" appErrorMessage [errorElement]="passwordError" />
+            <div type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+                <app-svg-icon [svg]="showPassword() ? ICON.EYE_CLOSE : ICON.EYE_OPEN"></app-svg-icon>
+            </div>
+        </div>
         <div></div>
         <div class="error-message" #passwordError></div>
 
         <label class="label-control" for="password-confirm">Confirm</label>
-        <input class="input-control" type="password" id="password-confirm" name="password-confirm" required
-            formControlName="passwordConfirm" appErrorMessage [errorElement]="passwordConfirmError" />
+        <div class="password-wrapper">
+            <input class="input-control" [type]="showPassword() ? 'text' : 'password'" id="password-confirm"
+                name="password-confirm" required formControlName="passwordConfirm" appErrorMessage
+                [errorElement]="passwordConfirmError" />
+        </div>
         <div></div>
         <div class="error-message" #passwordConfirmError></div>
 
