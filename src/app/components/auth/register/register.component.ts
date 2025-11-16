@@ -14,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { CONST_ROUTES } from '@routing/routes.constans';
 import { SVG_ICON } from '@components/svg-icon.constants';
-import { ICONS, USER_ITEMS } from '@app/components/_common-ui/ui.constants';
+import { ICONS, AUTH_ITEMS } from '@app/components/_common-ui/ui.constants';
 
 @Component({
     selector: 'app-register',
@@ -53,7 +53,7 @@ export class RegisterComponent {
 
     readonly ICON = SVG_ICON;
     readonly ICONS = ICONS;
-    readonly USER_ITEMS = USER_ITEMS;
+    readonly AUTH_ITEMS = AUTH_ITEMS;
     readonly ROUTES = CONST_ROUTES;
 
     showPassword = signal<boolean>(false);

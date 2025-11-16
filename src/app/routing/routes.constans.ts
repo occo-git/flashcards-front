@@ -20,6 +20,9 @@ export interface AppRoutes {
     LOGIN: string
     LOGOUT: string
   }
+  EMAIL: {
+    CONFIRM_EMAIL: string
+  }
   HELP: string
 }
 
@@ -44,6 +47,9 @@ export const CONST_ROUTES: AppRoutes = {
     REGISTER: 'register',
     LOGIN: 'login',
     LOGOUT: 'logout'
+  },
+  EMAIL: {
+    CONFIRM_EMAIL: 'confirm-email'
   },
   HELP: 'help'
 };

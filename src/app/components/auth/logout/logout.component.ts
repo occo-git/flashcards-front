@@ -6,7 +6,7 @@ import { UserService } from '@services/user/user.service';
 import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 import { SVG_ICON } from '@components/svg-icon.constants';
-import { ICONS, USER_ITEMS } from '@app/components/_common-ui/ui.constants';
+import { ICONS, AUTH_ITEMS } from '@app/components/_common-ui/ui.constants';
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -25,7 +25,7 @@ export class LogoutComponent {
     form = new FormGroup({});
     readonly ICON = SVG_ICON;
     readonly ICONS = ICONS;
-    readonly USER_ITEMS = USER_ITEMS;
+    readonly AUTH_ITEMS = AUTH_ITEMS;
 
     username = computed(() => this.userService.currentUserInfo()?.username);
     isLoading = signal<boolean>(false);

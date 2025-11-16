@@ -6,7 +6,7 @@ import { UserService } from '@services/user/user.service';
 
 import { SvgIconComponent } from '@components/_common-ui/svg-icon/svg-icon.component';
 import { SVG_ICON } from "@components/svg-icon.constants"
-import { ACTIVITY_ITEMS, CARDS_ITEMS, USER_ITEMS, ICONS } from '@components/_common-ui/ui.constants'
+import { ACTIVITY_ITEMS, CARDS_ITEMS, USER_ITEMS, ICONS, AUTH_ITEMS } from '@components/_common-ui/ui.constants'
 
 @Component({
   selector: 'app-sidebar',
@@ -29,6 +29,7 @@ export class SidebarComponent {
   readonly ACTIVITY_ITEMS = ACTIVITY_ITEMS;
   readonly CARDS_ITEMS = CARDS_ITEMS;
   readonly USER_ITEMS = USER_ITEMS;
+  readonly AUTH_ITEMS = AUTH_ITEMS;
 
   constructor(
     public userService: UserService

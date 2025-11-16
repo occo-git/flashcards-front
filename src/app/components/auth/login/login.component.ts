@@ -14,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { CONST_ROUTES } from '@routing/routes.constans'
 import { SVG_ICON } from '@components/svg-icon.constants';
-import { ICONS, USER_ITEMS } from '@components/_common-ui/ui.constants';
+import { ICONS, AUTH_ITEMS } from '@components/_common-ui/ui.constants';
 
 @Component({
     selector: 'app-login',
@@ -40,9 +40,10 @@ export class LoginComponent {
                 CustomValidators.pattern(CONST_VALIDATION.MIN_REGEX, 'Password must contain at least one letter and one number')
             ]),
         })
+        
     readonly ICON = SVG_ICON;
     readonly ICONS = ICONS;
-    readonly USER_ITEMS = USER_ITEMS;
+    readonly AUTH_ITEMS = AUTH_ITEMS;
     readonly ROUTES = CONST_ROUTES;
 
     showPassword = signal<boolean>(false);

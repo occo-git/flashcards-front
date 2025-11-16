@@ -18,6 +18,7 @@ export const SVG_ICON = {
     LINK: '/svg/link.svg',
     LOGIN: '/svg/login.svg',
     LOGOUT: '/svg/logout.svg',
+    MAIL: '/svg/mail.svg',
     NIGHT: '/svg/night.svg',
     PLAY: '/svg/play.svg',
     PUZZLE: '/svg/puzzle.svg',

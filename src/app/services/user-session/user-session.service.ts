@@ -134,7 +134,7 @@ export class UserSessionService {
     const request: RefreshTokenRequestDto = { refreshToken };
 
     return this.httpClient
-      .post<TokenResponseDto>(CONST_API_PATHS.USERS.REFRESH, request,
+      .post<TokenResponseDto>(CONST_API_PATHS.AUTH.REFRESH, request,
         {
           headers: headers,
           context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor

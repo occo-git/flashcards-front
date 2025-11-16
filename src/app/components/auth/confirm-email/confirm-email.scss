@@ -1,0 +1,26 @@
+@use 'app/styles/form-styles.scss' as *;
+
+:host {
+    //background-color: magenta;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    align-items: center;
+}
+
+.confirm-container {
+    //background-color: red;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 16px;
+}
+
+.redirect-login {
+    color: var(--dark-color);
+    width: 100%;
+    padding-top: 16px;
+    font-size: 1rem;
+    text-align: left;
+    border-top: 1px solid var(--mid-color);
+}

@@ -14,10 +14,17 @@ export const CARDS_ITEMS = {
     LIST: 'List'
 }
 
-export const USER_ITEMS = {
+export const AUTH_ITEMS = {
     REGISTER: 'Register',
     LOGIN: 'Login',
-    LOGOUT: 'Logout',
+    LOGOUT: 'Logout'
+};
+
+export const EMAIL_ITEMS = {
+    CONFIRM_EMAIL: 'Email Confirmation'
+};
+
+export const USER_ITEMS = {
     CHANGE_LEVEL: 'Change Level',
     PROGRESS: 'My Progress',
     HELP: 'Help'
@@ -55,9 +62,12 @@ export const ICONS: Record<string, string> = {
     [CARDS_ITEMS.MARKED]: SVG_ICON.BOOKMARK,
     [CARDS_ITEMS.LIST]: SVG_ICON.DOC,
 
-    [USER_ITEMS.REGISTER]: SVG_ICON.USER,
-    [USER_ITEMS.LOGIN]: SVG_ICON.LOGIN,
-    [USER_ITEMS.LOGOUT]: SVG_ICON.LOGOUT,
+    [AUTH_ITEMS.REGISTER]: SVG_ICON.USER,
+    [AUTH_ITEMS.LOGIN]: SVG_ICON.LOGIN,
+    [AUTH_ITEMS.LOGOUT]: SVG_ICON.LOGOUT,
+
+    [EMAIL_ITEMS.CONFIRM_EMAIL]: SVG_ICON.MAIL,
+
     [USER_ITEMS.CHANGE_LEVEL]: SVG_ICON.CROWN,
     [USER_ITEMS.PROGRESS]: SVG_ICON.DASHBOARD,
     [USER_ITEMS.HELP]: SVG_ICON.INFO,

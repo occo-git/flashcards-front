@@ -1,0 +1,24 @@
+<div class="border-control">
+    <div class="control-title">
+        <app-svg-icon [svg]="ICONS[EMAIL_ITEMS.CONFIRM_EMAIL]" size="xl"></app-svg-icon>
+        <h2> {{ EMAIL_ITEMS.CONFIRM_EMAIL }}</h2>
+        @if (isLoading()) { <app-loader></app-loader> }
+    </div>
+    <div class="confirm-container">
+        @if (result()) {
+        <div class="result-message">
+            {{result()?.message}}
+        </div>
+        @if (isSuccess()) {
+        <div class="redirect-login">
+            Please <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
+        </div>
+        } 
+        
+        
+        <button (click)="onReSendEmailConfirmation()">Resend Email Confirmation</button>
+        
+        }
+    </div>
+    <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+</div>

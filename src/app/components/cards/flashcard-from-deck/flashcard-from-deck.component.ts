@@ -1,4 +1,4 @@
-import { Component, signal, computed, Input, ViewEncapsulation } from '@angular/core';
+import { Component, signal, computed, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { FilterService } from '@app/services/filter/filter.service';

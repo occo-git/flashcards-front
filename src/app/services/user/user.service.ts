@@ -7,6 +7,7 @@ import { UserSessionService } from '@services/user-session/user-session.service'
 import { RegisterRequestDto, LoginRequestDto, TokenResponseDto } from '@models/auth.dtos'
 import { UserInfoDto } from '@models/user.dtos'
 import { CONST_API_PATHS, SKIP_AUTH } from '@services/api.constants'
+import { ConfirmEmailRequestDto, ConfirmEmailResponseDto, SendEmailConfirmationRequestDto, SendEmailConfirmationResponseDto } from '@app/models/email.dtos';
 
 @Injectable({
     providedIn: 'root'
@@ -66,7 +67,7 @@ export class UserService {
     //#region register, login, logout
     register(request: RegisterRequestDto): Observable<UserInfoDto> {
         return this.http
-            .post<UserInfoDto>(CONST_API_PATHS.USERS.REGISTER, request, {
+            .post<UserInfoDto>(CONST_API_PATHS.AUTH.REGISTER, request, {
                 context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
             })
     }
@@ -74,7 +75,7 @@ export class UserService {
     login(request: LoginRequestDto): Observable<TokenResponseDto> {
         const headers = this.session.getSessionHeaders();
         return this.http
-            .post<TokenResponseDto>(CONST_API_PATHS.USERS.LOGIN, request, {
+            .post<TokenResponseDto>(CONST_API_PATHS.AUTH.LOGIN, request, {
                 headers,
                 context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
             })
@@ -88,12 +89,27 @@ export class UserService {
 
     logout(): Observable<boolean> {
         return this.http
-            .post<boolean>(CONST_API_PATHS.USERS.LOGOUT, {})
+            .post<boolean>(CONST_API_PATHS.AUTH.LOGOUT, {})
             .pipe(
                 finalize(() => { // in any case
                     this.session.clearCookies();
                     this.userInfo.set(null);
                 }));
+    }
+    //#endregion
+
+    //#region email
+    confirmEmail(token: ConfirmEmailRequestDto): Observable<ConfirmEmailResponseDto> {
+        return this.http
+            .post<ConfirmEmailResponseDto>(CONST_API_PATHS.EMAIL.CONFIRM_EMAIL, token, {
+                context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
+            })
+    }
+    reSendEmailConfirmation(token: SendEmailConfirmationRequestDto): Observable<SendEmailConfirmationResponseDto> {
+        return this.http
+            .post<ConfirmEmailResponseDto>(CONST_API_PATHS.EMAIL.RESEND_EMAIL_CONFIRMATION, token, {
+                context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
+            })
     }
     //#endregion
 
