@@ -22,6 +22,7 @@ export interface AppRoutes {
   }
   EMAIL: {
     CONFIRM_EMAIL: string
+    RESEND_EMAIL_CONFIRMATION: string
   }
   HELP: string
 }
@@ -49,7 +50,8 @@ export const CONST_ROUTES: AppRoutes = {
     LOGOUT: 'logout'
   },
   EMAIL: {
-    CONFIRM_EMAIL: 'confirm-email'
+    CONFIRM_EMAIL: 'confirm-email',
+    RESEND_EMAIL_CONFIRMATION: 'resend-email-confirmation'
   },
   HELP: 'help'
 };

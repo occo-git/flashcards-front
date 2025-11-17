@@ -1,5 +1,5 @@
 export interface SendEmailConfirmationRequestDto {
-  token: string
+  email: string
 }
 
 export interface SendEmailConfirmationResponseDto {

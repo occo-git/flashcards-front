@@ -9,7 +9,7 @@
         <label class="label-control-value">{{ username() }}</label>
 
         <div class="submit-control">
-            <button type="submit">Logout</button>
+            <button type="submit" [disabled]="isLoading()">Logout</button>
         </div>
     </div>
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

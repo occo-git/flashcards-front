@@ -13,11 +13,7 @@
         <div class="redirect-login">
             Please <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
         </div>
-        } 
-        
-        
-        <button (click)="onReSendEmailConfirmation()">Resend Email Confirmation</button>
-        
+        }
         }
     </div>
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

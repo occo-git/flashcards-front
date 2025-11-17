@@ -22,6 +22,11 @@ export const routes: Routes = [
         loadComponent: () => import('@components/auth/register/register.component').then(c => c.RegisterComponent)
     },
     {
+        path: CONST_ROUTES.EMAIL.RESEND_EMAIL_CONFIRMATION,
+        canActivate: [RedirectIfAuthenticatedGuard],
+        loadComponent: () => import('@components/auth/resend-email-confirmation/resend-email-confirmation.component').then(c => c.RsendendEmailConfirmationComponent)
+    },
+    {
         path: CONST_ROUTES.EMAIL.CONFIRM_EMAIL,
         canActivate: [RedirectIfAuthenticatedGuard],
         loadComponent: () => import('@components/auth/confirm-email/confirm-email.component').then(c => c.ConfirmEmailComponent)

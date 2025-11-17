@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CONST_ROUTES } from '@app/routing/routes.constans';
 import { LoaderComponent } from "@app/components/_common-ui/loader/loader.component";
 import { EMAIL_ITEMS, ICONS } from '@app/components/_common-ui/ui.constants';
-import { ConfirmEmailRequestDto, ConfirmEmailResponseDto, SendEmailConfirmationRequestDto } from '@app/models/email.dtos';
+import { ConfirmEmailRequestDto, ConfirmEmailResponseDto } from '@app/models/email.dtos';
 
 @Component({
   selector: 'app-confirm-email',
@@ -48,33 +48,12 @@ export class ConfirmEmailComponent {
 
   private confirmEmail() {
     if (this.isLoading()) return;
-
     this.errorResponse.set(null);
     this.isLoading.set(true);
 
     const request: ConfirmEmailRequestDto = { token: this.token };
 
     this.userService.confirmEmail(request).subscribe({
-      next: response => {
-        this.result.set(response);
-        this.isLoading.set(false);
-      },
-      error: err => {
-        this.errorResponse.set(err);
-        this.isLoading.set(false);
-      }
-    });
-  }
-
-  onReSendEmailConfirmation() {
-    if (this.isLoading()) return;
-
-    this.errorResponse.set(null);
-    this.isLoading.set(true);
-
-    const request: SendEmailConfirmationRequestDto = { token: this.token };
-
-    this.userService.reSendEmailConfirmation(request).subscribe({
       next: response => {
         this.result.set(response);
         this.isLoading.set(false);

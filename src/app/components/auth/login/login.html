@@ -22,10 +22,16 @@
         <div class="error-message" #passwordError></div>
 
         <div class="submit-control">
-            <button type="submit" [disabled]="form.invalid">Login</button>
+            <button type="submit" [disabled]="form.invalid || isLoading()">Login</button>
         </div>
     </div>
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+    @if (showReconfirm()) {
+    <div class="redirect-resend-confirmation">
+        Resend email confirmation <a [href]="ROUTES.EMAIL.RESEND_EMAIL_CONFIRMATION">here.</a>
+    </div>
+    }
+
     <div class="redirect-register">
         Don't have an account? <a [href]="ROUTES.AUTH.REGISTER">Register here.</a>
     </div>

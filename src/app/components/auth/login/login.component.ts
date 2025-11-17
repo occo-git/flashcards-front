@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CONST_ROUTES } from '@routing/routes.constans'
 import { SVG_ICON } from '@components/svg-icon.constants';
 import { ICONS, AUTH_ITEMS } from '@components/_common-ui/ui.constants';
+import { SendEmailConfirmationRequestDto } from '@app/models/email.dtos';
 
 @Component({
     selector: 'app-login',
@@ -40,12 +41,13 @@ export class LoginComponent {
                 CustomValidators.pattern(CONST_VALIDATION.MIN_REGEX, 'Password must contain at least one letter and one number')
             ]),
         })
-        
+
     readonly ICON = SVG_ICON;
     readonly ICONS = ICONS;
     readonly AUTH_ITEMS = AUTH_ITEMS;
     readonly ROUTES = CONST_ROUTES;
 
+    showReconfirm = signal<boolean>(false);
     showPassword = signal<boolean>(false);
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);
@@ -56,6 +58,10 @@ export class LoginComponent {
     ) { }
 
     onSubmit() {
+        if (this.isLoading()) return;
+        this.isLoading.set(true)
+        this.errorResponse.set(null);
+        this.showReconfirm.set(false);
 
         if (this.form.valid) {
             const v = this.form.value;
@@ -71,6 +77,11 @@ export class LoginComponent {
                         this.router.navigate([`/${CONST_ROUTES.CARDS.CARDS_DECK}`]);
                     },
                     error: err => {
+                        const errorCode = err?.error?.ErrorCode;
+                        console.log('Error code:', errorCode);
+                        if (errorCode)
+                            this.handleErrorCode(errorCode);
+
                         this.errorResponse.set(err);
                         this.isLoading.set(false);
                     }
@@ -78,6 +89,13 @@ export class LoginComponent {
             }
         } else {
             console.log('Form is invalid');
+        }
+    }
+
+    private handleErrorCode(errorCode: string) {
+        switch (errorCode) {
+            case 'ERR_EMAIL_NOT_CONFIRMED':
+                this.showReconfirm.set(true);
         }
     }
 

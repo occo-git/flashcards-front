@@ -3,23 +3,36 @@
         <app-svg-icon [svg]="ICONS[AUTH_ITEMS.REGISTER]" size="lg"></app-svg-icon>
         <h2>{{ AUTH_ITEMS.REGISTER }}</h2>
     </div>
+    @if (isRegistered()) {
+        <div class="register-container">
+            <label class="label-control" for="username">Username</label>
+            <label class="label-control-value">{{ username() }}</label>
+        </div>
+    <div class="result-message">
+        Thank you for registering!<br>
+        Please check your email and follow the link in it to activate your account.
+    </div>
+    }
+    @else {
     <div class="register-container">
         <label class="label-control" for="username">Username</label>
         <input class="input-control" type="text" id="username" name="username" required formControlName="username"
-            appErrorMessage [errorElement]="usernameError" />
+            [disabled]="isLoading() || isRegistered()" appErrorMessage [errorElement]="usernameError" />
         <div></div>
         <div class="error-message" #usernameError></div>
 
-        <label class="label-control" for="username">E-mail</label>
+        <label class="label-control" for="email">E-mail</label>
         <input class="input-control" type="text" id="email" name="email" required formControlName="email"
-            appErrorMessage [errorElement]="emailError" />
+            [disabled]="isLoading() || isRegistered()" appErrorMessage [errorElement]="emailError" />
         <div></div>
         <div class="error-message" #emailError></div>
+
 
         <label class="label-control" for="password">Password</label>
         <div class="password-wrapper">
             <input class="input-control" [type]="showPassword() ? 'text' : 'password'" id="password" name="password"
-                required formControlName="password" appErrorMessage [errorElement]="passwordError" />
+                [disabled]="isLoading() || isRegistered()" required formControlName="password" appErrorMessage
+                [errorElement]="passwordError" />
             <div type="button" class="toggle-password" (click)="togglePasswordVisibility()">
                 <app-svg-icon [svg]="showPassword() ? ICON.EYE_OPEN : ICON.EYE_CLOSE"></app-svg-icon>
             </div>
@@ -30,17 +43,20 @@
         <label class="label-control" for="password-confirm">Confirm</label>
         <div class="password-wrapper">
             <input class="input-control" [type]="showPassword() ? 'text' : 'password'" id="password-confirm"
-                name="password-confirm" required formControlName="passwordConfirm" appErrorMessage
-                [errorElement]="passwordConfirmError" />
+                [disabled]="isLoading() || isRegistered()" name="password-confirm" required
+                formControlName="passwordConfirm" appErrorMessage [errorElement]="passwordConfirmError" />
         </div>
         <div></div>
         <div class="error-message" #passwordConfirmError></div>
 
         <div class="submit-control">
-            <button type="submit" [disabled]="form.invalid">Register</button>
+            <button type="submit" [disabled]="form.invalid || isLoading()">Register</button>
         </div>
+
     </div>
+    }
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+
     <div class="redirect-login">
         Have an account? <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
     </div>

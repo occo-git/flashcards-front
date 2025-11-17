@@ -5,7 +5,10 @@ $card-height: 700px;
 
 :host {
   //background-color: magenta;
-  padding: 0px;
+  //padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .flashcard-deck-container {
@@ -46,7 +49,7 @@ $card-height: 700px;
     padding: 8px;
     gap: 8px;
   }
-  
+
   .bookmark-controls {
     display: flex;
     flex-direction: column;

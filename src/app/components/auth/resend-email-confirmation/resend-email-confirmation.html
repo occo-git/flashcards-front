@@ -1,0 +1,34 @@
+<form class="form-control" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="control-title">
+        <app-svg-icon [svg]="ICONS[EMAIL_ITEMS.CONFIRM_EMAIL]" size="lg"></app-svg-icon>
+        <h2>{{ EMAIL_ITEMS.CONFIRM_EMAIL }}</h2>
+    </div>
+    <div class="resend-container">
+        <label class="label-control" for="email">E-mail</label>
+        <input class="input-control" type="text" id="email" name="email" required formControlName="email"
+            appErrorMessage [errorElement]="emailError" />
+        <div></div>
+        <div class="error-message" #emailError></div>
+
+        @if (!result()) {
+        <div class="submit-control">
+            <button type="submit" [disabled]="form.invalid || isLoading()">Send Confirmation</button>
+        </div>
+        }
+    </div>
+    @if (result()) {
+    <div class="result-message">
+        {{result()?.message}}
+        @if (isSuccess()) {
+        Please <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
+        }
+    </div>
+    }
+    <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+
+    @if (!result()) {
+    <div class="redirect-login">
+        Have an account? <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
+    </div>
+    }
+</form>
