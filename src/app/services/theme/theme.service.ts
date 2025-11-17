@@ -5,7 +5,7 @@ import { THEMES } from 'constants';
   providedIn: 'root'
 })
 export class ThemeService {
-  theme = signal<string>(THEMES.LIGHT);
+  private theme = signal<string>(THEMES.LIGHT);
   currentTheme = this.theme.asReadonly();
 
   constructor() {

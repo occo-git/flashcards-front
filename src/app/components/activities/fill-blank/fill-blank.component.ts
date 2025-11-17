@@ -42,6 +42,7 @@ export class FillBlankComponent {
   result = signal<number>(0);
   total = signal<number>(0);
 
+  isWordSelected = signal<boolean>(false);
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 
@@ -58,6 +59,7 @@ export class FillBlankComponent {
   }
 
   private loadFillBlank() {
+    if (this.isLoading()) return;
     this.errorResponse.set(null);
     this.isLoading.set(true);
 
@@ -81,8 +83,8 @@ export class FillBlankComponent {
   }
 
   onWordSelected(wordId: number) {
-    if (this.isLoading()) return;
-    this.isLoading.set(true);
+    if (this.isWordSelected()) return;
+    this.isWordSelected.set(true);
 
     this.total.set(this.total() + 1);
     if (wordId === this.wordId()) {
@@ -93,9 +95,14 @@ export class FillBlankComponent {
       this.soundService.playWrong();
       this.saveProgress(false);
     }
+    this.isWordSelected.set(false);
   }
 
   saveProgress(result: boolean) {
+    if (this.isLoading()) return;
+    this.errorResponse.set(null);
+    this.isLoading.set(true);
+
     const fillBlankTemplate = this.fillBlankTemplate();
     const word = this.word();
 
@@ -109,8 +116,14 @@ export class FillBlankComponent {
       isSuccess: result
     };
     this.activityService.saveProgress(activityProgressRequest).subscribe({
-      next: response => { this.loadFillBlank(); },
-      error: err => { this.errorResponse.set(err); }
+      next: response => {
+        this.isLoading.set(false);
+        this.loadFillBlank();
+      },
+      error: err => {
+        this.errorResponse.set(err);
+        this.isLoading.set(false);
+      }
     });
   }
 

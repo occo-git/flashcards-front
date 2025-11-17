@@ -40,6 +40,7 @@ export class StartQuizComponent {
   result = signal<number>(0);
   total = signal<number>(0);
 
+  isWordSelected = signal<boolean>(false);
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
 
@@ -56,6 +57,7 @@ export class StartQuizComponent {
   }
 
   private loadQuiz() {
+    if (this.isLoading()) return;
     this.errorResponse.set(null);
     this.isLoading.set(true);
 
@@ -78,8 +80,8 @@ export class StartQuizComponent {
   }
 
   onWordSelected(wordId: number) {
-    if (this.isLoading()) return;
-    this.isLoading.set(true);
+    if (this.isWordSelected()) return;
+    this.isWordSelected.set(true);
 
     this.total.set(this.total() + 1);
     if (wordId === this.wordId()) {
@@ -90,9 +92,14 @@ export class StartQuizComponent {
       this.soundService.playWrong();
       this.saveProgress(false);
     }
+    this.isWordSelected.set(false);
   }
 
   saveProgress(result: boolean) {
+    if (this.isLoading()) return;
+    this.errorResponse.set(null);
+    this.isLoading.set(true);
+
     const word = this.word();
 
     if (this.resultsComponent && word)
@@ -105,8 +112,14 @@ export class StartQuizComponent {
       isSuccess: result
     };
     this.activityService.saveProgress(activityProgressRequest).subscribe({
-      next: response => { this.loadQuiz(); },
-      error: err => { this.errorResponse.set(err); }
+      next: response => {
+        this.isLoading.set(false);
+        this.loadQuiz();
+      },
+      error: err => { 
+        this.errorResponse.set(err); 
+        this.isLoading.set(false);
+      }
     });
   }
 

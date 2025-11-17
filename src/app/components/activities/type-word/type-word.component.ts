@@ -64,6 +64,7 @@ export class TypeWordComponent {
   }
 
   private loadTypeWord() {
+    if (this.isLoading()) return;
     this.errorResponse.set(null);
     this.isLoading.set(true);
 

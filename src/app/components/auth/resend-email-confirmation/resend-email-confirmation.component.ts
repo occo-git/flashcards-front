@@ -17,7 +17,7 @@ import { SVG_ICON } from '@components/svg-icon.constants';
 import { ICONS, EMAIL_ITEMS } from '@components/_common-ui/ui.constants';
 
 @Component({
-    selector: 'app-login',
+    selector: 'app-resend-email-confirmation',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
     imports: [ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent, SvgIconComponent],

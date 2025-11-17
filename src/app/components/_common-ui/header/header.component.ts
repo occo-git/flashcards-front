@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { ThemeToggleComponent } from "../theme/theme-toggle.component";
+import { SoundToggleComponent } from '../toggle/sound-toggle/sound-toggle.component';
+import { ThemeToggleComponent } from "../toggle/theme-toggle/theme-toggle.component";
 
 @Component({
   selector: 'app-header',
-  imports: [ThemeToggleComponent],
+  imports: [SoundToggleComponent, ThemeToggleComponent],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })

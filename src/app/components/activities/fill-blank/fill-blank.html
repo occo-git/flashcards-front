@@ -14,7 +14,7 @@
         <div class="words-container">
             @if (fillBlank()) {
             @for (word of fillBlank()?.words; track word.id) {
-            <app-word [simple]="true" [word]="word" (wordClick)="onWordSelected($event)"></app-word>
+            <app-word [simple]="true" [word]="word" (wordClick)="onWordSelected($event)" [disabled]="isLoading() || isWordSelected()"></app-word>
             }
             }
         </div>

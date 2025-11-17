@@ -1,0 +1,11 @@
+@use 'styles.scss' as *;
+
+.sound-toggle {
+    cursor: pointer;
+    padding: 2px;
+    border-radius: var(--border-r);
+}
+
+.sound-toggle:hover {
+    background: var(--mid-color);
+}
