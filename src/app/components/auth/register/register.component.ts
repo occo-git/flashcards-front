@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { UserService } from '@services/user/user.service';
 import { RegisterRequestDto } from '@models/auth.dtos'
 import { UserInfoDto } from '@app/models/user.dtos';
-import { SvgIconComponent } from "@app/components/_common-ui/svg-icon/svg-icon.component";
+import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
+import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 
 import { CONST_VALIDATION } from '@validation/validation.constants'
 import { CustomValidators } from '@validation/custom-validators';
@@ -15,13 +16,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { CONST_ROUTES } from '@routing/routes.constans';
 import { SVG_ICON } from '@components/svg-icon.constants';
-import { ICONS, AUTH_ITEMS } from '@app/components/_common-ui/ui.constants';
+import { ICONS, AUTH_ITEMS, EMAIL_ITEMS } from '@components/_common-ui/ui.constants';
 
 @Component({
     selector: 'app-register',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
-    imports: [ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent, SvgIconComponent],
+    imports: [ReactiveFormsModule, LoaderComponent, ErrorMessageDirective, ErrorMessageComponent, SvgIconComponent],
     templateUrl: './register.html',
     styleUrl: './register.scss'
 })
@@ -55,6 +56,7 @@ export class RegisterComponent {
     readonly ICON = SVG_ICON;
     readonly ICONS = ICONS;
     readonly AUTH_ITEMS = AUTH_ITEMS;
+    readonly EMAIL_ITEMS = EMAIL_ITEMS;
     readonly ROUTES = CONST_ROUTES;
 
     showPassword = signal<boolean>(false);

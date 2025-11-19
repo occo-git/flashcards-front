@@ -2,9 +2,11 @@
 
 .error-message-container {
   background-color: var(--error-bg-color);
+  display: grid;
+  grid-template-columns: auto 30px;
+  gap: 16px;
   padding: 16px;
   border-radius: var(--border-r);
-  display: flex;
   align-items: center;
   width: auto;
 }
@@ -23,10 +25,8 @@
   min-width: 30px;
   width: 30px;
   height: 30px;
-  margin-left: 16px;
   font-size: 1rem;
   cursor: pointer;
-  position: relative;
 
   &:hover:not(:disabled) {
     background-color:  var(--light-color);

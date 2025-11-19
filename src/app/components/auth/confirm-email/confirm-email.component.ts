@@ -1,16 +1,18 @@
-import { Component, computed, signal, ViewEncapsulation } from '@angular/core';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { UserService } from '@services/user/user.service';
+import { ConfirmEmailRequestDto, ConfirmEmailResponseDto } from '@models/email.dtos';
+import { LoaderComponent } from "@components/_common-ui/loader/loader.component";
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
-import { SVG_ICON } from '@components/svg-icon.constants';
 
+import { CONST_API_ERRORS } from '@services/api.constants';
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UserService } from '@app/services/user/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CONST_ROUTES } from '@app/routing/routes.constans';
-import { LoaderComponent } from "@app/components/_common-ui/loader/loader.component";
-import { EMAIL_ITEMS, ICONS } from '@app/components/_common-ui/ui.constants';
-import { ConfirmEmailRequestDto, ConfirmEmailResponseDto } from '@app/models/email.dtos';
+
+import { CONST_ROUTES } from '@routing/routes.constans';
+import { SVG_ICON } from '@components/svg-icon.constants';
+import { ICONS, EMAIL_ITEMS } from '@components/_common-ui/ui.constants';
 
 @Component({
   selector: 'app-confirm-email',
@@ -29,7 +31,7 @@ export class ConfirmEmailComponent {
 
   token: string = '';
   result = signal<ConfirmEmailResponseDto | null>(null);
-  isSuccess = computed(() => this.result()?.success);
+  showReconfirm = signal<boolean>(false);
 
   isLoading = signal<boolean>(false);
   errorResponse = signal<HttpErrorResponse | null>(null);
@@ -48,6 +50,7 @@ export class ConfirmEmailComponent {
 
   private confirmEmail() {
     if (this.isLoading()) return;
+    this.showReconfirm.set(false);
     this.errorResponse.set(null);
     this.isLoading.set(true);
 
@@ -59,6 +62,7 @@ export class ConfirmEmailComponent {
         this.isLoading.set(false);
       },
       error: err => {
+        this.showReconfirm.set(true);
         this.errorResponse.set(err);
         this.isLoading.set(false);
       }

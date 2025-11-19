@@ -14,21 +14,33 @@
         <div class="submit-control">
             <button type="submit" [disabled]="form.invalid || isLoading()">Send Confirmation</button>
         </div>
+        <div>
+            @if (isLoading()) { <app-loader></app-loader> }
+        </div>
         }
     </div>
     @if (result()) {
-    <div class="result-message">
-        {{result()?.message}}
-        @if (isSuccess()) {
-        Please <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
-        }
+    @if (result()?.isAlreadyConfirmed) {
+    <div class="result-message border-control">
+        Email already confirmed. Please <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
     </div>
+    } @else {
+    <div class="result-message border-control">
+        A confirmation email has been sent
+        <app-svg-icon [svg]="ICONS[EMAIL_ITEMS.CONFIRM_EMAIL]" size="sm"></app-svg-icon><br>
+        Follow the link inside to activate your account.
+    </div>
+    }
     }
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 
-    @if (!result()) {
+    @if (!result()?.isAlreadyConfirmed) {
     <div class="redirect-login">
         Have an account? <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
+    </div>
+    }  @else {
+    <div class="redirect-login">
+        You are welcome!
     </div>
     }
 </form>

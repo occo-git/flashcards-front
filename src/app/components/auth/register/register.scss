@@ -42,11 +42,13 @@
 .result-message {
     color: var(--dark-color);
     width: 100%;
-    padding-top: 16px;
-    padding-bottom: 16px;
     font-size: 1rem;
     line-height: 2;
     text-align: left;
+
+    .result-user-name {
+        font-weight: 500;
+    }
 }
 
 .redirect-login {

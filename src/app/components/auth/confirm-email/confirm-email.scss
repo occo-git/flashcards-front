@@ -13,14 +13,30 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-bottom: 16px;
+}
+
+.result-message {
+    color: var(--dark-color);
+    width: 100%;
+    font-size: 1rem;
+    line-height: 2;
+    text-align: left;
+}
+
+.redirect-resend-confirmation {
+    color: var(--dark-color);
+    width: 100%;
+    padding-top: 16px;
+    font-size: 1rem;
+    text-align: left;
 }
 
 .redirect-login {
     color: var(--dark-color);
     width: 100%;
     padding-top: 16px;
-    font-size: 1rem;
+    font-size: .8rem;
     text-align: left;
     border-top: 1px solid var(--mid-color);
+    margin-top: 16px;
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { UserService } from '@services/user/user.service';
 import { LoginRequestDto } from '@models/auth.dtos';
+import { LoaderComponent } from "@app/components/_common-ui/loader/loader.component";
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 
 import { CONST_VALIDATION } from '@validation/validation.constants'
@@ -15,13 +16,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CONST_ROUTES } from '@routing/routes.constans'
 import { SVG_ICON } from '@components/svg-icon.constants';
 import { ICONS, AUTH_ITEMS } from '@components/_common-ui/ui.constants';
-import { SendEmailConfirmationRequestDto } from '@app/models/email.dtos';
+import { CONST_API_ERRORS } from '@app/services/api.constants';
 
 @Component({
     selector: 'app-login',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
-    imports: [ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent, SvgIconComponent],
+    imports: [ReactiveFormsModule, LoaderComponent, ErrorMessageDirective, ErrorMessageComponent, SvgIconComponent],
     templateUrl: './login.html',
     styleUrl: './login.scss'
 })
@@ -47,8 +48,9 @@ export class LoginComponent {
     readonly AUTH_ITEMS = AUTH_ITEMS;
     readonly ROUTES = CONST_ROUTES;
 
-    showReconfirm = signal<boolean>(false);
     showPassword = signal<boolean>(false);
+    showReconfirm = signal<boolean>(false);
+
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);
 
@@ -78,7 +80,6 @@ export class LoginComponent {
                     },
                     error: err => {
                         const errorCode = err?.error?.ErrorCode;
-                        console.log('Error code:', errorCode);
                         if (errorCode)
                             this.handleErrorCode(errorCode);
 
@@ -94,7 +95,7 @@ export class LoginComponent {
 
     private handleErrorCode(errorCode: string) {
         switch (errorCode) {
-            case 'ERR_EMAIL_NOT_CONFIRMED':
+            case CONST_API_ERRORS.AUTH.EMAIL_NOT_CONFIRMED: // email not confirmed, cannot login
                 this.showReconfirm.set(true);
         }
     }

@@ -3,7 +3,8 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserService } from '@services/user/user.service';
-import { SendEmailConfirmationRequestDto, SendEmailConfirmationResponseDto } from '@app/models/email.dtos';
+import { SendEmailConfirmationRequestDto, SendEmailConfirmationResponseDto } from '@models/email.dtos';
+import { LoaderComponent } from '@components/_common-ui/loader/loader.component';
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 
 import { CONST_VALIDATION } from '@validation/validation.constants'
@@ -20,7 +21,7 @@ import { ICONS, EMAIL_ITEMS } from '@components/_common-ui/ui.constants';
     selector: 'app-resend-email-confirmation',
     standalone: true,
     encapsulation: ViewEncapsulation.ShadowDom,
-    imports: [ReactiveFormsModule, ErrorMessageDirective, ErrorMessageComponent, SvgIconComponent],
+    imports: [ReactiveFormsModule, LoaderComponent, ErrorMessageDirective, ErrorMessageComponent, SvgIconComponent],
     templateUrl: './resend-email-confirmation.html',
     styleUrl: './resend-email-confirmation.scss'
 })
@@ -44,7 +45,6 @@ export class RsendendEmailConfirmationComponent {
     showReconfirm = signal<boolean>(false);
     showPassword = signal<boolean>(false);
     result = signal<SendEmailConfirmationResponseDto | null>(null);
-    isSuccess = computed(() => this.result()?.success);
 
     isLoading = signal<boolean>(false);
     errorResponse = signal<HttpErrorResponse | null>(null);

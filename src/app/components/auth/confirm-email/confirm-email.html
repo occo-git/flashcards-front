@@ -6,15 +6,25 @@
     </div>
     <div class="confirm-container">
         @if (result()) {
-        <div class="result-message">
-            {{result()?.message}}
-        </div>
-        @if (isSuccess()) {
-        <div class="redirect-login">
+        <div class="result-message border-control">
+            {{result()?.message}}<br>
             Please <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
         </div>
         }
-        }
     </div>
+
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+    @if (showReconfirm()) {
+    <div class="redirect-resend-confirmation">
+        Request email confirmation <a [href]="ROUTES.EMAIL.RESEND_EMAIL_CONFIRMATION">here.</a>
+    </div>
+    <div class="redirect-login">
+        Have an account? <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
+    </div>
+    } @else {
+    <div class="redirect-login">
+        You are welcome!
+    </div>
+    }
+
 </div>

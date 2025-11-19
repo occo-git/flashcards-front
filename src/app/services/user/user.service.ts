@@ -107,7 +107,7 @@ export class UserService {
     }
     reSendEmailConfirmation(token: SendEmailConfirmationRequestDto): Observable<SendEmailConfirmationResponseDto> {
         return this.http
-            .post<ConfirmEmailResponseDto>(CONST_API_PATHS.EMAIL.RESEND_EMAIL_CONFIRMATION, token, {
+            .post<SendEmailConfirmationResponseDto>(CONST_API_PATHS.EMAIL.RESEND_EMAIL_CONFIRMATION, token, {
                 context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
             })
     }

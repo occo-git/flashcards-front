@@ -3,8 +3,8 @@ export interface SendEmailConfirmationRequestDto {
 }
 
 export interface SendEmailConfirmationResponseDto {
-  success: boolean
   message: string
+  isAlreadyConfirmed: boolean
 }
 
 export interface ConfirmEmailRequestDto {
@@ -12,6 +12,5 @@ export interface ConfirmEmailRequestDto {
 }
 
 export interface ConfirmEmailResponseDto {
-  success: boolean
   message: string
 }

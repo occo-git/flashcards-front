@@ -4,13 +4,11 @@
         <h2>{{ AUTH_ITEMS.REGISTER }}</h2>
     </div>
     @if (isRegistered()) {
-        <div class="register-container">
-            <label class="label-control" for="username">Username</label>
-            <label class="label-control-value">{{ username() }}</label>
-        </div>
-    <div class="result-message">
-        Thank you for registering!<br>
-        Please check your email and follow the link in it to activate your account.
+    <div class="result-message border-control">
+        Thank you for registering, <span class="result-user-name">{{ username() }}</span>!<br>
+        A confirmation email has been sent 
+        <app-svg-icon [svg]="ICONS[EMAIL_ITEMS.CONFIRM_EMAIL]" size="sm"></app-svg-icon><br>
+        Follow the link inside to activate your account.        
     </div>
     }
     @else {
@@ -51,6 +49,9 @@
 
         <div class="submit-control">
             <button type="submit" [disabled]="form.invalid || isLoading()">Register</button>
+        </div>
+        <div>
+            @if (isLoading()) { <app-loader></app-loader> }
         </div>
 
     </div>

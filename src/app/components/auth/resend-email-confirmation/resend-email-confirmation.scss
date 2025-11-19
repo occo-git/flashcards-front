@@ -12,15 +12,14 @@
     //background-color: red;
     display: grid;
     grid-template-columns: 25% auto;
-    padding-bottom: 16px;
 }
 
 .result-message {
+    //background-color: red;
     color: var(--dark-color);
     width: 100%;
-    padding-top: 16px;
-    padding-bottom: 16px;
     font-size: 1rem;
+    line-height: 2;
     text-align: left;
 }
 
@@ -31,4 +30,5 @@
     font-size: 0.8rem;
     text-align: left;
     border-top: 1px solid var(--mid-color);
+    margin-top: 16px;
 }

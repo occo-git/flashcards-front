@@ -24,11 +24,15 @@
         <div class="submit-control">
             <button type="submit" [disabled]="form.invalid || isLoading()">Login</button>
         </div>
+        <div>
+            @if (isLoading()) { <app-loader></app-loader> }
+        </div>
     </div>
+
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
     @if (showReconfirm()) {
     <div class="redirect-resend-confirmation">
-        Resend email confirmation <a [href]="ROUTES.EMAIL.RESEND_EMAIL_CONFIRMATION">here.</a>
+        Request email confirmation <a [href]="ROUTES.EMAIL.RESEND_EMAIL_CONFIRMATION">here.</a>
     </div>
     }
 
