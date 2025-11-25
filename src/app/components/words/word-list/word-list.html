@@ -3,7 +3,7 @@
 <div class="word-list-container">
     @if (words().length > 0) {
     @for (word of words(); track word.id) {
-    <app-word [word]="word" (wordClick)="onWordSelected($event)"></app-word>
+    <app-word [word]="word" (wordClick)="onWordSelected($event)" (wordMarkClick)="onWordChangeMark($event)"></app-word>
     }
     <div class="navigation-controls">
         <button class="left" (click)="onPreviousWords()" [disabled]="!hasPrevious()"></button>

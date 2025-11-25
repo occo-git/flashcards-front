@@ -3,12 +3,18 @@
   {{word.wordText}}
 </button>
 } @else {
-<button class="word-item" (click)="onWordClick()" [disabled]="disabled">
-  {{word.wordText}} - {{word.translation.ru}}
-</button>
-<div class="word-bookmark">
-  @if(word.isMarked) {
-  <app-svg-icon [svg]="ICON.BOOKMARK_1" size="sm"></app-svg-icon>
-  }
+
+<div class="word-container">
+  <button class="word-mark" (click)="onWordMarkClick()">
+    <app-svg-icon [svg]="word.isMarked ? ICON.BOOKMARK_1 : ICON.BOOKMARK_0" size="sm"></app-svg-icon>
+  </button>
+  <button class="word-item" (click)="onWordClick()" [disabled]="disabled">
+    {{word.wordText}} - {{word.translation.ru}}
+  </button>
+  <!-- <div class="word-bookmark">
+    @if(word.isMarked) {
+    <app-svg-icon [svg]="ICON.BOOKMARK_1" size="sm"></app-svg-icon>
+    }
+  </div> -->
 </div>
 }

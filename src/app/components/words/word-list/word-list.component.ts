@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FilterComponent } from "@app/components/_common-ui/filter/filter.component";
 import { WordComponent } from '@components/words/word/word.component';
 import { FlashcardService } from '@services/flashcard/flashcard.service';
-import { DeckFilterDto, CardsPageRequestDto, WordDto } from '@models/cards.dto'
+import { DeckFilterDto, CardsPageRequestDto, WordDto, WordRequestDto } from '@models/cards.dto'
 
 import { ErrorMessageComponent } from '@components/_common-ui/error-message/error-message.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -69,7 +69,7 @@ export class WordListComponent {
         const hasPrev = allWords[0] !== null;
         const hasNext = allWords[allWords.length - 1] !== null;
         const pageWords = allWords.slice(1, -1) as WordDto[];
-        
+
         this.words.set(pageWords);
         this.hasPrevious.set(hasPrev);
         this.hasNext.set(hasNext);
@@ -104,6 +104,20 @@ export class WordListComponent {
   onWordSelected(wordId: number) {
     this.router.navigate([CONST_ROUTES.CARDS.CARDS_DECK], {
       queryParams: { wordId }  // ← Передаём wordId
+    });
+  }
+
+  onWordChangeMark(wordId: number) {
+    const request: WordRequestDto = { wordId: wordId };
+    this.flashcardService.changeMark(request).subscribe({
+      next: card => {
+        this.isLoading.set(false);
+        this.loadWordsPage();
+      },
+      error: err => {
+        this.errorResponse.set(err);
+        this.isLoading.set(false);
+      }
     });
   }
 

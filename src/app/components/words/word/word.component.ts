@@ -16,10 +16,15 @@ export class WordComponent {
   @Input() simple: boolean = false;
   @Input() disabled: boolean = false;
   @Output() wordClick = new EventEmitter<number>();
+  @Output() wordMarkClick = new EventEmitter<number>();
 
   readonly ICON = SVG_ICON;
 
   onWordClick() {
     this.wordClick.emit(this.word.id);
+  }
+
+  onWordMarkClick() {
+    this.wordMarkClick.emit(this.word.id);
   }
 }
