@@ -120,7 +120,8 @@ export class TypeWordComponent {
     this.form.updateValueAndValidity();   // update validation status
   }
 
-  saveProgress(result: boolean) {
+  saveProgress(result: boolean) {    
+    this.isLoading.set(true);
     const word = this.word();
 
     if (this.resultsComponent && word)
@@ -133,8 +134,14 @@ export class TypeWordComponent {
       isSuccess: result
     };
     this.activityService.saveProgress(activityProgressRequest).subscribe({
-      next: response => { this.loadTypeWord(); },
-      error: err => { this.errorResponse.set(err); }
+      next: response => { 
+          this.isLoading.set(false);
+          this.loadTypeWord(); 
+        },
+      error: err => { 
+        this.isLoading.set(false);
+        this.errorResponse.set(err); 
+      }
     });
   }
 
