@@ -24,6 +24,7 @@ const CONST_PAGE_SIZE = 10;
 export class WordListComponent {
   filter = computed(() => this.filterService.getFilter());
 
+  wordId = signal<number>(0);
   words = signal<WordDto[]>([]);
   hasPrevious = signal<boolean>(false);
   hasNext = signal<boolean>(false);
@@ -63,12 +64,18 @@ export class WordListComponent {
 
     this.flashcardService.getWords(request).subscribe({
       next: (allWords) => {
+
         // allWords = [prevWord?, ...pageWords..., nextWord?]
         // prevWord, nextWord - can be null
 
         const hasPrev = allWords[0] !== null;
         const hasNext = allWords[allWords.length - 1] !== null;
         const pageWords = allWords.slice(1, -1) as WordDto[];
+
+        if (isDirectionForward)
+          this.wordId.set(wordId);
+        else
+          this.wordId.set(allWords[0]?.id);
 
         this.words.set(pageWords);
         this.hasPrevious.set(hasPrev);
@@ -103,7 +110,7 @@ export class WordListComponent {
 
   onWordSelected(wordId: number) {
     this.router.navigate([CONST_ROUTES.CARDS.CARDS_DECK], {
-      queryParams: { wordId }  // ← Передаём wordId
+      queryParams: { wordId }
     });
   }
 
@@ -112,7 +119,7 @@ export class WordListComponent {
     this.flashcardService.changeMark(request).subscribe({
       next: card => {
         this.isLoading.set(false);
-        this.loadWordsPage();
+        this.loadWordsPage(this.wordId(), true);
       },
       error: err => {
         this.errorResponse.set(err);

@@ -24,7 +24,6 @@ export const SVG_ICON = {
     PUZZLE: '/svg/puzzle.svg',
     SOUND_MUTE: '/svg/sound-mute.svg',
     SOUND_VALUME: '/svg/sound-volume.svg',
-    SOUND_VALUME_UP: '/svg/sound-volume-up.svg',
     SUNNY: '/svg/sunny.svg',
     SQUARE: '/svg/square.svg',
     TAP: '/svg/tap.svg',
