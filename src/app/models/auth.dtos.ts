@@ -1,6 +1,8 @@
 export interface LoginRequestDto {
-  username: string;
-  password: string;
+  clientId: string;
+  grantType: string;
+  username: string | null;
+  password: string | null;
 }
 
 export interface TokenResponseDto {
@@ -16,5 +18,7 @@ export interface RegisterRequestDto {
 }
 
 export interface RefreshTokenRequestDto {
+  clientId: string;
+  grantType: string;
   refreshToken: string;
 }

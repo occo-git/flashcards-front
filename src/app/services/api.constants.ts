@@ -1,7 +1,8 @@
-import { HttpContextToken } from '@angular/common/http';
+import { HttpContext, HttpContextToken } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 export const SKIP_AUTH = new HttpContextToken<boolean>(() => false);
+export const SKIP_AUTH_CONTEXT = new HttpContext().set(SKIP_AUTH, true); // skip interceptor
 
 export interface ApiPaths {
   ROOT: string
@@ -25,8 +26,7 @@ export interface ApiPaths {
     TYPE_WORD: string
     FILL_BLANK: string
   }
-  AUTH: {
-    
+  AUTH: {    
     REGISTER: string
     LOGIN: string
     REFRESH: string
@@ -63,8 +63,8 @@ export const CONST_API_PATHS: ApiPaths = {
   },
   AUTH: {
     REGISTER: `${environment.apiUrl}/auth/register`,
-    LOGIN: `${environment.apiUrl}/auth/login`,
-    REFRESH: `${environment.apiUrl}/auth/refresh`,
+    LOGIN: `${environment.apiUrl}/auth/token`,
+    REFRESH: `${environment.apiUrl}/auth/token`,
     LOGOUT: `${environment.apiUrl}/auth/logout`
   },
   EMAIL: {    
@@ -87,3 +87,9 @@ export const CONST_API_ERRORS = {
     ERROR: 'ERR_ERROR'
   }
 };
+
+export const CONST_AUTH = {
+  CLIENT_ID: 'gateway-default',
+  GRANT_TYPE_PASSWORD: 'password',
+  GRANT_TYPE_REFRESH_TOKEN: 'refresh-token'
+}

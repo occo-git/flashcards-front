@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { catchError, tap, map, filter, take, switchMap, finalize } from 'rxjs/operators';
 
-import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenResponseDto, RefreshTokenRequestDto } from '@models/auth.dtos'
-import { CONST_API_PATHS, SKIP_AUTH } from '@services/api.constants'
+import { CONST_API_PATHS, CONST_AUTH, SKIP_AUTH_CONTEXT } from '@services/api.constants'
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,9 @@ export class UserSessionService {
   constructor(
     private httpClient: HttpClient
   ) { }
+
+  private isRefreshing = false;
+  private refreshSubject: BehaviorSubject<boolean | null> = new BehaviorSubject<boolean | null>(null);
 
   isAuthenticated(): boolean {
     const accessToken = this.getAccessToken();
@@ -130,23 +133,49 @@ export class UserSessionService {
       return throwError(() => new Error('No refresh token'));
     }
 
-    const headers = this.getAuthHeaders();
-    const request: RefreshTokenRequestDto = { refreshToken };
-
-    return this.httpClient
-      .post<TokenResponseDto>(CONST_API_PATHS.AUTH.REFRESH, request,
-        {
-          headers: headers,
-          context: new HttpContext().set(SKIP_AUTH, true) // skip interceptor
-        })
-      .pipe(
-        tap(response => this.saveLoginResponse(response)),
-        map(() => this.getAuthHeaders()), // return HttpHeaders
-        catchError(err => {
-          this.clearCookies();
-          return throwError(() => err);
+    if (this.isRefreshing) {
+      return this.refreshSubject.pipe(
+        filter(status => status !== null), // wait till refresh complete (true/false)
+        take(1), // take 
+        switchMap(status => {
+          if (status)
+            return of(this.getAuthHeaders()); // refresh succeed
+          else
+            return throwError(() => new Error('Refresh token failed')); // refresh failed
         })
       );
+    } else {
+      this.isRefreshing = true;
+      this.refreshSubject.next(null);
+
+      const headers = this.getAuthHeaders();
+      const request: RefreshTokenRequestDto = {
+        clientId: CONST_AUTH.CLIENT_ID,
+        grantType: CONST_AUTH.GRANT_TYPE_REFRESH_TOKEN,
+        refreshToken: refreshToken
+      };
+
+      return this.httpClient
+        .post<TokenResponseDto>(CONST_API_PATHS.AUTH.REFRESH, request, {
+          headers: headers,
+          context: SKIP_AUTH_CONTEXT// skip interceptor
+        })
+        .pipe(
+          tap(response => {
+            this.saveLoginResponse(response);
+            this.refreshSubject.next(true);  // refresh succeed signal
+          }),
+          map(() => this.getAuthHeaders()), // return HttpHeaders
+          catchError(err => {
+            this.clearCookies();
+            this.refreshSubject.next(false); // refresh failed signal
+            return throwError(() => err);
+          }),
+          finalize(() => {
+            this.isRefreshing = false;
+          })
+        );
+    }
+    //#endregion
   }
-  //#endregion
 }

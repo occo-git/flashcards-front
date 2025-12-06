@@ -16,7 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CONST_ROUTES } from '@routing/routes.constans'
 import { SVG_ICON } from '@components/svg-icon.constants';
 import { ICONS, AUTH_ITEMS } from '@components/_common-ui/ui.constants';
-import { CONST_API_ERRORS } from '@app/services/api.constants';
+import { CONST_API_ERRORS, CONST_AUTH } from '@app/services/api.constants';
 
 @Component({
     selector: 'app-login',
@@ -69,6 +69,8 @@ export class LoginComponent {
             const v = this.form.value;
             if (v) {
                 const request: LoginRequestDto = {
+                    clientId: CONST_AUTH.CLIENT_ID,
+                    grantType: CONST_AUTH.GRANT_TYPE_PASSWORD,
                     username: v.username ?? CONST_VALIDATION.DEFAULT_VALUE,
                     password: v.password ?? CONST_VALIDATION.DEFAULT_VALUE
                 };
