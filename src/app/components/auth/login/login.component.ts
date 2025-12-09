@@ -84,10 +84,8 @@ export class LoginComponent {
             theme: 'outline',
             size: 'large',
             text: 'continue_with',
-            shape: 'rectangular'
+            shape: 'circle'
         });
-
-        // либо не рендерить, а использовать google.accounts.id.prompt() при клике на свою кнопку
     }
 
     onSubmit() {
