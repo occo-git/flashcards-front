@@ -1,9 +1,10 @@
 import { Component, ElementRef, ViewChild, ViewEncapsulation, signal } from '@angular/core';
+import { NgZone, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserService } from '@services/user/user.service';
-import { LoginRequestDto } from '@models/auth.dtos';
+import { GoogleSingInRequestDto, LoginRequestDto } from '@models/auth.dtos';
 import { LoaderComponent } from "@app/components/_common-ui/loader/loader.component";
 import { SvgIconComponent } from "@components/_common-ui/svg-icon/svg-icon.component";
 
@@ -18,6 +19,8 @@ import { SVG_ICON } from '@components/svg-icon.constants';
 import { ICONS, AUTH_ITEMS } from '@components/_common-ui/ui.constants';
 import { CONST_API_ERRORS, CONST_AUTH } from '@app/services/api.constants';
 
+declare const google: any;
+
 @Component({
     selector: 'app-login',
     standalone: true,
@@ -28,6 +31,7 @@ import { CONST_API_ERRORS, CONST_AUTH } from '@app/services/api.constants';
 })
 export class LoginComponent {
     @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
+    @ViewChild('googleButton', { static: false }) googleButton?: ElementRef<HTMLDivElement>;
     form = new FormGroup(
         {
             username: new FormControl(
@@ -56,8 +60,35 @@ export class LoginComponent {
 
     constructor(
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private zone: NgZone
     ) { }
+
+    ngAfterViewInit(): void {
+        this.initGoogleSignIn();
+    }
+
+    private initGoogleSignIn() {
+        if (!this.googleButton) return;
+
+        // GIS init
+        google.accounts.id.initialize({
+            client_id: CONST_AUTH.GOOGLE_CLIENT_ID,
+            callback: (response: any) => {
+                this.zone.run(() => this.onGoogleSingIn(response.credential));
+            }
+        });
+
+        google.accounts.id.renderButton(this.googleButton.nativeElement, {
+            type: 'standard',
+            theme: 'outline',
+            size: 'large',
+            text: 'continue_with',
+            shape: 'rectangular'
+        });
+
+        // либо не рендерить, а использовать google.accounts.id.prompt() при клике на свою кнопку
+    }
 
     onSubmit() {
         if (this.isLoading()) return;
@@ -74,25 +105,44 @@ export class LoginComponent {
                     username: v.username ?? CONST_VALIDATION.DEFAULT_VALUE,
                     password: v.password ?? CONST_VALIDATION.DEFAULT_VALUE
                 };
+                this.onLogin(request);
 
-                this.userService.login(request).subscribe({
-                    next: response => {
-                        this.isLoading.set(false);
-                        this.router.navigate([`/${CONST_ROUTES.CARDS.CARDS_DECK}`]);
-                    },
-                    error: err => {
-                        const errorCode = err?.error?.ErrorCode;
-                        if (errorCode)
-                            this.handleErrorCode(errorCode);
-
-                        this.errorResponse.set(err);
-                        this.isLoading.set(false);
-                    }
-                });
             }
         } else {
             console.log('Form is invalid');
         }
+    }
+
+    onGoogleSingIn(idToken: string) {
+        if (this.isLoading()) return;
+        this.isLoading.set(true);
+        this.errorResponse.set(null);
+        this.showReconfirm.set(false);
+
+        const request: GoogleSingInRequestDto = {
+            clientId: CONST_AUTH.CLIENT_ID,
+            grantType: CONST_AUTH.GRANT_TYPE_GOOGLE,
+            idToken: idToken
+        };
+
+        this.onLogin(request);
+    }
+
+    onLogin(request: LoginRequestDto | GoogleSingInRequestDto) {
+        this.userService.login(request).subscribe({
+            next: response => {
+                this.isLoading.set(false);
+                this.router.navigate([`/${CONST_ROUTES.CARDS.CARDS_DECK}`]);
+            },
+            error: err => {
+                const errorCode = err?.error?.ErrorCode;
+                if (errorCode)
+                    this.handleErrorCode(errorCode);
+
+                this.errorResponse.set(err);
+                this.isLoading.set(false);
+            }
+        });
     }
 
     private handleErrorCode(errorCode: string) {

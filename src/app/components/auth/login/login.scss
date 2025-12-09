@@ -57,3 +57,13 @@
     border-top: 1px solid var(--mid-color);
     margin-top: 16px;
 }
+
+.google-login-wrapper {
+  margin-top: 64px;
+  display: flex;
+  justify-content: center;
+}
+
+.g_id_signin {
+  display: flex !important;
+}

@@ -28,8 +28,7 @@ export interface ApiPaths {
   }
   AUTH: {    
     REGISTER: string
-    LOGIN: string
-    REFRESH: string
+    TOKEN: string
     LOGOUT: string
   }
   EMAIL: {    
@@ -63,8 +62,7 @@ export const CONST_API_PATHS: ApiPaths = {
   },
   AUTH: {
     REGISTER: `${environment.apiUrl}/auth/register`,
-    LOGIN: `${environment.apiUrl}/auth/token`,
-    REFRESH: `${environment.apiUrl}/auth/token`,
+    TOKEN: `${environment.apiUrl}/auth/token`,    
     LOGOUT: `${environment.apiUrl}/auth/logout`
   },
   EMAIL: {    
@@ -89,7 +87,9 @@ export const CONST_API_ERRORS = {
 };
 
 export const CONST_AUTH = {
-  CLIENT_ID: 'gateway-default',
+  CLIENT_ID: 'web-app-client-id',
   GRANT_TYPE_PASSWORD: 'password',
-  GRANT_TYPE_REFRESH_TOKEN: 'refresh-token'
+  GRANT_TYPE_GOOGLE: 'google',
+  GRANT_TYPE_REFRESH_TOKEN: 'refresh-token',
+  GOOGLE_CLIENT_ID: '926616842200-0076962apugp7ag0ldjs1qgpe7bbrdfc.apps.googleusercontent.com'
 }

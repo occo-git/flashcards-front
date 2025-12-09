@@ -4,7 +4,7 @@ import { tap, finalize } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { UserSessionService } from '@services/user-session/user-session.service';
-import { LoginRequestDto, RegisterRequestDto, TokenResponseDto } from '@models/auth.dtos'
+import { GoogleSingInRequestDto, LoginRequestDto, RegisterRequestDto, TokenResponseDto } from '@models/auth.dtos'
 import { UserInfoDto } from '@models/user.dtos'
 import { CONST_API_PATHS, SKIP_AUTH_CONTEXT } from '@services/api.constants'
 import { ConfirmEmailRequestDto, ConfirmEmailResponseDto, SendEmailConfirmationRequestDto, SendEmailConfirmationResponseDto } from '@app/models/email.dtos';
@@ -72,10 +72,10 @@ export class UserService {
             })
     }
 
-    login(request: LoginRequestDto): Observable<TokenResponseDto> {
+    login(request: LoginRequestDto | GoogleSingInRequestDto): Observable<TokenResponseDto> {
         const headers = this.session.getSessionHeaders();
         return this.http
-            .post<TokenResponseDto>(CONST_API_PATHS.AUTH.LOGIN, request, {
+            .post<TokenResponseDto>(CONST_API_PATHS.AUTH.TOKEN, request, {
                 headers,
                 context: SKIP_AUTH_CONTEXT // skip interceptor
             })
