@@ -12,8 +12,9 @@ export interface AppRoutes {
     CHOOSE_DIFFICULTY: string
   }
   USER: {  
-    PROGRESS: string
+    PROFILE: string
     CHANGE_LEVEL: string
+    PROGRESS: string
   }
   AUTH: {
     REGISTER: string
@@ -41,8 +42,9 @@ export const CONST_ROUTES: AppRoutes = {
     CHOOSE_DIFFICULTY: 'choose-difficulty'
   },
   USER: {
-    PROGRESS: 'progress',
-    CHANGE_LEVEL: 'change-level'
+    PROFILE: 'profile',
+    CHANGE_LEVEL: 'change-level',
+    PROGRESS: 'progress'
   },
   AUTH: {
     REGISTER: 'register',

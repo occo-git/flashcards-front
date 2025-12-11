@@ -1,0 +1,71 @@
+<div class="border-control">
+    <div class="control-title">
+        <app-svg-icon [svg]="ICONS[USER_ITEMS.PROFILE]" size="xl"></app-svg-icon>
+        <h2> {{ USER_ITEMS.PROFILE }}</h2>
+        @if (isLoading()) { <app-loader></app-loader> }
+    </div>
+    <div class="profile-container">
+        <div class="name-container">
+            <label class="label-control">Username</label>
+            <label class="label-control-value">{{ username() }}</label>
+        </div>
+        <form class="border-control" [formGroup]="formUsernameChange" (ngSubmit)="onUsernameChange()">
+            <div class="group-title">
+                <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_NAME]" size="lg"></app-svg-icon>
+                <div class="group-name">{{USER_ITEMS.CHANGE_NAME}}</div>
+            </div>
+            <div class="change-name-container">
+                <label class="label-control" for="username-new">New</label>
+                <input class="input-control" type="text" formControlName="newUsername" id="username-new"
+                    name="username-new" required appErrorMessage [errorElement]="usernameError" />
+                <div></div>
+                <div class="error-message" #usernameError></div>
+                <button type="submit" [disabled]="isLoading()">Save Username</button>
+            </div>
+        </form>
+        <form class="border-control" [formGroup]="formPasswordReset" (ngSubmit)="onPasswordReset()">
+            <div class="group-title">
+                <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_PASSWORD]" size="lg"></app-svg-icon>
+                <div class="group-name">{{USER_ITEMS.CHANGE_PASSWORD}}</div>
+            </div>
+            <div class="password-reset-container">
+                <label class="label-control" for="password">Old</label>
+                <div class="password-wrapper">
+                    <input class="input-control" [type]="showPassword() ? 'text' : 'password'"
+                        formControlName="password" id="password" name="password" required [disabled]="isLoading()"
+                        appErrorMessage [errorElement]="passwordError" />
+                    <div type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+                        <app-svg-icon [svg]="showPassword() ? ICON.EYE_OPEN : ICON.EYE_CLOSE"></app-svg-icon>
+                    </div>
+                </div>
+                <div></div>
+                <div class="error-message" #passwordError></div>
+
+                <label class="label-control" for="password-new">New</label>
+                <div class="password-wrapper">
+                    <input class="input-control" [type]="showPassword() ? 'text' : 'password'"
+                        formControlName="newPassword" id="password-new" name="password-new" required
+                        [disabled]="isLoading()" appErrorMessage [errorElement]="newPasswordError" />
+                </div>
+                <div></div>
+                <div class="error-message" #newPasswordError></div>
+                <button type="submit" [disabled]="isLoading()">Save Password</button>
+            </div>
+        </form>
+        <form class="border-control" [formGroup]="formDeleteProfile" (ngSubmit)="onDeleteProfile()">
+            <div class="group-title">
+                <app-svg-icon [svg]="ICONS[USER_ITEMS.PROFILE_DELETE]" size="lg"></app-svg-icon>
+                <div class="group-name">{{USER_ITEMS.PROFILE_DELETE}}</div>
+            </div>
+            <div class="delete-profile-container">
+                <label class="label-control" for="profile-username">Username</label>
+                <input class="input-control" type="text" formControlName="profileUsername" id="profile-username"
+                    name="profile-username" required appErrorMessage [errorElement]="profileUsernameError" />
+                <div></div>
+                <div class="error-message" #profileUsernameError></div>
+                <button type="submit" [disabled]="isLoading()">Delete Profile</button>
+            </div>
+        </form>
+    </div>
+    <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
+</div>

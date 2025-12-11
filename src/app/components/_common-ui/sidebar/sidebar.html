@@ -1,10 +1,11 @@
-<mat-nav-list class="side-menu-list">  
-    
-    <!-- Start Activity (expandable) -->  
+<mat-nav-list class="side-menu-list">
+
+    <!-- Start Activity (expandable) -->
     <mat-expansion-panel class="menu-panel">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <app-svg-icon [svg]="ICONS[ACTIVITY_ITEMS.START_ACTIVITY]"></app-svg-icon> {{ ACTIVITY_ITEMS.START_ACTIVITY }}
+                <app-svg-icon [svg]="ICONS[ACTIVITY_ITEMS.START_ACTIVITY]"></app-svg-icon> {{
+                ACTIVITY_ITEMS.START_ACTIVITY }}
             </mat-panel-title>
         </mat-expansion-panel-header>
         <a mat-list-item routerLink="quiz" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -37,13 +38,14 @@
             <app-svg-icon [svg]="ICONS[CARDS_ITEMS.LIST]"></app-svg-icon> {{ CARDS_ITEMS.LIST }}
         </a>
     </mat-expansion-panel>
-     
+
     <!-- Change {lev} Level -->
     <a class="item-out" mat-list-item routerLink="change-level" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
-        <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_LEVEL]"></app-svg-icon> {{ USER_ITEMS.CHANGE_LEVEL}} <app-svg-icon [svg]="ICON.DOT_0" size="sm"></app-svg-icon> {{ userLevel() }}
-    </a>    
-    
+        <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_LEVEL]"></app-svg-icon> {{ USER_ITEMS.CHANGE_LEVEL}} <app-svg-icon
+            [svg]="ICON.DOT_0" size="sm"></app-svg-icon> {{ userLevel() }}
+    </a>
+
     <!-- My Progress -->
     <a class="item-out" mat-list-item routerLink="progress" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
@@ -53,14 +55,32 @@
 </mat-nav-list>
 <div class="break-line"></div>
 <mat-nav-list class="side-menu-list">
+
+
+    <!-- <a class="item-out" mat-list-item routerLink="profile" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <app-svg-icon [svg]="ICONS[USER_ITEMS.PROFILE]"></app-svg-icon> {{ USER_ITEMS.PROFILE }}
+    </a> -->
+
+    <!-- Profile -->
+    <mat-expansion-panel class="menu-panel">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <app-svg-icon [svg]="ICONS[USER_ITEMS.PROFILE]"></app-svg-icon> {{ USER_ITEMS.PROFILE }}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <a mat-list-item routerLink="profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <app-svg-icon [svg]="ICONS[USER_ITEMS.PROFILE_EDIT]"></app-svg-icon> {{ USER_ITEMS.PROFILE_EDIT }}
+        </a>
+        <a mat-list-item routerLink="logout" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <app-svg-icon [svg]="ICONS[AUTH_ITEMS.LOGOUT]"></app-svg-icon> {{ AUTH_ITEMS.LOGOUT }}
+        </a>
+    </mat-expansion-panel>
+
     <!-- Help -->
     <a class="item-out" mat-list-item routerLink="help" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
         <app-svg-icon [svg]="ICONS[USER_ITEMS.HELP]"></app-svg-icon> {{ USER_ITEMS.HELP }}
     </a>
-    <!-- Logout -->
-    <a class="item-out" mat-list-item routerLink="logout" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <app-svg-icon [svg]="ICONS[AUTH_ITEMS.LOGOUT]"></app-svg-icon> {{ AUTH_ITEMS.LOGOUT }}
-    </a>
+
 </mat-nav-list>

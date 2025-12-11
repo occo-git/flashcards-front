@@ -53,7 +53,8 @@ export const routes: Routes = [
             { path: CONST_ROUTES.USER.CHANGE_LEVEL, loadComponent: () => import('@components/user/change-level/change-level.component').then(c => c.ChangeLevelComponent) }, // Change {lev} level
             { path: CONST_ROUTES.HELP, loadComponent: () => import('@components/user/help/help.component').then(c => c.HelpComponent) },
 
-            // Logout
+            // Profile
+            { path: CONST_ROUTES.USER.PROFILE, loadComponent: () => import('@components/user/profile/profile.component').then(c => c.ProfileComponent) },
             { path: CONST_ROUTES.AUTH.LOGOUT, loadComponent: () => import('@components/auth/logout/logout.component').then(c => c.LogoutComponent) },
 
         ]

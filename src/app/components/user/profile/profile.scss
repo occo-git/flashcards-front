@@ -1,0 +1,77 @@
+@use 'app/styles/form-styles.scss' as *;
+
+:host {
+    //background-color: magenta;
+    padding: 32px;
+}
+
+.profile-container {
+    //background-color: red;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-bottom: 24px;
+}
+
+.name-container {
+    display: grid;
+    grid-template-columns: 25% auto;
+}
+
+.change-name-container {
+    display: grid;
+    grid-template-columns: 25% auto;
+    padding: 16px;
+}
+
+.password-reset-container {
+    display: grid;
+    grid-template-columns: 25% auto;
+    padding: 16px;
+}
+
+.delete-profile-container {
+    display: grid;
+    grid-template-columns: 25% auto;
+    padding: 16px;
+}
+
+.group-title {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    border-bottom: 1px solid var(--mid-color);
+
+    .group-name {
+        color: var(--dark-color);
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper .input-control {
+    padding-right: 24px;
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    app-svg-icon {
+        pointer-events: none;
+    }
+}

@@ -25,6 +25,12 @@ export const EMAIL_ITEMS = {
 };
 
 export const USER_ITEMS = {
+    PROFILE: 'Profile',
+    SETTINGS: 'Settings',
+    PROFILE_EDIT: 'Edit',
+    PROFILE_DELETE: 'Delete Profile',
+    CHANGE_NAME: 'Change Username',
+    CHANGE_PASSWORD: 'Change Password',
     CHANGE_LEVEL: 'Change Level',
     PROGRESS: 'My Progress',
     HELP: 'Help'
@@ -68,6 +74,12 @@ export const ICONS: Record<string, string> = {
 
     [EMAIL_ITEMS.CONFIRM_EMAIL]: SVG_ICON.MAIL,
 
+    [USER_ITEMS.PROFILE]: SVG_ICON.USER,
+    [USER_ITEMS.SETTINGS]: SVG_ICON.SETTINGS,
+    [USER_ITEMS.PROFILE_EDIT]: SVG_ICON.NOTE,
+    [USER_ITEMS.PROFILE_DELETE]: SVG_ICON.CROSS,
+    [USER_ITEMS.CHANGE_NAME]: SVG_ICON.NOTE,
+    [USER_ITEMS.CHANGE_PASSWORD]: SVG_ICON.SAFE,
     [USER_ITEMS.CHANGE_LEVEL]: SVG_ICON.CROWN,
     [USER_ITEMS.PROGRESS]: SVG_ICON.DASHBOARD,
     [USER_ITEMS.HELP]: SVG_ICON.INFO,
