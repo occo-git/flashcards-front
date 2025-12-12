@@ -18,9 +18,9 @@ export interface GoogleSingInRequestDto {
 }
 
 export interface TokenResponseDto {
-    accessToken: string;
-    refreshToken: string;
-    sessionId: string;
+  accessToken: string;
+  refreshToken: string;
+  sessionId: string;
 }
 
 export interface RefreshTokenRequestDto {

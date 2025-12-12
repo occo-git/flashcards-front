@@ -91,5 +91,7 @@ export const CONST_AUTH = {
   GRANT_TYPE_PASSWORD: 'password',
   GRANT_TYPE_GOOGLE: 'google',
   GRANT_TYPE_REFRESH_TOKEN: 'refresh-token',
-  GOOGLE_CLIENT_ID: '926616842200-0076962apugp7ag0ldjs1qgpe7bbrdfc.apps.googleusercontent.com'
+  GOOGLE_CLIENT_ID: '926616842200-0076962apugp7ag0ldjs1qgpe7bbrdfc.apps.googleusercontent.com',
+  PROVIDER_LOCAL: 'Local',
+  PROVIDER_GOOGLE: 'Google'
 }

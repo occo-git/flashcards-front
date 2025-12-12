@@ -3,51 +3,41 @@
 :host {
     //background-color: magenta;
     padding: 32px;
+    min-width: 600px;
 }
 
 .profile-container {
     //background-color: red;
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 4px;
     padding-bottom: 24px;
+    user-select: none;
 }
 
-.name-container {
+.info-container {
     display: grid;
-    grid-template-columns: 25% auto;
+    grid-template-columns: 90px auto;
+    gap: 8px;
+    margin-bottom: 16px;
 }
 
 .change-name-container {
     display: grid;
-    grid-template-columns: 25% auto;
+    grid-template-columns: 90px auto;
     padding: 16px;
 }
 
 .password-reset-container {
     display: grid;
-    grid-template-columns: 25% auto;
+    grid-template-columns: 90px auto;
     padding: 16px;
 }
 
 .delete-profile-container {
     display: grid;
-    grid-template-columns: 25% auto;
+    grid-template-columns: 90px auto;
     padding: 16px;
-}
-
-.group-title {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    align-items: center;
-    border-bottom: 1px solid var(--mid-color);
-
-    .group-name {
-        color: var(--dark-color);
-        font-size: 1rem;
-        font-weight: 500;
-    }
 }
 
 .password-wrapper {
@@ -74,4 +64,10 @@
     app-svg-icon {
         pointer-events: none;
     }
+}
+
+.menu-panel {
+    background-color: var(--light-color) ;
+    margin-bottom: 16px;
+    border-radius: 25px;
 }

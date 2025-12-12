@@ -5,67 +5,110 @@
         @if (isLoading()) { <app-loader></app-loader> }
     </div>
     <div class="profile-container">
-        <div class="name-container">
+        <div class="info-container border-control">
             <label class="label-control">Username</label>
             <label class="label-control-value">{{ username() }}</label>
+            <label class="label-control">Email</label>
+            <label class="label-control-value">{{ email() }}</label>
         </div>
-        <form class="border-control" [formGroup]="formUsernameChange" (ngSubmit)="onUsernameChange()">
-            <div class="group-title">
-                <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_NAME]" size="lg"></app-svg-icon>
-                <div class="group-name">{{USER_ITEMS.CHANGE_NAME}}</div>
-            </div>
-            <div class="change-name-container">
-                <label class="label-control" for="username-new">New</label>
-                <input class="input-control" type="text" formControlName="newUsername" id="username-new"
-                    name="username-new" required appErrorMessage [errorElement]="usernameError" />
-                <div></div>
-                <div class="error-message" #usernameError></div>
-                <button type="submit" [disabled]="isLoading()">Save Username</button>
-            </div>
-        </form>
-        <form class="border-control" [formGroup]="formPasswordReset" (ngSubmit)="onPasswordReset()">
-            <div class="group-title">
-                <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_PASSWORD]" size="lg"></app-svg-icon>
-                <div class="group-name">{{USER_ITEMS.CHANGE_PASSWORD}}</div>
-            </div>
-            <div class="password-reset-container">
-                <label class="label-control" for="password">Old</label>
-                <div class="password-wrapper">
-                    <input class="input-control" [type]="showPassword() ? 'text' : 'password'"
-                        formControlName="password" id="password" name="password" required [disabled]="isLoading()"
-                        appErrorMessage [errorElement]="passwordError" />
-                    <div type="button" class="toggle-password" (click)="togglePasswordVisibility()">
-                        <app-svg-icon [svg]="showPassword() ? ICON.EYE_OPEN : ICON.EYE_CLOSE"></app-svg-icon>
+        <mat-expansion-panel class="menu-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_NAME]"></app-svg-icon>
+                    {{ USER_ITEMS.CHANGE_NAME }}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="formUsernameChange" (ngSubmit)="onUsernameChange()">
+                <div class="change-name-container">
+                    <label class="label-control" for="username-new">Username</label>
+                    <input class="input-control" type="text" formControlName="newUsername" id="username-new"
+                        name="username-new" required appErrorMessage [errorElement]="usernameError" />
+                    <div></div>
+                    <div class="error-message" #usernameError></div>
+                    <label class="label-control" for="username-password">Password</label>
+                    <div class="password-wrapper">
+                        <input class="input-control" [type]="showUsernamePassword() ? 'text' : 'password'"
+                            formControlName="usernamePassword" id="username-password" required [disabled]="isLoading()"
+                            appErrorMessage [errorElement]="usernamePasswordError" />
+                        <div type="button" class="toggle-password" (click)="toggleUsernamePasswordVisibility()">
+                            <app-svg-icon
+                                [svg]="showUsernamePassword() ? ICON.EYE_OPEN : ICON.EYE_CLOSE"></app-svg-icon>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div class="error-message" #usernamePasswordError></div>
+
+                    <div class="submit-control">
+                        <button type="submit" [disabled]="isLoading()">Save Username</button>
                     </div>
                 </div>
-                <div></div>
-                <div class="error-message" #passwordError></div>
+            </form>
+        </mat-expansion-panel>
+        @if (provider() === CONST_AUTH.PROVIDER_LOCAL) {
+        <mat-expansion-panel class="menu-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <app-svg-icon [svg]="ICONS[USER_ITEMS.CHANGE_PASSWORD]"></app-svg-icon>
+                    {{ USER_ITEMS.CHANGE_PASSWORD }}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="formPasswordReset" (ngSubmit)="onPasswordReset()">
+                <div class="password-reset-container">
+                    <label class="label-control" for="old-password">Old</label>
+                    <div class="password-wrapper">
+                        <input class="input-control" [type]="showOldPassword() ? 'text' : 'password'"
+                            formControlName="oldPassword" id="old-password" required [disabled]="isLoading()"
+                            appErrorMessage [errorElement]="oldPasswordError" />
+                        <div type="button" class="toggle-password" (click)="toggleOldPasswordVisibility()">
+                            <app-svg-icon [svg]="showOldPassword() ? ICON.EYE_OPEN : ICON.EYE_CLOSE"></app-svg-icon>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div class="error-message" #oldPasswordError></div>
 
-                <label class="label-control" for="password-new">New</label>
-                <div class="password-wrapper">
-                    <input class="input-control" [type]="showPassword() ? 'text' : 'password'"
-                        formControlName="newPassword" id="password-new" name="password-new" required
-                        [disabled]="isLoading()" appErrorMessage [errorElement]="newPasswordError" />
+                    <label class="label-control" for="new-password">New</label>
+                    <div class="password-wrapper">
+                        <input class="input-control" [type]="showOldPassword() ? 'text' : 'password'"
+                            formControlName="newPassword" id="new-password" required [disabled]="isLoading()"
+                            appErrorMessage [errorElement]="newPasswordError" />
+                    </div>
+                    <div></div>
+                    <div class="error-message" #newPasswordError></div>
+
+                    <div class="submit-control">
+                        <button type="submit" [disabled]="isLoading()">Save Password</button>
+                    </div>
                 </div>
-                <div></div>
-                <div class="error-message" #newPasswordError></div>
-                <button type="submit" [disabled]="isLoading()">Save Password</button>
-            </div>
-        </form>
-        <form class="border-control" [formGroup]="formDeleteProfile" (ngSubmit)="onDeleteProfile()">
-            <div class="group-title">
-                <app-svg-icon [svg]="ICONS[USER_ITEMS.PROFILE_DELETE]" size="lg"></app-svg-icon>
-                <div class="group-name">{{USER_ITEMS.PROFILE_DELETE}}</div>
-            </div>
-            <div class="delete-profile-container">
-                <label class="label-control" for="profile-username">Username</label>
-                <input class="input-control" type="text" formControlName="profileUsername" id="profile-username"
-                    name="profile-username" required appErrorMessage [errorElement]="profileUsernameError" />
-                <div></div>
-                <div class="error-message" #profileUsernameError></div>
-                <button type="submit" [disabled]="isLoading()">Delete Profile</button>
-            </div>
-        </form>
+            </form>
+        </mat-expansion-panel>
+        }
+        <mat-expansion-panel class="menu-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <app-svg-icon [svg]="ICONS[USER_ITEMS.PROFILE_DELETE]"></app-svg-icon>
+                    {{ USER_ITEMS.PROFILE_DELETE }}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="formDeleteProfile" (ngSubmit)="onDeleteProfile()">
+                <div class="delete-profile-container">
+                    <label class="label-control" for="profile-password">Password</label>
+                    <div class="password-wrapper">
+                        <input class="input-control" [type]="showProfilePassword() ? 'text' : 'password'"
+                            formControlName="profilePassword" id="profile-password" required [disabled]="isLoading()"
+                            appErrorMessage [errorElement]="profilePasswordError" />
+                        <div type="button" class="toggle-password" (click)="toggleProfilePasswordVisibility()">
+                            <app-svg-icon [svg]="showProfilePassword() ? ICON.EYE_OPEN : ICON.EYE_CLOSE"></app-svg-icon>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div class="error-message" #profilePasswordError></div>
+
+                    <div class="submit-control">
+                        <button type="submit" [disabled]="isLoading()">Delete Profile</button>
+                    </div>
+                </div>
+            </form>
+        </mat-expansion-panel>
     </div>
     <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 </div>
