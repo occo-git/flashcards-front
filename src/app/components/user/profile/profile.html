@@ -18,7 +18,7 @@
                     {{ USER_ITEMS.CHANGE_NAME }}
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <form [formGroup]="formUsernameChange" (ngSubmit)="onUsernameChange()">
+            <form [formGroup]="formNewUsernameSave" (ngSubmit)="onNewUsernameSave()">
                 <div class="change-name-container">
                     <label class="label-control" for="username-new">Username</label>
                     <input class="input-control" type="text" formControlName="newUsername" id="username-new"
@@ -27,7 +27,7 @@
                     <div class="error-message" #usernameError></div>
 
                     <div class="submit-control">
-                        <button type="submit" [disabled]="formUsernameChange.invalid || isLoading()">Save Username</button>
+                        <button type="submit" [disabled]="formNewUsernameSave.invalid || isLoading()">Save Username</button>
                     </div>
                 </div>
             </form>
@@ -40,7 +40,7 @@
                     {{ USER_ITEMS.CHANGE_PASSWORD }}
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <form [formGroup]="formPasswordReset" (ngSubmit)="onPasswordReset()">
+            <form [formGroup]="formNewPasswordSave" (ngSubmit)="onNewPasswordSave()">
                 <div class="password-reset-container">
                     <label class="label-control" for="old-password">Old</label>
                     <div class="password-wrapper">
@@ -64,7 +64,7 @@
                     <div class="error-message" #newPasswordError></div>
 
                     <div class="submit-control">
-                        <button type="submit" [disabled]="formPasswordReset.invalid || isLoading()">Save Password</button>
+                        <button type="submit" [disabled]="formNewPasswordSave.invalid || isLoading()">Save Password</button>
                     </div>
                 </div>
             </form>

@@ -107,8 +107,6 @@ export class LoginComponent {
                 this.onLogin(request);
 
             }
-        } else {
-            console.log('Form is invalid');
         }
     }
 

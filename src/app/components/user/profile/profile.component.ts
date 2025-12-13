@@ -17,7 +17,7 @@ import { CONST_VALIDATION } from '@app/validation/validation.constants';
 import { CustomValidators } from '@app/validation/custom-validators';
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from "@angular/material/expansion";
 import { CONST_API_ERRORS, CONST_AUTH } from '@app/services/api.constants';
-import { UpdateUsernameDto } from '@app/models/user.dtos';
+import { UpdatePasswordDto, UpdateUsernameDto } from '@app/models/user.dtos';
 
 @Component({
     selector: 'app-profile',
@@ -28,7 +28,7 @@ import { UpdateUsernameDto } from '@app/models/user.dtos';
     styleUrl: './profile.scss'
 })
 export class ProfileComponent {
-    formUsernameChange = new FormGroup(
+    formNewUsernameSave = new FormGroup(
         {
             newUsername: new FormControl(
                 CONST_VALIDATION.DEFAULT_VALUE, [
@@ -37,7 +37,7 @@ export class ProfileComponent {
                 CustomValidators.pattern(/^[a-zA-Z0-9_-]+$/, 'Latin letters, digits, _ - only')
             ])
         });
-    formPasswordReset = new FormGroup(
+    formNewPasswordSave = new FormGroup(
         {
             oldPassword: new FormControl(
                 CONST_VALIDATION.DEFAULT_VALUE, [
@@ -82,17 +82,17 @@ export class ProfileComponent {
     ) {
         effect(() => {
             const usernameValue = this.username();
-            this.formUsernameChange.patchValue({ newUsername: usernameValue });
+            this.formNewUsernameSave.patchValue({ newUsername: usernameValue });
         });
     }
 
-    onUsernameChange() {
+    onNewUsernameSave() {
         if (this.isLoading()) return;
         this.isLoading.set(true)
         this.errorResponse.set(null);
 
-        if (this.formUsernameChange.valid) {
-            const v = this.formUsernameChange.value;
+        if (this.formNewUsernameSave.valid) {
+            const v = this.formNewUsernameSave.value;
             if (v) {
                 const request: UpdateUsernameDto = {
                     newUsername: v.newUsername ?? CONST_VALIDATION.DEFAULT_VALUE
@@ -112,13 +112,37 @@ export class ProfileComponent {
                 });
 
             }
-        } else {
-            console.log('Form is invalid');
         }
     }
 
-    onPasswordReset() {
+    onNewPasswordSave() {
+        if (this.isLoading()) return;
+        this.isLoading.set(true)
+        this.errorResponse.set(null);
 
+        if (this.formNewPasswordSave.valid) {
+            const v = this.formNewPasswordSave.value;
+            if (v) {
+                const request: UpdatePasswordDto = {
+                    oldPassword: v.oldPassword ?? CONST_VALIDATION.DEFAULT_VALUE,
+                    newPassword: v.newPassword ?? CONST_VALIDATION.DEFAULT_VALUE
+                };
+                this.userService.updatePassword(request).subscribe({
+                    next: response => {
+                        this.isLoading.set(false);
+                    },
+                    error: err => {
+                        const errorCode = err?.error?.ErrorCode;
+                        if (errorCode)
+                            this.handleErrorCode(errorCode);
+
+                        this.errorResponse.set(err);
+                        this.isLoading.set(false);
+                    }
+                });
+
+            }
+        }
     }
 
     onDeleteProfile() {
