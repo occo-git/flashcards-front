@@ -26,10 +26,15 @@
                     <div></div>
                     <div class="error-message" #usernameError></div>
 
-                    <div class="submit-control">
-                        <button type="submit" [disabled]="formNewUsernameSave.invalid || isLoading()">Save Username</button>
-                    </div>
+                    <button type="submit" [disabled]="formNewUsernameSave.invalid || isLoading()">Save Username</button>
                 </div>
+                <app-error-message [errorResponse]="newUsernameErrorResponse()" (clearError)="clearError()"></app-error-message>
+                @if (isNewUsernameSaved()) {
+                <div class="result-message border-control">
+                    <app-svg-icon [svg]="ICON.TICK" size="sm"></app-svg-icon>
+                    New username sucessfuly saved.
+                </div>
+                }
             </form>
         </mat-expansion-panel>
         @if (provider() === CONST_AUTH.PROVIDER_LOCAL) {
@@ -63,10 +68,15 @@
                     <div></div>
                     <div class="error-message" #newPasswordError></div>
 
-                    <div class="submit-control">
-                        <button type="submit" [disabled]="formNewPasswordSave.invalid || isLoading()">Save Password</button>
-                    </div>
+                    <button type="submit" [disabled]="formNewPasswordSave.invalid || isLoading()">Save Password</button>
                 </div>
+                <app-error-message [errorResponse]="newPasswordErrorResponse()" (clearError)="clearError()"></app-error-message>
+                @if (isNewPasswordSaved()) {
+                <div class="result-message border-control">
+                    <app-svg-icon [svg]="ICON.TICK" size="sm"></app-svg-icon>
+                    New password sucessfuly saved.
+                </div>
+                }
             </form>
         </mat-expansion-panel>
         }
@@ -91,12 +101,16 @@
                     <div></div>
                     <div class="error-message" #profilePasswordError></div>
 
-                    <div class="submit-control">
-                        <button type="submit" [disabled]="formDeleteProfile.invalid || isLoading()">Delete Profile</button>
-                    </div>
+                    <button type="submit" [disabled]="formDeleteProfile.invalid || isLoading()">Delete Profile</button>
                 </div>
+                <app-error-message [errorResponse]="deleteProfileErrorResponse()" (clearError)="clearError()"></app-error-message>
+                @if (isProfileDeleted()) {
+                <div class="result-message border-control">
+                    <app-svg-icon [svg]="ICON.TICK" size="sm"></app-svg-icon>
+                    Profile has been deactivated.
+                </div>
+                }
             </form>
         </mat-expansion-panel>
     </div>
-    <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 </div>

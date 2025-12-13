@@ -17,7 +17,7 @@ import { CONST_VALIDATION } from '@app/validation/validation.constants';
 import { CustomValidators } from '@app/validation/custom-validators';
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from "@angular/material/expansion";
 import { CONST_API_ERRORS, CONST_AUTH } from '@app/services/api.constants';
-import { UpdatePasswordDto, UpdateUsernameDto } from '@app/models/user.dtos';
+import { DeleteProfileDto, UpdatePasswordDto, UpdateUsernameDto } from '@app/models/user.dtos';
 
 @Component({
     selector: 'app-profile',
@@ -72,8 +72,12 @@ export class ProfileComponent {
     provider = computed(() => this.userService.currentUserInfo()?.provider);
 
     isLoading = signal<boolean>(false);
-    errorResponse = signal<HttpErrorResponse | null>(null);
-
+    isNewUsernameSaved = signal<boolean>(false);
+    newUsernameErrorResponse = signal<HttpErrorResponse | null>(null);
+    isNewPasswordSaved = signal<boolean>(false);
+    newPasswordErrorResponse = signal<HttpErrorResponse | null>(null);
+    isProfileDeleted = signal<boolean>(false);
+    deleteProfileErrorResponse = signal<HttpErrorResponse | null>(null);
 
     constructor(
         public userService: UserService,
@@ -88,8 +92,9 @@ export class ProfileComponent {
 
     onNewUsernameSave() {
         if (this.isLoading()) return;
-        this.isLoading.set(true)
-        this.errorResponse.set(null);
+        this.isLoading.set(true);
+        this.clearErrorResponse();
+        this.clearResults();
 
         if (this.formNewUsernameSave.valid) {
             const v = this.formNewUsernameSave.value;
@@ -100,13 +105,11 @@ export class ProfileComponent {
                 this.userService.updateUsername(request).subscribe({
                     next: response => {
                         this.isLoading.set(false);
+                        if (response > 0)
+                            this.isNewUsernameSaved.set(true);
                     },
                     error: err => {
-                        const errorCode = err?.error?.ErrorCode;
-                        if (errorCode)
-                            this.handleErrorCode(errorCode);
-
-                        this.errorResponse.set(err);
+                        this.newUsernameErrorResponse.set(err);
                         this.isLoading.set(false);
                     }
                 });
@@ -117,8 +120,9 @@ export class ProfileComponent {
 
     onNewPasswordSave() {
         if (this.isLoading()) return;
-        this.isLoading.set(true)
-        this.errorResponse.set(null);
+        this.isLoading.set(true);
+        this.clearErrorResponse();
+        this.clearResults();
 
         if (this.formNewPasswordSave.valid) {
             const v = this.formNewPasswordSave.value;
@@ -130,13 +134,13 @@ export class ProfileComponent {
                 this.userService.updatePassword(request).subscribe({
                     next: response => {
                         this.isLoading.set(false);
+                        if (response > 0) {
+                            this.formNewPasswordSave.reset();
+                            this.isNewPasswordSaved.set(true);
+                        }
                     },
                     error: err => {
-                        const errorCode = err?.error?.ErrorCode;
-                        if (errorCode)
-                            this.handleErrorCode(errorCode);
-
-                        this.errorResponse.set(err);
+                        this.newPasswordErrorResponse.set(err);
                         this.isLoading.set(false);
                     }
                 });
@@ -147,27 +151,58 @@ export class ProfileComponent {
 
     onDeleteProfile() {
         //this.router.navigate([`/${CONST_ROUTES.CARDS.CARDS_DECK}`]);
+
+        if (this.isLoading()) return;
+        this.isLoading.set(true);
+        this.clearErrorResponse();
+        this.clearResults();
+
+        if (this.formDeleteProfile.valid) {
+            const v = this.formDeleteProfile.value;
+            if (v) {
+                const request: DeleteProfileDto = {
+                    password: v.profilePassword ?? CONST_VALIDATION.DEFAULT_VALUE
+                };
+                this.userService.deleteProfile(request).subscribe({
+                    next: response => {
+                        this.isLoading.set(false);
+                        if (response > 0) {
+                            this.formDeleteProfile.reset();
+                            this.isProfileDeleted.set(true);
+                        }
+                    },
+                    error: err => {
+                        this.deleteProfileErrorResponse.set(err);
+                        this.isLoading.set(false);
+                    }
+                });
+
+            }
+        }
     }
 
     //#region show password
-    showUsernamePassword = signal<boolean>(false);
     showOldPassword = signal<boolean>(false);
     showProfilePassword = signal<boolean>(false);
 
-    toggleUsernamePasswordVisibility() { this.showUsernamePassword.set(!this.showUsernamePassword()); }
     toggleOldPasswordVisibility() { this.showOldPassword.set(!this.showOldPassword()); }
     toggleProfilePasswordVisibility() { this.showProfilePassword.set(!this.showProfilePassword()); }
     //#endregion
 
-    private handleErrorCode(errorCode: string) {
-        switch (errorCode) {
-            case CONST_API_ERRORS.AUTH.EMAIL_NOT_CONFIRMED: // email not confirmed, cannot login
-                // ...
-        }
+    clearResults() {
+        this.isNewUsernameSaved.set(false);
+        this.isNewPasswordSaved.set(false);
+        this.isProfileDeleted.set(false);
     }
 
     clearError() {
-        this.errorResponse.set(null);
+        this.clearErrorResponse();
         this.isLoading.set(false);
+    }
+
+    clearErrorResponse() {
+        this.newUsernameErrorResponse.set(null);
+        this.newPasswordErrorResponse.set(null);
+        this.deleteProfileErrorResponse.set(null);
     }
 }

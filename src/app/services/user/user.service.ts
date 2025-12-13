@@ -119,21 +119,21 @@ export class UserService {
             .pipe(tap(() => this.loadUser()));
     }
 
-    updateUsername(request: UpdateUsernameDto) {
+    updateUsername(request: UpdateUsernameDto) : Observable<number> {
         return this.http
-            .patch(CONST_API_PATHS.USERS.USERNAME, request)
+            .patch<number>(CONST_API_PATHS.USERS.USERNAME, request)
             .pipe(tap(() => this.loadUser()));
     }
 
-    updatePassword(request: UpdatePasswordDto) {
+    updatePassword(request: UpdatePasswordDto) : Observable<number> {
         return this.http
-            .patch(CONST_API_PATHS.USERS.PASSWORD, request)
+            .patch<number>(CONST_API_PATHS.USERS.PASSWORD, request)
             .pipe(tap(() => this.loadUser()));
     }
 
-    deleteProfile(request: DeleteProfileDto) {
+    deleteProfile(request: DeleteProfileDto) : Observable<number> {
         return this.http
-            .patch(CONST_API_PATHS.USERS.DELETE, request)
+            .patch<number>(CONST_API_PATHS.USERS.DELETE, request)
             .pipe(tap(() => this.loadUser()));
     }
 }
