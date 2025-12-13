@@ -16,7 +16,8 @@ import { CONST_ROUTES } from '@routing/routes.constans'
 import { CONST_VALIDATION } from '@app/validation/validation.constants';
 import { CustomValidators } from '@app/validation/custom-validators';
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from "@angular/material/expansion";
-import { CONST_AUTH } from '@app/services/api.constants';
+import { CONST_API_ERRORS, CONST_AUTH } from '@app/services/api.constants';
+import { UpdateUsernameDto } from '@app/models/user.dtos';
 
 @Component({
     selector: 'app-profile',
@@ -33,13 +34,8 @@ export class ProfileComponent {
                 CONST_VALIDATION.DEFAULT_VALUE, [
                 CustomValidators.required('Username is required'),
                 CustomValidators.minLength(8, 'Username must be at least 8 characters long'),
-            ]),
-            usernamePassword: new FormControl(
-                CONST_VALIDATION.DEFAULT_VALUE, [
-                CustomValidators.required('Password is required'),
-                CustomValidators.minLength(8, 'Password must be at least 8 characters long'),
-                CustomValidators.password()
-            ]),
+                CustomValidators.pattern(/^[a-zA-Z0-9_-]+$/, 'Latin letters, digits, _ - only')
+            ])
         });
     formPasswordReset = new FormGroup(
         {
@@ -91,7 +87,34 @@ export class ProfileComponent {
     }
 
     onUsernameChange() {
+        if (this.isLoading()) return;
+        this.isLoading.set(true)
+        this.errorResponse.set(null);
 
+        if (this.formUsernameChange.valid) {
+            const v = this.formUsernameChange.value;
+            if (v) {
+                const request: UpdateUsernameDto = {
+                    newUsername: v.newUsername ?? CONST_VALIDATION.DEFAULT_VALUE
+                };
+                this.userService.updateUsername(request).subscribe({
+                    next: response => {
+                        this.isLoading.set(false);
+                    },
+                    error: err => {
+                        const errorCode = err?.error?.ErrorCode;
+                        if (errorCode)
+                            this.handleErrorCode(errorCode);
+
+                        this.errorResponse.set(err);
+                        this.isLoading.set(false);
+                    }
+                });
+
+            }
+        } else {
+            console.log('Form is invalid');
+        }
     }
 
     onPasswordReset() {
@@ -99,7 +122,7 @@ export class ProfileComponent {
     }
 
     onDeleteProfile() {
-
+        //this.router.navigate([`/${CONST_ROUTES.CARDS.CARDS_DECK}`]);
     }
 
     //#region show password
@@ -111,6 +134,13 @@ export class ProfileComponent {
     toggleOldPasswordVisibility() { this.showOldPassword.set(!this.showOldPassword()); }
     toggleProfilePasswordVisibility() { this.showProfilePassword.set(!this.showProfilePassword()); }
     //#endregion
+
+    private handleErrorCode(errorCode: string) {
+        switch (errorCode) {
+            case CONST_API_ERRORS.AUTH.EMAIL_NOT_CONFIRMED: // email not confirmed, cannot login
+                // ...
+        }
+    }
 
     clearError() {
         this.errorResponse.set(null);

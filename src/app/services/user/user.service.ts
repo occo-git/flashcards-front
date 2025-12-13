@@ -5,7 +5,7 @@ import { tap, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { UserSessionService } from '@services/user-session/user-session.service';
 import { GoogleSingInRequestDto, LoginRequestDto, RegisterRequestDto, TokenResponseDto } from '@models/auth.dtos'
-import { UserInfoDto } from '@models/user.dtos'
+import { DeleteProfileDto, UpdatePasswordDto, UpdateUsernameDto, UserInfoDto } from '@models/user.dtos'
 import { CONST_API_PATHS, SKIP_AUTH_CONTEXT } from '@services/api.constants'
 import { ConfirmEmailRequestDto, ConfirmEmailResponseDto, SendEmailConfirmationRequestDto, SendEmailConfirmationResponseDto } from '@app/models/email.dtos';
 
@@ -115,7 +115,25 @@ export class UserService {
 
     setLevel(level: string) {
         return this.http
-            .post<boolean>(CONST_API_PATHS.USERS.LEVEL, { level })
+            .patch<boolean>(CONST_API_PATHS.USERS.LEVEL, { level })
+            .pipe(tap(() => this.loadUser()));
+    }
+
+    updateUsername(request: UpdateUsernameDto) {
+        return this.http
+            .patch(CONST_API_PATHS.USERS.USERNAME, request)
+            .pipe(tap(() => this.loadUser()));
+    }
+
+    updatePassword(request: UpdatePasswordDto) {
+        return this.http
+            .patch(CONST_API_PATHS.USERS.PASSWORD, request)
+            .pipe(tap(() => this.loadUser()));
+    }
+
+    deleteProfile(request: DeleteProfileDto) {
+        return this.http
+            .patch(CONST_API_PATHS.USERS.DELETE, request)
             .pipe(tap(() => this.loadUser()));
     }
 }

@@ -57,4 +57,3 @@ function withErrorMessage(validator: ValidatorFn, errorKey: string, message: str
     return null;
   };
 }
-

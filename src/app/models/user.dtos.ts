@@ -9,3 +9,16 @@ export interface UserInfoDto {
 export interface LevelRequestDto {
   level: string;
 }
+
+export interface UpdateUsernameDto {
+  newUsername: string;
+}
+
+export interface UpdatePasswordDto {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export interface DeleteProfileDto {
+  password: string;
+}

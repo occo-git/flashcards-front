@@ -10,6 +10,9 @@ export interface ApiPaths {
     BY_ID: string
     ME: string
     LEVEL: string
+    USERNAME: string
+    PASSWORD: string
+    DELETE: string
     PROGRESS: string
     SAVE_PROGRESS: string
   }
@@ -44,6 +47,9 @@ export const CONST_API_PATHS: ApiPaths = {
     BY_ID: `${environment.apiUrl}/users`,
     ME: `${environment.apiUrl}/users/me`,
     LEVEL: `${environment.apiUrl}/users/level`,
+    USERNAME: `${environment.apiUrl}/users/username`,
+    PASSWORD: `${environment.apiUrl}/users/password`,
+    DELETE: `${environment.apiUrl}/users/delete`,
     PROGRESS: `${environment.apiUrl}/users/progress`,
     SAVE_PROGRESS: `${environment.apiUrl}/users/progress/save`
   },

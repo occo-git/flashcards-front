@@ -25,21 +25,9 @@
                         name="username-new" required appErrorMessage [errorElement]="usernameError" />
                     <div></div>
                     <div class="error-message" #usernameError></div>
-                    <label class="label-control" for="username-password">Password</label>
-                    <div class="password-wrapper">
-                        <input class="input-control" [type]="showUsernamePassword() ? 'text' : 'password'"
-                            formControlName="usernamePassword" id="username-password" required [disabled]="isLoading()"
-                            appErrorMessage [errorElement]="usernamePasswordError" />
-                        <div type="button" class="toggle-password" (click)="toggleUsernamePasswordVisibility()">
-                            <app-svg-icon
-                                [svg]="showUsernamePassword() ? ICON.EYE_OPEN : ICON.EYE_CLOSE"></app-svg-icon>
-                        </div>
-                    </div>
-                    <div></div>
-                    <div class="error-message" #usernamePasswordError></div>
 
                     <div class="submit-control">
-                        <button type="submit" [disabled]="isLoading()">Save Username</button>
+                        <button type="submit" [disabled]="formUsernameChange.invalid || isLoading()">Save Username</button>
                     </div>
                 </div>
             </form>
@@ -76,7 +64,7 @@
                     <div class="error-message" #newPasswordError></div>
 
                     <div class="submit-control">
-                        <button type="submit" [disabled]="isLoading()">Save Password</button>
+                        <button type="submit" [disabled]="formPasswordReset.invalid || isLoading()">Save Password</button>
                     </div>
                 </div>
             </form>
@@ -104,7 +92,7 @@
                     <div class="error-message" #profilePasswordError></div>
 
                     <div class="submit-control">
-                        <button type="submit" [disabled]="isLoading()">Delete Profile</button>
+                        <button type="submit" [disabled]="formDeleteProfile.invalid || isLoading()">Delete Profile</button>
                     </div>
                 </div>
             </form>

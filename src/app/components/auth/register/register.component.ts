@@ -33,6 +33,7 @@ export class RegisterComponent {
                 CONST_VALIDATION.DEFAULT_VALUE, [
                 CustomValidators.required('Username is required'),
                 CustomValidators.minLength(8, 'Username must be at least 8 characters long'),
+                CustomValidators.pattern(/^[a-zA-Z0-9_-]+$/, 'Latin letters, digits, _ - only')
             ]),
             email: new FormControl(
                 CONST_VALIDATION.DEFAULT_VALUE, [

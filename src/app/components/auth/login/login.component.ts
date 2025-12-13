@@ -38,6 +38,7 @@ export class LoginComponent {
                 CONST_VALIDATION.DEFAULT_VALUE, [
                 CustomValidators.required('Username is required'),
                 CustomValidators.minLength(3, 'Username must be at least 3 characters long'),
+                CustomValidators.pattern(/^[a-zA-Z0-9._%+-@]+$/, 'Only Latin letters, digits, _ - . % + @ allowed')
             ]),
             password: new FormControl(
                 CONST_VALIDATION.DEFAULT_VALUE, [
