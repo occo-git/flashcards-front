@@ -20,7 +20,7 @@
         </div>
     </div>
 </div>
-<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 @if (fillBlank()) {
 <app-word-results #resultsComponent></app-word-results>
 }
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>   

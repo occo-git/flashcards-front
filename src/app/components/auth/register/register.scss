@@ -40,6 +40,8 @@
 }
 
 .result-message {
+    display: grid;
+    grid-template-columns: 10% auto;
     color: var(--dark-color);
     width: 100%;
     font-size: 1rem;

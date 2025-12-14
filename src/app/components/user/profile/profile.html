@@ -26,9 +26,8 @@
                     <div></div>
                     <div class="error-message" #usernameError></div>
 
-                    <button type="submit" [disabled]="formNewUsernameSave.invalid || isLoading()">Save Username</button>
+                    <button type="submit" [disabled]="formNewUsernameSave.invalid || isLoading()">Save</button>
                 </div>
-                <app-error-message [errorResponse]="newUsernameErrorResponse()" (clearError)="clearError()"></app-error-message>
                 @if (isNewUsernameSaved()) {
                 <div class="result-message border-control">
                     <app-svg-icon [svg]="ICON.TICK" size="sm"></app-svg-icon>
@@ -36,6 +35,8 @@
                 </div>
                 }
             </form>
+            <app-error-message [errorResponse]="newUsernameErrorResponse()"
+                (clearError)="clearError()"></app-error-message>
         </mat-expansion-panel>
         @if (provider() === CONST_AUTH.PROVIDER_LOCAL) {
         <mat-expansion-panel class="menu-panel">
@@ -68,9 +69,8 @@
                     <div></div>
                     <div class="error-message" #newPasswordError></div>
 
-                    <button type="submit" [disabled]="formNewPasswordSave.invalid || isLoading()">Save Password</button>
+                    <button type="submit" [disabled]="formNewPasswordSave.invalid || isLoading()">Save</button>
                 </div>
-                <app-error-message [errorResponse]="newPasswordErrorResponse()" (clearError)="clearError()"></app-error-message>
                 @if (isNewPasswordSaved()) {
                 <div class="result-message border-control">
                     <app-svg-icon [svg]="ICON.TICK" size="sm"></app-svg-icon>
@@ -78,6 +78,8 @@
                 </div>
                 }
             </form>
+            <app-error-message [errorResponse]="newPasswordErrorResponse()"
+                (clearError)="clearError()"></app-error-message>
         </mat-expansion-panel>
         }
         <mat-expansion-panel class="menu-panel">
@@ -101,9 +103,8 @@
                     <div></div>
                     <div class="error-message" #profilePasswordError></div>
 
-                    <button type="submit" [disabled]="formDeleteProfile.invalid || isLoading()">Delete Profile</button>
+                    <button type="submit" [disabled]="formDeleteProfile.invalid || isLoading()">Request</button>
                 </div>
-                <app-error-message [errorResponse]="deleteProfileErrorResponse()" (clearError)="clearError()"></app-error-message>
                 @if (isProfileDeleted()) {
                 <div class="result-message border-control">
                     <app-svg-icon [svg]="ICON.TICK" size="sm"></app-svg-icon>
@@ -111,6 +112,8 @@
                 </div>
                 }
             </form>
+            <app-error-message [errorResponse]="deleteProfileErrorResponse()"
+                (clearError)="clearError()"></app-error-message>
         </mat-expansion-panel>
     </div>
 </div>

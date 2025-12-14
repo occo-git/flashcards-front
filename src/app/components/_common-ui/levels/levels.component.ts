@@ -4,13 +4,14 @@ import { UserService } from '@services/user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SvgIconComponent } from "../svg-icon/svg-icon.component";
 import { SVG_ICON } from '@app/components/svg-icon.constants';
+import { ErrorMessageComponent } from "../error-message/error-message.component";
 
 @Component({
   selector: 'app-levels',
   //imports: [LoaderComponent],
   templateUrl: './levels.html',
   styleUrl: './levels.scss',
-  imports: [SvgIconComponent]
+  imports: [SvgIconComponent, ErrorMessageComponent]
 })
 export class LevelsComponent {
 
@@ -59,5 +60,10 @@ export class LevelsComponent {
         this.errorResponse.set(err);
       }
     })
+  }
+
+  clearError() {
+    this.errorResponse.set(null);
+    this.isLoading.set(false);
   }
 }

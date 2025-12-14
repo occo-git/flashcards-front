@@ -29,7 +29,6 @@
         </div>
     </div>
 
-    <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
     @if (showReconfirm()) {
     <div class="redirect-resend-confirmation">
         Request email confirmation <a [href]="ROUTES.EMAIL.RESEND_EMAIL_CONFIRMATION">here.</a>
@@ -41,6 +40,7 @@
     </div>
 </form>
 
+    <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 <!-- Google button -->
 <div class="google-login-wrapper">
     <div #googleButton class="g_id_signin"></div>

@@ -20,7 +20,7 @@
         </div>
     </div>
 </div>
-<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 @if (quiz()) {
 <app-word-results #resultsComponent></app-word-results>
 }
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

@@ -5,10 +5,15 @@
     </div>
     @if (isRegistered()) {
     <div class="result-message border-control">
-        Thank you for registering, <span class="result-user-name">{{ username() }}</span>!<br>
-        A confirmation email has been sent 
-        <app-svg-icon [svg]="ICONS[EMAIL_ITEMS.CONFIRM_EMAIL]" size="sm"></app-svg-icon><br>
-        Follow the link inside to activate your account.        
+        <app-svg-icon [svg]="ICON.TICK" size="sm"></app-svg-icon>
+        <div>
+            Thank you for registering, <span class="result-user-name">{{ username() }}</span>!
+        </div>
+        <app-svg-icon [svg]="ICONS[EMAIL_ITEMS.CONFIRM_EMAIL]" size="sm"></app-svg-icon>
+        <div>
+            A confirmation email has been sent.<br>
+            Follow the link inside to activate your account.
+        </div>
     </div>
     }
     @else {
@@ -56,9 +61,9 @@
 
     </div>
     }
-    <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 
     <div class="redirect-login">
         Have an account? <a [href]="ROUTES.AUTH.LOGIN">Login here.</a>
     </div>
 </form>
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>

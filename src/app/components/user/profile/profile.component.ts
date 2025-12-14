@@ -34,7 +34,7 @@ export class ProfileComponent {
                 CONST_VALIDATION.DEFAULT_VALUE, [
                 CustomValidators.required('Username is required'),
                 CustomValidators.minLength(8, 'Username must be at least 8 characters long'),
-                CustomValidators.pattern(/^[a-zA-Z0-9_-]+$/, 'Latin letters, digits, _ - only')
+                CustomValidators.pattern(/^[a-zA-Z0-9._%+-@]+$/, 'Only Latin letters, digits, _ - . % + @ allowed')
             ])
         });
     formNewPasswordSave = new FormGroup(
