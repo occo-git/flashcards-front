@@ -125,15 +125,15 @@ export class UserService {
             .pipe(tap(() => this.loadUser()));
     }
 
-    updatePassword(request: UpdatePasswordDto) : Observable<number> {
+    updatePassword(request: UpdatePasswordDto) : Observable<boolean> {
         return this.http
-            .patch<number>(CONST_API_PATHS.USERS.PASSWORD, request)
+            .patch<boolean>(CONST_API_PATHS.USERS.PASSWORD, request)
             .pipe(tap(() => this.loadUser()));
     }
 
-    deleteProfile(request: DeleteProfileDto) : Observable<number> {
+    deleteProfile(request: DeleteProfileDto) : Observable<boolean> {
         return this.http
-            .patch<number>(CONST_API_PATHS.USERS.DELETE, request)
+            .patch<boolean>(CONST_API_PATHS.USERS.DELETE, request)
             .pipe(tap(() => this.loadUser()));
     }
 }

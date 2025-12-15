@@ -22,7 +22,7 @@
         <div class="error-message" #passwordError></div>
 
         <div class="submit-control">
-            <button type="submit" [disabled]="form.invalid || isLoading()">Login</button>
+            <button type="submit" [disabled]="form.invalid || isLoading()">Log in</button>
         </div>
         <div>
             @if (isLoading()) { <app-loader></app-loader> }

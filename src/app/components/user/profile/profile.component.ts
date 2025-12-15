@@ -134,7 +134,7 @@ export class ProfileComponent {
                 this.userService.updatePassword(request).subscribe({
                     next: response => {
                         this.isLoading.set(false);
-                        if (response > 0) {
+                        if (response) {
                             this.formNewPasswordSave.reset();
                             this.isNewPasswordSaved.set(true);
                         }
@@ -166,7 +166,7 @@ export class ProfileComponent {
                 this.userService.deleteProfile(request).subscribe({
                     next: response => {
                         this.isLoading.set(false);
-                        if (response > 0) {
+                        if (response) {
                             this.formDeleteProfile.reset();
                             this.isProfileDeleted.set(true);
                         }
