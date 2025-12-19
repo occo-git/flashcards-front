@@ -22,3 +22,13 @@ export interface UpdatePasswordDto {
 export interface DeleteProfileDto {
   password: string;
 }
+
+export interface ResetPasswordRequestDto {
+  email: string;
+}
+
+export interface ResetPasswordDto {
+  token: string;
+  email: string;
+  password: string;
+}

@@ -1,4 +1,4 @@
-import { Component, computed, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, ElementRef, signal, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { CONST_ROUTES } from '@routing/routes.constans';
 import { SVG_ICON } from '@components/svg-icon.constants';
-import { ICONS, AUTH_ITEMS, EMAIL_ITEMS } from '@components/_common-ui/ui.constants';
+import { ICONS, AUTH_ITEMS } from '@components/_common-ui/ui.constants';
 
 @Component({
     selector: 'app-register',
@@ -27,6 +27,7 @@ import { ICONS, AUTH_ITEMS, EMAIL_ITEMS } from '@components/_common-ui/ui.consta
     styleUrl: './register.scss'
 })
 export class RegisterComponent {
+    @ViewChild('password') password!: ElementRef<HTMLInputElement>;
     form = new FormGroup(
         {
             username: new FormControl(
@@ -57,7 +58,6 @@ export class RegisterComponent {
     readonly ICON = SVG_ICON;
     readonly ICONS = ICONS;
     readonly AUTH_ITEMS = AUTH_ITEMS;
-    readonly EMAIL_ITEMS = EMAIL_ITEMS;
     readonly ROUTES = CONST_ROUTES;
 
     showPassword = signal<boolean>(false);
@@ -104,6 +104,7 @@ export class RegisterComponent {
 
     togglePasswordVisibility() {
         this.showPassword.set(!this.showPassword());
+        this.password.nativeElement.focus();
     }
 
     clearError() {

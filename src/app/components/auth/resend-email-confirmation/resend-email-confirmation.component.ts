@@ -26,7 +26,6 @@ import { ICONS, EMAIL_ITEMS } from '@components/_common-ui/ui.constants';
     styleUrl: './resend-email-confirmation.scss'
 })
 export class RsendendEmailConfirmationComponent {
-    @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
     form = new FormGroup(
         {
             email: new FormControl(
@@ -43,7 +42,6 @@ export class RsendendEmailConfirmationComponent {
     readonly ROUTES = CONST_ROUTES;
 
     showReconfirm = signal<boolean>(false);
-    showPassword = signal<boolean>(false);
     result = signal<SendEmailConfirmationResponseDto | null>(null);
 
     isLoading = signal<boolean>(false);
@@ -52,7 +50,7 @@ export class RsendendEmailConfirmationComponent {
     constructor(
         private router: Router,
         private userService: UserService
-    ) { }
+    ) {}
 
     onSubmit() {
         if (this.isLoading()) return;
@@ -81,11 +79,6 @@ export class RsendendEmailConfirmationComponent {
         } else {
             console.log('Form is invalid');
         }
-    }
-
-    togglePasswordVisibility() {
-        this.showPassword.set(!this.showPassword());
-        this.passwordInput.nativeElement.focus();
     }
 
     clearError() {

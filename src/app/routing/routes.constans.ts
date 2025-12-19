@@ -18,6 +18,8 @@ export interface AppRoutes {
   }
   AUTH: {
     REGISTER: string
+    RESET_PASSWORD_REQUEST: string
+    RESET_PASSWORD: string
     LOGIN: string
     LOGOUT: string
   }
@@ -48,6 +50,8 @@ export const CONST_ROUTES: AppRoutes = {
   },
   AUTH: {
     REGISTER: 'register',
+    RESET_PASSWORD_REQUEST: 'reset-password-request',
+    RESET_PASSWORD: 'reset-password',
     LOGIN: 'login',
     LOGOUT: 'logout'
   },

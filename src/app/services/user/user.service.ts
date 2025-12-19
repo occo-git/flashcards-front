@@ -5,6 +5,7 @@ import { tap, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { UserSessionService } from '@services/user-session/user-session.service';
 import { GoogleSingInRequestDto, LoginRequestDto, RegisterRequestDto, TokenResponseDto } from '@models/auth.dtos'
+import { ResetPasswordDto, ResetPasswordRequestDto } from '@models/user.dtos'
 import { DeleteProfileDto, UpdatePasswordDto, UpdateUsernameDto, UserInfoDto } from '@models/user.dtos'
 import { CONST_API_PATHS, SKIP_AUTH_CONTEXT } from '@services/api.constants'
 import { ConfirmEmailRequestDto, ConfirmEmailResponseDto, SendEmailConfirmationRequestDto, SendEmailConfirmationResponseDto } from '@app/models/email.dtos';
@@ -97,6 +98,21 @@ export class UserService {
                 }));
     }
     //#endregion
+
+    //#region reset passowrd
+    resetPasswordRequest(request: ResetPasswordRequestDto): Observable<boolean> {
+        return this.http
+            .post<boolean>(CONST_API_PATHS.USERS.PASSWORD_REQUEST, request, {
+                context: SKIP_AUTH_CONTEXT // skip interceptor
+            })
+    }
+    resetPassword(request: ResetPasswordDto): Observable<boolean> {
+        return this.http
+            .post<boolean>(CONST_API_PATHS.USERS.PASSWORD_RESET, request, {
+                context: SKIP_AUTH_CONTEXT // skip interceptor
+            })
+    }
+    //#region 
 
     //#region email
     confirmEmail(token: ConfirmEmailRequestDto): Observable<ConfirmEmailResponseDto> {

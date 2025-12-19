@@ -10,11 +10,13 @@ export interface ApiPaths {
     BY_ID: string
     ME: string
     LEVEL: string
+    PROGRESS: string
+    PROGRESS_SAVE: string
     USERNAME: string
     PASSWORD: string
+    PASSWORD_REQUEST: string
+    PASSWORD_RESET: string
     DELETE: string
-    PROGRESS: string
-    SAVE_PROGRESS: string
   }
   CARDS: {
     BY_ID: string
@@ -47,11 +49,13 @@ export const CONST_API_PATHS: ApiPaths = {
     BY_ID: `${environment.apiUrl}/users`,
     ME: `${environment.apiUrl}/users/me`,
     LEVEL: `${environment.apiUrl}/users/level`,
+    PROGRESS: `${environment.apiUrl}/users/progress`,
+    PROGRESS_SAVE: `${environment.apiUrl}/users/progress/save`,
     USERNAME: `${environment.apiUrl}/users/username`,
     PASSWORD: `${environment.apiUrl}/users/password`,
-    DELETE: `${environment.apiUrl}/users/delete`,
-    PROGRESS: `${environment.apiUrl}/users/progress`,
-    SAVE_PROGRESS: `${environment.apiUrl}/users/progress/save`
+    PASSWORD_REQUEST: `${environment.apiUrl}/users/password/request`,
+    PASSWORD_RESET: `${environment.apiUrl}/users/password/reset`,
+    DELETE: `${environment.apiUrl}/users/delete`
   },
   CARDS: {
     BY_ID: `${environment.apiUrl}/cards`,
@@ -79,16 +83,17 @@ export const CONST_API_PATHS: ApiPaths = {
 };
 
 export const CONST_API_ERRORS = {
-  ERR_TOO_MANY_REQUESTS: 'ERR_TOO_MANY_REQUESTS',
+  //ERR_TOO_MANY_REQUESTS: 'ERR_TOO_MANY_REQUESTS',
   AUTH: {
-    ACCOUNT_NOT_ACTIVE: 'ERR_ACCOUNT_NOT_ACTIVE',
-    ERR_CONFIRMATION_FAILED: 'ERR_CONFIRMATION_FAILED',
-    CONFIRMATION_LINK_MISMATCH: 'ERR_CONFIRMATION_LINK_MISMATCH',
-    CONFIRMATION_LINK_RATE_LIMIT: 'ERR_CONFIRMATION_LINK_RATE_LIMIT',
-    CONFIRMATION_SEND_FAIL: 'ERR_CONFIRMATION_SEND_FAIL',
-    EMAIL_ALREADY_CONFIRMED: 'ERR_EMAIL_ALREADY_CONFIRMED',
+    //ACCOUNT_NOT_ACTIVE: 'ERR_ACCOUNT_NOT_ACTIVE',
+    //ERR_CLIENT: 'ERR_CLIENT',
+    //CONFIRMATION_LINK_MISMATCH: 'ERR_CONFIRMATION_LINK_MISMATCH',
+    //CONFIRMATION_LINK_RATE_LIMIT: 'ERR_CONFIRMATION_LINK_RATE_LIMIT',
+    //CONFIRMATION_SEND_FAIL: 'ERR_CONFIRMATION_SEND_FAIL',
+    //EMAIL_ALREADY_CONFIRMED: 'ERR_EMAIL_ALREADY_CONFIRMED',
     EMAIL_NOT_CONFIRMED: 'ERR_EMAIL_NOT_CONFIRMED',
-    TOKEN_INVALID_FORMAT: 'ERR_TOKEN_INVALID_FORMAT',
+    //ERR_RESET_PASSWORD_LINK_MISMATCH: 'ERR_RESET_PASSWORD_LINK_MISMATCH',
+    //TOKEN_INVALID_FORMAT: 'ERR_TOKEN_INVALID_FORMAT',
     ERROR: 'ERR_ERROR'
   }
 };

@@ -22,6 +22,16 @@ export const routes: Routes = [
         loadComponent: () => import('@components/auth/register/register.component').then(c => c.RegisterComponent)
     },
     {
+        path: CONST_ROUTES.AUTH.RESET_PASSWORD_REQUEST,
+        canActivate: [RedirectIfAuthenticatedGuard],
+        loadComponent: () => import('@components/auth/reset-password-request/reset-password-request.component').then(c => c.ResetPasswordRequestComponent)
+    },
+    {
+        path: CONST_ROUTES.AUTH.RESET_PASSWORD,
+        canActivate: [RedirectIfAuthenticatedGuard],
+        loadComponent: () => import('@components/auth/reset-password/reset-password.component').then(c => c.ResetPasswordComponent)
+    },
+    {
         path: CONST_ROUTES.EMAIL.RESEND_EMAIL_CONFIRMATION,
         canActivate: [RedirectIfAuthenticatedGuard],
         loadComponent: () => import('@components/auth/resend-email-confirmation/resend-email-confirmation.component').then(c => c.RsendendEmailConfirmationComponent)

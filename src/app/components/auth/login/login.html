@@ -35,12 +35,15 @@
     </div>
     }
 
-    <div class="redirect-register">
+    <div class="redirect-container">
         Don't have an account? <a [href]="ROUTES.AUTH.REGISTER">Register here.</a>
     </div>
+    <div class="redirect-container">
+        Forgot password? <a [href]="ROUTES.AUTH.RESET_PASSWORD_REQUEST">Reset here.</a>
+    </div>
 </form>
+<app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 
-    <app-error-message [errorResponse]="errorResponse()" (clearError)="clearError()"></app-error-message>
 <!-- Google button -->
 <div class="google-login-wrapper">
     <div #googleButton class="g_id_signin"></div>

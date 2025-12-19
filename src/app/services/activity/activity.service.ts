@@ -61,7 +61,7 @@ export class ActivityService {
   }
 
   saveProgress(request: ActivityProgressRequestDto): Observable<boolean> {
-    return this.http.post<boolean>(CONST_API_PATHS.USERS.SAVE_PROGRESS, request);
+    return this.http.post<boolean>(CONST_API_PATHS.USERS.PROGRESS_SAVE, request);
   }
   //#endregion
 }

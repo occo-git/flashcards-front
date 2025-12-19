@@ -30,7 +30,7 @@ declare const google: any;
     styleUrl: './login.scss'
 })
 export class LoginComponent {
-    @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
+    @ViewChild('password') password!: ElementRef<HTMLInputElement>;
     @ViewChild('googleButton', { static: false }) googleButton?: ElementRef<HTMLDivElement>;
     form = new FormGroup(
         {
@@ -151,7 +151,7 @@ export class LoginComponent {
 
     togglePasswordVisibility() {
         this.showPassword.set(!this.showPassword());
-        this.passwordInput.nativeElement.focus();
+        this.password.nativeElement.focus();
     }
 
     clearError() {

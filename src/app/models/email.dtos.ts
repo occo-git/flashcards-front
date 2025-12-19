@@ -4,7 +4,6 @@ export interface SendEmailConfirmationRequestDto {
 
 export interface SendEmailConfirmationResponseDto {
   message: string
-  isAlreadyConfirmed: boolean
 }
 
 export interface ConfirmEmailRequestDto {

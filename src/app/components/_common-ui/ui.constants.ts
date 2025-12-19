@@ -16,6 +16,8 @@ export const CARDS_ITEMS = {
 
 export const AUTH_ITEMS = {
     REGISTER: 'Register',
+    RESET_PASSWORD_REQUEST: 'Reset Password',
+    RESET_PASSWORD: 'Create New Password',
     LOGIN: 'Login',
     LOGOUT: 'Logout'
 };
@@ -69,6 +71,8 @@ export const ICONS: Record<string, string> = {
     [CARDS_ITEMS.LIST]: SVG_ICON.DOC,
 
     [AUTH_ITEMS.REGISTER]: SVG_ICON.USER,
+    [AUTH_ITEMS.RESET_PASSWORD_REQUEST]: SVG_ICON.SHIELD,
+    [AUTH_ITEMS.RESET_PASSWORD]: SVG_ICON.SAFE,
     [AUTH_ITEMS.LOGIN]: SVG_ICON.LOGIN,
     [AUTH_ITEMS.LOGOUT]: SVG_ICON.LOGOUT,
 
